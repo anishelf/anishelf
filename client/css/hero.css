@@ -1,0 +1,103 @@
+/* ===========================
+   HERO SECTION
+   =========================== */
+
+.hero{
+
+    min-height:85vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:2rem;
+
+}
+
+.hero h1{
+
+    font-size:4rem;
+
+    max-width:850px;
+
+    line-height:1.15;
+
+    margin-bottom:1rem;
+
+}
+
+.hero p{
+
+    color:var(--muted);
+
+    font-size:1.1rem;
+
+    max-width:650px;
+
+    margin-bottom:3rem;
+
+}
+
+/* ===========================
+   SEARCH
+   =========================== */
+
+.search-box{
+
+    display:flex;
+
+    gap:1rem;
+
+    width:min(700px,90%);
+
+}
+
+.search-box input{
+
+    flex:1;
+
+    padding:18px 22px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:15px;
+
+    background:var(--surface);
+
+    color:var(--text);
+
+    font-size:1rem;
+
+}
+
+.search-box button{
+
+    padding:18px 34px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:var(--gradient);
+
+    color:white;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+.search-box button:hover{
+
+    transform:translateY(-3px);
+
+}
