@@ -40,8 +40,35 @@ searchBtn.addEventListener("click", async () => {
 
     if (data.success) {
 
-        displayAnime(data.results);
+        displayAnime(
+            data.results,
+            "animeContainer"
+        );
 
     }
 
 });
+
+// ============================
+// Load homepage content
+// ============================
+
+async function loadTrendingAnime() {
+
+    const data = await getTrendingAnime();
+
+
+    if (data.success) {
+
+        displayAnime(
+            data.results,
+            "trendingContainer");
+
+    }
+
+}
+
+
+// Run when page loads
+
+loadTrendingAnime();

@@ -4,10 +4,9 @@
 // ============================
 
 
-function displayAnime(animeList) {
+function displayAnime(animeList, containerId) {
 
-    const container = document.getElementById("animeContainer");
-
+  const container = document.getElementById(containerId);
 
     // Clear previous results
 

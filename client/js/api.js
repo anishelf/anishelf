@@ -37,3 +37,37 @@ async function searchAnime(query) {
     }
 
 }
+
+
+// ============================
+// Get trending anime
+// ============================
+
+async function getTrendingAnime() {
+
+    try {
+
+        const response = await fetch(
+            "https://anishelf-api.onrender.com/api/anime/trending"
+        );
+
+
+        const data = await response.json();
+
+
+        return data;
+
+
+    } catch (error) {
+
+        console.error("Trending API Error:", error);
+
+
+        return {
+            success: false,
+            results: []
+        };
+
+    }
+
+}

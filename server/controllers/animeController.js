@@ -160,7 +160,107 @@ const getTrendingAnime = async (req, res) => {
 
 };
 
+const getFeaturedAnime = async (req, res) => {
+
+    try {
+
+        const query = `
+        query {
+
+            Page(perPage: 1) {
+
+                media(
+                    type: ANIME,
+                    sort: TRENDING_DESC
+                ) {
+
+                    id
+
+                    title {
+                        romaji
+                        english
+                    }
+
+                    coverImage {
+                        extraLarge
+                    }
+
+                    description
+
+                    averageScore
+
+                    genres
+
+                    startDate {
+                        year
+                    }
+
+                }
+
+            }
+
+        }
+        `;
+
+
+        const response = await axios.post(
+            "https://graphql.anilist.co",
+            {
+                query
+            }
+        );
+
+
+        const anime = response.data.data.Page.media[0];
+
+
+        res.json({
+
+            success:true,
+
+            result: {
+
+                id: anime.id,
+
+                title: anime.title.english || anime.title.romaji,
+
+                image: anime.coverImage.extraLarge,
+
+                description: anime.description,
+
+                score: anime.averageScore,
+
+                genres: anime.genres,
+
+                year: anime.startDate.year
+
+            }
+
+        });
+
+
+    } catch(error){
+
+        console.error(
+            error.response?.data || error.message
+        );
+
+
+        res.status(500).json({
+
+            success:false,
+
+            message:"Unable to fetch featured anime"
+
+        });
+
+    }
+
+};
+
+
 module.exports = {
     searchAnime,
-    getTrendingAnime
+    getTrendingAnime,
+    getFeaturedAnime
 };

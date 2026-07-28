@@ -4,16 +4,24 @@
 
 .anime-container{
 
-    width:90%;
-    max-width:1400px;
+    display:flex;
 
-    margin:4rem auto;
+    gap:1.5rem;
 
-    display:grid;
+    overflow-x:auto;
 
-    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    padding:1rem 0 2rem;
 
-    gap:2rem;
+    scroll-behavior:smooth;
+
+}
+
+
+/* Hide scrollbar */
+
+.anime-container::-webkit-scrollbar{
+
+    display:none;
 
 }
 
@@ -26,9 +34,9 @@
     background:var(--surface);
 
     border:1px solid var(--border);
-
+    width:250px;
     border-radius:18px;
-
+    flex-shrink: 0;
     overflow:hidden;
 
     transition:.3s ease;
