@@ -378,6 +378,31 @@ const getAnimeById = async (req, res) => {
 
                 genres
 
+                recommendations(sort: RATING_DESC, perPage: 6){
+
+                    nodes{
+
+                        mediaRecommendation{
+
+                            id
+
+                            title{
+                                romaji
+                                english
+                            }
+
+                            coverImage{
+                                extraLarge
+                            }
+
+                            averageScore
+
+                        }
+
+                    }
+
+                }
+
                 startDate{
                     year
                 }
@@ -444,6 +469,20 @@ const getAnimeById = async (req, res) => {
                 year:anime.startDate.year,
 
                 genres:anime.genres,
+
+                recommendations:anime.recommendations.nodes.map(item => ({
+
+                    id:item.mediaRecommendation.id,
+
+                    title:
+                        item.mediaRecommendation.title.english ||
+                        item.mediaRecommendation.title.romaji,
+
+                    image:item.mediaRecommendation.coverImage.extraLarge,
+
+                    score:item.mediaRecommendation.averageScore
+
+                })),
 
                 studio:
                     anime.studios.nodes[0]?.name ||
