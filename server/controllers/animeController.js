@@ -356,7 +356,10 @@ const getAnimeById = async (req, res) => {
                 description
 
                 bannerImage
-
+                trailer{
+                    id
+                    site
+                }
                 coverImage{
                     extraLarge
                 }
@@ -424,6 +427,7 @@ const getAnimeById = async (req, res) => {
                 image:anime.coverImage.extraLarge,
 
                 banner:anime.bannerImage,
+                trailer:anime.trailer,
 
                 score:anime.averageScore,
 
