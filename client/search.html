@@ -7,7 +7,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>AniShelf</title>
+    <title>Search Anime</title>
 
     <!-- Google Font -->
     <link rel="preconnect"
@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="css/hero.css">
     <link rel="stylesheet" href="css/cards.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/search.css">
 
 </head>
 
@@ -57,91 +58,51 @@
     </nav>
 
     <!-- ========================= -->
-    <!-- Hero Section -->
+    <!-- Search Hero -->
     <!-- ========================= -->
-    <section class="hero" id="featuredHero">
 
-        <div class="hero-content">
+    <section  class="hero">
 
-            <h1 id="featuredTitle">
-                Loading anime...
-            </h1>
+        <h1>
+            Search Anime
+        </h1>
 
+        <p>
 
-            <p id="featuredDescription">
-                Discovering something amazing...
-            </p>
+            Find your next favorite anime.
 
+        </p>
 
-            <div class="hero-info">
+        <div class="search-box">
 
-                <span id="featuredScore">
-                    ⭐ --
-                </span>
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search anime...">
 
+            <button id="searchBtn">
 
-                <span id="featuredYear">
-                    --
-                </span>
+                Search
 
-            </div>
-
-
-            <div class="search-box">
-
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Search anime...">
-
-
-                <button id="searchBtn">
-
-                    Search
-
-                </button>
-
-            </div>
+            </button>
 
         </div>
 
     </section>
-
     <!-- ========================= -->
-    <!-- Trending Anime -->
+    <!-- Search Results -->
     <!-- ========================= -->
 
     <section class="anime-section">
 
-        <div class="section-header">
+        <h2>
+            🔎 Search Results
+        </h2>
 
-            <h2>🔥 Trending Anime</h2>
 
-        </div>
-
-        <div class="slider-wrapper">
-
-            <button
-                class="slider-btn left"
-                data-target="trendingContainer">
-
-                &#10094;
-
-            </button>
-
-            <div
-                class="anime-container slider"
-                id="trendingContainer">
-
-            </div>
-
-            <button
-                class="slider-btn right"
-                data-target="trendingContainer">
-
-                &#10095;
-
-            </button>
+        <div 
+            class="anime-container"
+            id="animeContainer">
 
         </div>
 
@@ -150,10 +111,8 @@
 
     <script src="js/api.js"></script>
     <script src="js/ui.js"></script>
-    <script src="js/slider.js"></script>
     <script src="js/utils.js"></script>
-
-    <script src="js/app.js"></script>
+    <script src="js/search.js"></script>
 
 </body>
 

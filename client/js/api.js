@@ -71,3 +71,39 @@ async function getTrendingAnime() {
     }
 
 }
+
+// ============================
+// Get featured anime
+// ============================
+
+async function getFeaturedAnime() {
+
+    try {
+
+        const response = await fetch(
+            "https://anishelf-api.onrender.com/api/anime/featured"
+        );
+
+
+        const data = await response.json();
+
+
+        return data;
+
+
+    } catch(error) {
+
+        console.error(
+            "Featured API Error:",
+            error
+        );
+
+
+        return {
+            success: false,
+            result: null
+        };
+
+    }
+
+}

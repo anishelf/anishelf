@@ -507,11 +507,106 @@ const getAnimeById = async (req, res) => {
     }
 
 };
+// ========================================
+// New Releases
+// ========================================
+
+const getNewReleases = async (req, res) => {
+
+    try {
+
+        const query = `
+        query {
+
+            Page(perPage: 12) {
+
+                media(
+                    type: ANIME
+                    sort: START_DATE_DESC
+                ) {
+
+                    id
+
+                    title {
+                        romaji
+                        english
+                    }
+
+                    coverImage {
+                        large
+                    }
+
+                    startDate {
+                        year
+                    }
+
+                    averageScore
+
+                    genres
+
+                }
+
+            }
+
+        }
+        `;
+
+        const response = await axios.post(
+            "https://graphql.anilist.co",
+            { query }
+        );
+
+        const anime =
+        response.data.data.Page.media.map(item => ({
+
+            id: item.id,
+
+            title:
+                item.title.english ||
+                item.title.romaji,
+
+            image:
+                item.coverImage.large,
+
+            year:
+                item.startDate.year,
+
+            score:
+                item.averageScore,
+
+            genres:
+                item.genres
+
+        }));
+
+
+        res.json({
+
+            success: true,
+
+            results: anime
+
+        });
+
+    } catch(error){
+
+        console.error(error);
+
+        res.status(500).json({
+
+            success:false
+
+        });
+
+    }
+
+};
 
 
 module.exports = {
     searchAnime,
     getTrendingAnime,
     getFeaturedAnime,
-    getAnimeById
+    getAnimeById,
+    getNewReleases
 };

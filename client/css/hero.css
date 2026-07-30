@@ -4,8 +4,11 @@
 
 .hero{
 
-    min-height:85vh;
+    min-height:70vh;
 
+    display:flex;
+    background-size: cover;
+    background-position: center;
     display:flex;
 
     flex-direction:column;
@@ -17,6 +20,7 @@
     text-align:center;
 
     padding:2rem;
+    transition: background-image 0.5s ease;
 
 }
 

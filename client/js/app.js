@@ -1,54 +1,57 @@
-// ============================
-// Main Application Logic
-// Handles user interactions
-// ============================
+// ========================================
+// Homepage Search Redirect
+// ========================================
+
+const searchBtn =
+document.getElementById("searchBtn");
 
 
-const searchBtn = document.getElementById("searchBtn");
-const searchInput = document.getElementById("searchInput");
+const searchInput =
+document.getElementById("searchInput");
 
 
-// Search button click event
 
-searchBtn.addEventListener("click", async () => {
-
-    const query = searchInput.value.trim();
+searchBtn.addEventListener("click", () => {
 
 
-    // Prevent empty searches
-
-    if (!query) {
-        return;
-    }
-
-    // loading animation
-
-   document.getElementById("animeContainer").innerHTML = `
-        <div class="loading">
-            <div class="spinner"></div>
-            <p>Loading...</p>
-        </div>
-    `;
+    const query =
+    searchInput.value.trim();
 
 
-    // Ask backend for anime
 
-    const data = await searchAnime(query);
+    if(!query) return;
 
 
-    // Display results on page
 
-    if (data.success) {
+    window.location.href =
+    `search.html?q=${encodeURIComponent(query)}`;
 
-        displayAnime(
-            data.results,
-            "animeContainer"
-        );
-
-    }
 
 });
 
+
+
+searchInput.addEventListener("keydown", (event)=>{
+
+
+    if(event.key !== "Enter") return;
+
+
+
+    const query =
+    searchInput.value.trim();
+
+
+
+    if(!query) return;
+
+
+
+    window.location.href =
+    `search.html?q=${encodeURIComponent(query)}`;
+
+
+});
 // ============================
 // Load homepage content
 // ============================
@@ -67,8 +70,28 @@ async function loadTrendingAnime() {
     }
 
 }
+// ============================
+// Load featured anime
+// ============================
+
+async function loadFeaturedAnime() {
+
+    const data = await getFeaturedAnime();
+
+
+    if(data.success) {
+
+        displayFeaturedAnime(
+            data.result
+        );
+
+    }
+
+}
+
 
 
 // Run when page loads
 
+loadFeaturedAnime();
 loadTrendingAnime();

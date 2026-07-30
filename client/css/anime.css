@@ -1,0 +1,145 @@
+
+/* ========================================
+AniShelf
+File: anime.css
+Purpose: Anime details page styling
+======================================== */
+
+
+.anime-details{
+
+    min-height:100vh;
+
+    padding-bottom:4rem;
+
+}
+
+
+
+.anime-banner{
+
+    height:400px;
+
+    background-size:cover;
+
+    background-position:center;
+
+}
+
+
+
+.anime-main{
+
+    display:flex;
+
+    gap:2rem;
+
+    padding:0 8%;
+
+    margin-top:-120px;
+
+    position:relative;
+
+}
+
+
+
+.anime-poster{
+
+    width:260px;
+
+    border-radius:15px;
+
+}
+
+
+
+.anime-info{
+
+    align-self:center;
+
+}
+
+
+
+.anime-info h1{
+
+    font-size:3rem;
+
+}
+
+
+
+.anime-tags{
+
+    display:flex;
+
+    gap:1rem;
+
+    margin:1rem 0;
+
+}
+
+
+
+.anime-tags span{
+
+    background:#222;
+
+    padding:.5rem 1rem;
+
+    border-radius:20px;
+
+}
+
+
+
+.anime-description{
+
+    padding:3rem 8%;
+
+    max-width:900px;
+
+}
+
+.anime-trailer{
+
+    padding:3rem 8%;
+
+}
+
+
+.anime-trailer iframe{
+
+    width:100%;
+
+    max-width:900px;
+
+    height:500px;
+
+    border:none;
+
+    border-radius:15px;
+
+}
+
+
+
+
+.recommendations{
+
+    padding:3rem 8%;
+
+}
+
+
+.recommendations .anime-container{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fill,minmax(180px,1fr));
+
+    gap:1.5rem;
+
+}
