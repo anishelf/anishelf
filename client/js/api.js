@@ -4,7 +4,7 @@
 // ============================
 
 
-const API_URL = "https://anishelf-api.onrender.com/api/anime/search";
+const API_BASE_URL = "https://anishelf-api.onrender.com/api/anime";
 
 
 // Search anime from backend
@@ -14,7 +14,7 @@ async function searchAnime(query) {
     try {
 
         const response = await fetch(
-            `${API_URL}?q=${encodeURIComponent(query)}`
+            `${API_BASE_URL}/search?q=${encodeURIComponent(query)}`
         );
 
 
@@ -48,7 +48,7 @@ async function getTrendingAnime() {
     try {
 
         const response = await fetch(
-            "https://anishelf-api.onrender.com/api/anime/trending"
+            `${API_BASE_URL}/trending`
         );
 
 
@@ -81,7 +81,7 @@ async function getFeaturedAnime() {
     try {
 
         const response = await fetch(
-            "https://anishelf-api.onrender.com/api/anime/featured"
+            `${API_BASE_URL}/featured`
         );
 
 
@@ -105,5 +105,16 @@ async function getFeaturedAnime() {
         };
 
     }
+
+}
+
+async function getNewReleases(){
+
+    const response =
+    await fetch(
+        `${API_BASE_URL}/new`
+    );
+
+    return await response.json();
 
 }

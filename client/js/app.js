@@ -89,9 +89,18 @@ async function loadFeaturedAnime() {
 
 }
 
+async function loadNewReleases() {
+    const newData =
+    await getNewReleases();
 
+    displayAnime(
+        newData.results,
+        "newContainer"
+    );
+}
 
 // Run when page loads
 
 loadFeaturedAnime();
 loadTrendingAnime();
+loadNewReleases();
