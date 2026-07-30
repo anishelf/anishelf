@@ -1,4 +1,39 @@
 const axios = require("axios");
+const e = require("express");
+
+
+const fetchAnime = async (query) => {
+
+    const response = await axios.post(
+        "https://graphql.anilist.co",
+        {
+            query
+        }
+    );
+
+    return response.data.data.Page.media.map(item => ({
+
+        id: item.id,
+
+        title:
+            item.title.english ||
+            item.title.romaji,
+
+        image:
+            item.coverImage.large,
+
+        year:
+            item.startDate.year,
+
+        score:
+            item.averageScore,
+
+        genres:
+            item.genres
+
+    }));
+
+};
 
 const searchAnime = async (req, res) => {
     try {
@@ -590,11 +625,13 @@ const getNewReleases = async (req, res) => {
 
     } catch(error){
 
-        console.error(error);
+        console.error(error.response?.data || error.message);
 
         res.status(500).json({
 
-            success:false
+            success: false,
+            error: 
+                error.response?.data || error.message,            
 
         });
 
@@ -602,11 +639,287 @@ const getNewReleases = async (req, res) => {
 
 };
 
+const getTopRatedAnime = async (req,res)=>{
+
+    try{
+
+    const query = `
+        query {
+
+        Page(perPage:12){
+
+        media(
+        type:ANIME
+        sort:SCORE_DESC
+        ){
+
+        id
+
+        title{
+        english
+        romaji
+        }
+
+        coverImage{
+        large
+        }
+
+        startDate{
+        year
+        }
+
+        averageScore
+
+        genres
+
+        }
+
+        }
+
+        }
+    `;
+
+    const anime = await fetchAnime(query);
+
+
+    res.json({
+
+        success:true,
+
+        results:anime
+
+    });
+
+
+    }catch(error){
+
+        console.error(error.message);
+
+        res.status(500).json({
+
+        success:false
+
+    });
+
+    }
+
+};
+
+const getMovies = async(req,res)=>{
+
+try{
+
+const query = `
+query{
+
+Page(perPage:12){
+
+media(
+type:ANIME
+format:MOVIE
+sort:POPULARITY_DESC
+){
+
+id
+
+title{
+english
+romaji
+}
+
+coverImage{
+large
+}
+
+startDate{
+year
+}
+
+averageScore
+
+genres
+
+}
+
+}
+
+}
+`;
+
+const anime = await fetchAnime(query);
+
+
+res.json({
+
+success:true,
+
+results:anime
+
+});
+
+
+}catch(error){
+
+console.error(error.message);
+
+res.status(500).json({
+
+success:false
+
+});
+
+}
+
+};
+
+
+const getHorrorAnime = async(req,res)=>{
+
+try{
+
+const query = `
+query{
+
+Page(perPage:12){
+
+media(
+type:ANIME
+genre:"Horror"
+sort:POPULARITY_DESC
+){
+
+id
+
+title{
+english
+romaji
+}
+
+coverImage{
+large
+}
+
+startDate{
+year
+}
+
+averageScore
+
+genres
+
+}
+
+}
+
+}
+`;
+
+const anime = await fetchAnime(query);
+
+
+res.json({
+
+success:true,
+
+results:anime
+
+});
+
+
+}catch(error){
+
+console.error(error.message);
+
+res.status(500).json({
+
+success:false
+
+});
+
+}
+
+};
+
+
+const getUpcomingAnime = async(req,res)=>{
+
+try{
+
+const query = `
+query{
+
+Page(perPage:12){
+
+media(
+type:ANIME
+status:NOT_YET_RELEASED
+sort:POPULARITY_DESC
+){
+
+id
+
+title{
+english
+romaji
+}
+
+coverImage{
+large
+}
+
+startDate{
+year
+}
+
+averageScore
+
+genres
+
+}
+
+}
+
+}
+`;
+
+const anime = await fetchAnime(query);
+
+
+res.json({
+
+success:true,
+
+results:anime
+
+});
+
+
+}catch(error){
+
+console.error(error.message);
+
+res.status(500).json({
+
+success:false
+
+});
+
+}
+
+};
+
+
+
+
 
 module.exports = {
     searchAnime,
     getTrendingAnime,
     getFeaturedAnime,
     getAnimeById,
-    getNewReleases
+    getNewReleases,
+    getTopRatedAnime,
+    getMovies,
+    getHorrorAnime,
+    getUpcomingAnime
 };

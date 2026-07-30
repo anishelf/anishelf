@@ -112,7 +112,7 @@ async function getNewReleases(){
 
     const response =
     await fetch(
-        `${API_BASE_URL}/new`
+        `${API_BASE_URL}/new-releases`
     );
 
     return await response.json();
