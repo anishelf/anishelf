@@ -309,7 +309,7 @@ const getFeaturedAnime = async (req, res) => {
         );
 
 
-        const animeList = response.data.data.Page.Media;
+        const animeList = response.data.data.Page.media;
 
 
 
