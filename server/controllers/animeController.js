@@ -760,15 +760,28 @@ results:anime
 
 }catch(error){
 
-console.error(error.message);
+    console.error(
+        error.response?.data || error.message
+    );
 
-res.status(500).json({
+    res.status(500).json({
 
-success:false
+        success:false,
 
-});
+        message:
+        error.response?.data || error.message
+
+    });
 
 }
+
+
+
+
+
+
+
+
 
 };
 
@@ -828,16 +841,20 @@ results:anime
 
 }catch(error){
 
-console.error(error.message);
+    console.error(
+        error.response?.data || error.message
+    );
 
-res.status(500).json({
+    res.status(500).json({
 
-success:false
+        success:false,
 
-});
+        message:
+        error.response?.data || error.message
+
+    });
 
 }
-
 };
 
 
@@ -896,13 +913,18 @@ results:anime
 
 }catch(error){
 
-console.error(error.message);
+    console.error(
+        error.response?.data || error.message
+    );
 
-res.status(500).json({
+    res.status(500).json({
 
-success:false
+        success:false,
 
-});
+        message:
+        error.response?.data || error.message
+
+    });
 
 }
 
