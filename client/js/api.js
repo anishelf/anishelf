@@ -118,3 +118,51 @@ async function getNewReleases(){
     return await response.json();
 
 }
+
+async function getTopRatedAnime(){
+
+    const response =
+    await fetch(
+        `${API_BASE_URL}/top-rated`
+    );
+
+    return await response.json();
+
+}
+
+
+async function getMovies(){
+
+    const response =
+    await fetch(
+        `${API_BASE_URL}/movies`
+    );
+
+    return await response.json();
+
+}
+
+
+async function getHorrorAnime(){
+
+    const response =
+    await fetch(
+        `${API_BASE_URL}/horror`
+    );
+
+    return await response.json();
+
+}
+
+
+async function getUpcomingAnime(){
+
+    const response =
+    await fetch(
+        `${API_BASE_URL}/upcoming`
+    );
+
+    return await response.json();
+
+}
+

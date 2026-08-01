@@ -99,8 +99,63 @@ async function loadNewReleases() {
     );
 }
 
+async function loadTopRated(){
+
+    const data =
+    await getTopRatedAnime();
+
+    displayAnime(
+        data.results,
+        "topRatedContainer"
+    );
+
+}
+
+
+async function loadMovies(){
+
+    const data =
+    await getMovies();
+
+    displayAnime(
+        data.results,
+        "moviesContainer"
+    );
+
+}
+
+
+async function loadHorror(){
+
+    const data =
+    await getHorrorAnime();
+
+    displayAnime(
+        data.results,
+        "horrorContainer"
+    );
+
+}
+
+
+async function loadUpcoming(){
+
+    const data =
+    await getUpcomingAnime();
+
+    displayAnime(
+        data.results,
+        "upcomingContainer"
+    );
+
+}
+
 // Run when page loads
 
 loadFeaturedAnime();
 loadTrendingAnime();
 loadNewReleases();
+loadTopRated();
+loadMovies();
+loadHorror();
+loadUpcoming();
