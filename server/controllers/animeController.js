@@ -258,7 +258,7 @@ const getFeaturedAnime = async (req, res) => {
         const query = `
         query {
 
-            Page(perPage: 1) {
+            Page(perPage: 4) {
                 media(type: ANIME, sort: TRENDING_DESC) {
 
                     id
@@ -309,41 +309,55 @@ const getFeaturedAnime = async (req, res) => {
         );
 
 
-        const anime = response.data.data.Page.media[0];
+        const animeList = response.data.data.Page.Media;
+
 
 
         res.json({
 
-            success:true,
+            success: true,
 
-           result: {
+            results: animeList.map(anime => ({
+
                 id: anime.id,
 
-                title: anime.title.english || anime.title.romaji,
+                title:
+                    anime.title.english ||
+                    anime.title.romaji,
 
-                image: anime.coverImage.extraLarge,
+                image:
+                    anime.coverImage.extraLarge,
 
                 heroImage:
                     anime.bannerImage ||
                     anime.coverImage.extraLarge,
 
-                description: anime.description,
+                description:
+                    anime.description,
 
-                year: anime.startDate.year,
+                year:
+                    anime.startDate.year,
 
-                season: anime.season,
+                season:
+                    anime.season,
 
-                episodes: anime.episodes,
+                episodes:
+                    anime.episodes,
 
-                format: anime.format,
+                format:
+                    anime.format,
 
-                status: anime.status,
+                status:
+                    anime.status,
 
-                score: anime.averageScore,
+                score:
+                    anime.averageScore,
 
-                genres: anime.genres
+                genres:
+                    anime.genres
 
-            }
+            }))
+
         });
 
 
