@@ -28,81 +28,83 @@ params.get("q");
 
 async function performSearch(query){
 
+    if(!query){
 
-    if(!query) return;
+        loadDiscoverAnime();
 
+        return;
 
-
-    searchInput.value = query;
-
-
+    }
 
     const data =
     await searchAnime(query);
 
-
-
     if(data.success){
-
 
         displayAnime(
             data.results,
             "animeContainer"
         );
 
+        document.getElementById(
+            "resultsTitle"
+        ).textContent =
+        `🔎 ${data.results.length} Results`;
 
     }
-
 
 }
 
+let searchTimeout;
 
+searchInput.addEventListener(
+    "input",
+    () => {
 
-
-// Button click
-
-searchBtn.addEventListener("click", ()=>{
-
-
-    const query =
-    searchInput.value.trim();
-
-
-    performSearch(query);
-
-
-});
-
-
-
-
-// Enter key
-
-searchInput.addEventListener("keydown",(event)=>{
-
-
-    if(event.key === "Enter"){
-
-
-        performSearch(
-            searchInput.value.trim()
+        clearTimeout(
+            searchTimeout
         );
 
+        searchTimeout =
+        setTimeout(() => {
+
+            performSearch(
+                searchInput.value.trim()
+            );
+
+        },300);
 
     }
+);
 
-
-});
-
-
-
-
-// Auto load from homepage
 
 if(urlQuery){
 
-
     performSearch(urlQuery);
 
+}else{
+
+    loadDiscoverAnime();
+
+}
+
+async function loadDiscoverAnime(){
+
+    const data =
+    await getTrendingAnime();
+
+    if(data.success){
+
+        displayAnime(
+            data.results,
+            "animeContainer"
+        );
+
+        document.getElementById(
+            "resultsTitle"
+        ).textContent =
+        "🔥 Discover Anime";
+
+    }
 
 }

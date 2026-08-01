@@ -36,54 +36,143 @@ const fetchAnime = async (query) => {
 };
 
 const searchAnime = async (req, res) => {
-    try {
-        const { q } = req.query;
 
-        if (!q) {
-            return res.status(400).json({
-                success: false,
-                message: "Search query is required"
-            });
+    try {
+
+        const {
+            q,
+            genre,
+            format,
+            year,
+            season,
+            status,
+            sort
+        } = req.query;
+
+
+        let filters = `
+            type: ANIME
+        `;
+
+
+        if(q){
+
+            filters += `
+                search: "${q}"
+            `;
+
         }
+
+
+        if(genre){
+
+            filters += `
+                genre: "${genre}"
+            `;
+
+        }
+
+
+        if(format){
+
+            filters += `
+                format: ${format}
+            `;
+
+        }
+
+
+        if(year){
+
+            filters += `
+                seasonYear: ${year}
+            `;
+
+        }
+
+
+        if(season){
+
+            filters += `
+                season: ${season}
+            `;
+
+        }
+
+
+        if(status){
+
+            filters += `
+                status: ${status}
+            `;
+
+        }
+
+
+        const sorting =
+            sort || "POPULARITY_DESC";
+
 
         const query = `
+
         query {
-            Page(perPage: 10) {
-                media (search: "${q}", type: ANIME) {
-                
+
+            Page(perPage: 20) {
+
+                media(
+
+                    ${filters}
+
+                    sort: ${sorting}
+
+                ) {
+
                     id
-                
+
+
                     title {
+
                         romaji
+
                         english
+
                     }
-                
+
+
                     coverImage {
+
                         large
+
                         extraLarge
+
                     }
-                
-                    bannerImage
-                
+
+
                     startDate {
+
                         year
+
                     }
-                
+
+
                     season
-                
+
                     episodes
-                
+
                     format
-                
+
                     status
-                
+
                     averageScore
-                
+
                     genres
-                
+
                 }
+
             }
+
         }
+
         `;
 
 
@@ -94,50 +183,80 @@ const searchAnime = async (req, res) => {
             }
         );
 
-        const anime = response.data.data.Page.media.map(item => ({
-            id: item.id,
 
-            title: item.title.english || item.title.romaji,
+        const anime =
+        response.data.data.Page.media.map(item => ({
 
-            image: item.coverImage.large,
+            id:item.id,
 
-            heroImage:
-                item.bannerImage ||
-                item.coverImage.extraLarge,
+            title:
+                item.title.english ||
+                item.title.romaji,
 
-            year: item.startDate.year,
 
-            season: item.season,
+            image:
+                item.coverImage.large,
 
-            episodes: item.episodes,
 
-            format: item.format,
+            year:
+                item.startDate.year,
 
-            status: item.status,
 
-            score: item.averageScore,
+            season:
+                item.season,
 
-            genres: item.genres
-        
+
+            episodes:
+                item.episodes,
+
+
+            format:
+                item.format,
+
+
+            status:
+                item.status,
+
+
+            score:
+                item.averageScore,
+
+
+            genres:
+                item.genres
+
         }));
 
+
         res.json({
-            success: true,
-            results: anime
+
+            success:true,
+
+            results:anime
+
         });
 
-    } catch (error) {
+
+    } catch(error){
+
+
         console.error(
-            error.response?.data || error.message
+            error.response?.data ||
+            error.message
         );
 
-        res.status(500).json({
-            success: false,
-            message: "Anime service unavailable"
-        });
-    }
-};
 
+        res.status(500).json({
+
+            success:false,
+
+            message:"Anime service unavailable"
+
+        });
+
+    }
+
+};
 
 const getTrendingAnime = async (req, res) => {
 

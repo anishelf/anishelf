@@ -21,62 +21,80 @@ function displayAnime(animeList, containerId) {
 
             <div class="anime-card" onclick="openAnime(${anime.id})">
 
-                <img
-                    src="${anime.image}"
-                    alt="${anime.title}"
-                >
+
+                <div class="card-image">
+
+
+                    <img
+                        src="${anime.image}"
+                        alt="${anime.title}"
+                    >
+
+
+                    <span class="rating-badge">
+
+                        ⭐ ${
+                            anime.score
+                            ? (anime.score / 10).toFixed(1)
+                            : "N/A"
+                        }
+
+                    </span>
+
+
+                </div>
+
+
 
                 <div class="card-content">
 
-                    <h3>${anime.title}</h3>
 
-                    <div class="card-info">
+                    <div class="card-title-row">
 
-                        <span>
 
-                            ⭐ ${anime.score ? (anime.score / 10).toFixed(1) : "N/A"}
+                        <h3>
+                            ${anime.title}
+                        </h3>
 
-                        </span>
 
+                        <button
+                            class="card-menu"
+                            onclick="toggleCardMenu(event, ${anime.id})">
+
+                            ⋮
+
+                        </button>
+                        <div class="card-dropdown" id="menu-${anime.id}">
+
+                            <button
+                                onclick="addToList(${anime.id})">
+                                 ➕Add to List
+                            </button>
+
+                        </div>
                     </div>
 
-                    <div class="card-info">
+
+                    <div class="card-badges">
+
 
                         <span>
-
                             ${anime.format || "TV"}
-
                         </span>
 
+
                         <span>
-
-                            ${anime.episodes || "?"} Episodes
-
+                            ${anime.year || "N/A"}
+                        </span>
+                        <span>
+                            ${(anime.genres || ["Anime"])[0]} 
                         </span>
 
                     </div>
 
-                    <div class="card-info">
-
-                        <span>
-
-                            ${anime.season || "Unknown"} ${anime.year || ""}
-
-                        </span>
-
-                    </div>
-
-                    <div class="card-info">
-
-                        <span>
-
-                            ${(anime.genres || []).slice(0,2).join(" • ")}
-
-                        </span>
-
-                    </div>
 
                 </div>
+
 
             </div>
 
@@ -133,3 +151,68 @@ function openAnime(id){
         `anime.html?id=${id}`;
 
 }
+// ============================
+// menu configuration
+// ============================
+
+function toggleCardMenu(event,id){
+
+    event.stopPropagation();
+
+    const menu =
+    document.getElementById(
+        `menu-${id}`
+    );
+
+    if(!menu) return;
+
+    document
+    .querySelectorAll(".card-dropdown")
+    .forEach(dropdown => {
+
+        if(dropdown !== menu){
+
+            dropdown.classList.remove(
+                "active"
+            );
+
+        }
+
+    });
+
+    menu.classList.toggle(
+        "active"
+    );
+
+}
+function addToList(id){
+
+    console.log(
+        "Added anime:",
+        id
+    );
+
+
+    alert(
+        "Added to your list!"
+    );
+
+}
+document.addEventListener(
+    "click",
+    () => {
+
+        document
+        .querySelectorAll(
+            ".card-dropdown"
+        )
+        .forEach(menu => {
+
+            menu.classList.remove(
+                "active"
+            );
+
+        });
+
+    }
+);

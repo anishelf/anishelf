@@ -33,29 +33,55 @@
 
     background:var(--surface);
 
-    border:1px solid var(--border);
     width:250px;
+
     border-radius:18px;
-    flex-shrink: 0;
+
     overflow:hidden;
 
-    transition:.3s ease;
+    flex-shrink:0;
 
     cursor:pointer;
 
+    transition:.3s ease;
+
 }
+
 
 .anime-card:hover{
 
     transform:translateY(-8px);
 
-    box-shadow:0 20px 40px rgba(0,0,0,.45);
-
 }
+
+
+
+
+
+
+.rating-badge{
+    position:absolute;
+    top:12px;
+    right:12px;   
+    padding:6px 12px;
+    border-radius:999px;
+    background:rgba(0,0,0,.65);
+    backdrop-filter:blur(8px);
+    font-size:.85rem;
+    font-weight:600;
+}
+
 
 /* ===========================
    IMAGE
-=========================== */
+   =========================== */
+.card-image{
+
+    position:relative;
+
+}
+
+
 
 .anime-card img{
 
@@ -67,43 +93,76 @@
 
 }
 
+   
 /* ===========================
-   CONTENT
+CONTENT
 =========================== */
-
 .card-content{
 
     padding:1rem;
 
 }
 
-.card-content h3{
 
-    font-size:1rem;
-
-    margin-bottom:.6rem;
-
-}
-
-.card-info{
+.card-title-row{
 
     display:flex;
 
+    align-items:center;
+
     justify-content:space-between;
 
-    color:var(--muted);
-
-    font-size:.9rem;
-
-    margin-bottom:1rem;
+    gap:.5rem;
 
 }
 
-.card-rating{
 
-    display:inline-block;
+.card-title-row h3{
 
-    padding:6px 12px;
+    font-size:1rem;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+
+
+.card-menu{
+
+    border:none;
+
+    background:none;
+
+    color:white;
+
+    font-size:1.5rem;
+
+    cursor:pointer;
+
+}
+
+
+
+
+
+.card-badges{
+
+    display:flex;
+
+    gap:.5rem;
+
+    margin-top:.8rem;
+
+}
+
+
+.card-badges span{
+
+    padding:5px 10px;
 
     border-radius:999px;
 
@@ -111,11 +170,86 @@
 
     color:#b892ff;
 
-    font-size:.85rem;
+    font-size:.75rem;
 
     font-weight:600;
 
 }
+
+
+.card-title-row{
+
+    position:relative;
+
+}
+
+.card-dropdown{
+
+    position:absolute;
+
+    right:0;
+
+    top:35px;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    padding:.5rem;
+
+    display:none;
+
+    z-index:20;
+
+}
+
+
+.card-dropdown.active{
+
+    display:block;
+
+}
+
+
+.card-dropdown button{
+
+    border:none;
+
+    background:none;
+
+    color:white;
+
+    padding:.6rem 1rem;
+
+    cursor:pointer;
+
+    white-space:nowrap;
+
+}
+
+
+.card-dropdown button:hover{
+
+    background:rgba(255,255,255,.1);
+
+    border-radius:8px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ========================================
 Slider Layout
 ======================================== */
