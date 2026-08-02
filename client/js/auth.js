@@ -1,65 +1,74 @@
-const loginForm =
-document.getElementById(
-    "loginForm"
-);
+const AUTH_URL =
+"https://anishelf-api.onrender.com/api/auth";
 
-if(loginForm){
 
-    loginForm.addEventListener(
-        "submit",
-        (event) => {
 
-            event.preventDefault();
+async function registerUser(
+    username,
+    email,
+    password
+){
 
-            localStorage.setItem(
-                "user",
-                JSON.stringify({
-                    username,
-                    email
-                })
-            );
+    const response =
+    await fetch(
+        `${AUTH_URL}/register`,
+        {
 
-            window.location.href =
-            "index.html";
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify({
+
+                username,
+
+                email,
+
+                password
+
+            })
 
         }
     );
+
+
+    return await response.json();
 
 }
-const signupForm =
-document.getElementById(
-    "signupForm"
-);
 
-if(signupForm){
 
-    signupForm.addEventListener(
-        "submit",
-        (event) => {
 
-            event.preventDefault();
 
-            const username =
-            document.getElementById(
-                "username"
-            ).value;
-            const email =
-            document.getElementById(
-                "email"
-            ).value;
+async function loginUser(
+    email,
+    password
+){
 
-            localStorage.setItem(
-                "user",
-                JSON.stringify({
-                    username,
-                    email
-                })
-            );
+    const response =
+    await fetch(
+        `${AUTH_URL}/login`,
+        {
 
-            window.location.href =
-            "index.html";
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify({
+
+                email,
+
+                password
+
+            })
 
         }
     );
+
+
+    return await response.json();
 
 }
