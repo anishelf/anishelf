@@ -5,7 +5,7 @@
 
 const express = require("express");
 const cors = require("cors");
-
+const cookieParser = require("cookie-parser");
 
 // ===============================
 // Internal files
@@ -33,11 +33,41 @@ const app = express();
 // ===============================
 
 // Allows requests from frontend
-app.use(cors());
+const allowedOrigins = [
+
+    "http://localhost:5500",
+
+    "http://127.0.0.1:5500",
+
+    "https://your-future-frontend-url.com"
+
+];
+
+
+app.use(cors({
+
+    origin:function(origin,callback){
+
+        if(!origin ||
+        allowedOrigins.includes(origin)){
+
+            callback(null,true);
+
+        }else{
+
+            callback(new Error("Not allowed"));
+
+        }
+
+    },
+
+    credentials:true
+
+}));
 
 // Allows Express to read JSON request bodies
 app.use(express.json());
-
+app.use(cookieParser());
 
 // ===============================
 // Routes

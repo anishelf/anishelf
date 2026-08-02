@@ -15,6 +15,7 @@ async function registerUser(
         {
 
             method:"POST",
+            credentials:"include",
 
             headers:{
                 "Content-Type":"application/json"
@@ -52,18 +53,34 @@ async function loginUser(
         {
 
             method:"POST",
-
+            
+            credentials:"include",
             headers:{
                 "Content-Type":"application/json"
             },
 
             body:JSON.stringify({
-
                 email,
-
                 password
-
             })
+        }
+    );
+
+
+    return await response.json();
+
+}
+
+async function getProfile(){
+
+    const response =
+    await fetch(
+        `${AUTH_URL}/profile`,
+        {
+
+            method:"GET",
+
+            credentials:"include"
 
         }
     );
