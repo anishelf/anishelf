@@ -88,163 +88,332 @@ function displayAnimeDetails(anime){
     <div class="anime-main">
 
 
-    <img
-
-    class="anime-poster"
-
-    src="${anime.image}"
-
-    alt="${anime.title}"
-
-    >
-
-
-
-    <div class="anime-info">
-
-
-    <h1>
-    ${anime.title}
-    </h1>
-
-
-    <div class="anime-tags">
-
-    <span>
-    ⭐ ${(anime.score / 10).toFixed(1)}
-    </span>
-
-
-    <span>
-    ${anime.format}
-    </span>
-
-
-    <span>
-    ${anime.episodes || "?"} Episodes
-    </span>
-
-
-    </div>
-
-
-    <p>
-
-    ${anime.genres.join(" • ")}
-
-    </p>
-
-
-    </div>
-
-
-    </div>
-
-
-    ${anime.trailer?.site === "youtube" ? `
-
-    <section class="anime-trailer">
-
-    <h2>
-    Trailer
-    </h2>
-
-    <iframe
-
-    src="https://www.youtube.com/embed/${anime.trailer.id}"
-
-    allowfullscreen>
-
-    </iframe>
-
-    </section>
-
-    ` : ""}
-
-    <section class="anime-description">
-
-
-        <h2>
-        Synopsis
-        </h2>
-
-
-        <p>
-
-        ${anime.description}
-
-        </p>
-
-
-    </section>
-    
-
-    ${anime.recommendations?.length ? `
-
-        <section class="recommendations">
-
-        <h2>
-        You Might Also Like
-        </h2>
-
-
-        <div class="anime-container">
-
-
-        ${anime.recommendations.map(item => `
-
-
-        <div class="anime-card"
-        onclick="openAnime(${item.id})">
-
-
         <img
 
-        src="${item.image}"
+        class="anime-poster"
 
-        alt="${item.title}"
+        src="${anime.image}"
+
+        alt="${anime.title}"
 
         >
+        <div class="anime-info">
+
+            <h1>
+                ${anime.title}
+            </h1>
+
+            <div class="anime-actions">
+
+                <button class="anime-btn">
+
+                    ▶ Trailer
+
+                </button>
+
+                <button class="anime-btn">
+
+                    ➕ Add To List
+
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+    <section class="anime-content">
+
+        <div class="content-left">
+
+            ${anime.trailer?.site === "youtube" ? `
+
+            <div class="info-panel">
+
+                <h2>
+                    Trailer
+                </h2>
+
+                <iframe
+                src="https://www.youtube.com/embed/${anime.trailer.id}"
+                allowfullscreen>
+                </iframe>
+
+            </div>
+
+            ` : ""}
 
 
-        <div class="card-content">
+            <div class="info-panel">
 
+                <h2>
+                    Synopsis
+                </h2>
 
-        <h3>
-        ${item.title}
-        </h3>
+                <p>
 
+                    ${anime.description}
 
-        <p>
+                </p>
 
-        ⭐ ${item.score ? (item.score/10).toFixed(1) : "N/A"}
-
-        </p>
-
+            </div>
 
         </div>
 
 
+        <div class="content-right">
+
+            <div class="info-panel">
+
+                <h2>
+                    Information
+                </h2>
+
+                <div class="detail-row">
+
+                    <span>Rating</span>
+
+                    <span>
+                    ⭐ ${(anime.score/10).toFixed(1)}
+                    </span>
+
+                </div>
+
+                <div class="detail-row">
+
+                    <span>Format</span>
+
+                    <span>${anime.format}</span>
+
+                </div>
+
+                ${anime.format !== "MOVIE" ? `
+
+                <div class="detail-row">
+
+                    <span>Episodes</span>
+
+                    <span>
+                        ${anime.episodes || "Unknown"}
+                    </span>
+
+                </div>
+
+                ` : ""}
+
+
+                ${anime.format === "MOVIE" ? `
+
+                <div class="detail-row">
+
+                    <span>Duration</span>
+
+                    <span>
+                        ${anime.duration || "Unknown"} min
+                    </span>
+
+                </div>
+
+                ` : ""}
+
+                <div class="detail-row">
+
+                    <span>Status</span>
+
+                    <span>${anime.status}</span>
+
+                </div>
+
+                <div class="detail-row">
+
+                    <span>Season</span>
+
+                    <span>
+                    ${anime.season}
+                    </span>
+
+                </div>
+
+                <div class="detail-row">
+                    <span>Released</span>
+                    <span>${anime.year}</span>
+                </div>
+
+
+
+                <div class="detail-row">
+
+                    <span>Studio</span>
+
+                    <span>${anime.studio}</span>
+
+                </div>
+
+                <div class="genre-list">
+
+                    ${anime.genres.map(genre => `
+                        <span class="genre-badge">
+                            ${genre}
+                        </span>
+                    `).join("")}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <section class="bottom-panel">
+
+        <div class="bottom-tabs">
+
+            <button
+            class="tab-btn active"
+            onclick="showTab('recommendations', this)">
+
+                Related Anime
+
+            </button>
+
+            <button
+            class="tab-btn"
+            onclick="showTab('comments', this)">
+
+                Comments
+
+            </button>
+
         </div>
 
 
-        `).join("")}
+        <div
+        id="recommendationsTab"
+        class="tab-content">
+
+            <div class="anime-container">
+
+                ${anime.recommendations
+                .map(item => createAnimeCard(item))
+                .join("")}
+
+            </div>
+
+        </div>
+        <div
+        id="commentsTab"
+        class="tab-content hidden">
+
+
+            <div class="comments-box">
+
+
+                <h2>
+                    💬 Community Comments
+                </h2>
+
+
+
+                <!-- Existing comments -->
+
+                <div class="comment-list">
+
+
+                    <div class="comment-card">
+
+
+                        <div class="comment-header">
+
+                            <strong>
+                                Guest
+                            </strong>
+
+
+                            <span>
+                                Just now
+                            </span>
+
+                        </div>
+
+
+                        <p>
+                            No comments yet. Be the first to share your thoughts!
+                        </p>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- Comment input -->
+
+                <div class="comment-composer">
+
+
+                    <textarea
+                        id="commentInput"
+                        placeholder="Share your thoughts about this anime...">
+                    </textarea>
+
+
+
+                    <button
+                        class="anime-btn"
+                        id="commentBtn">
+
+                        Post Comment
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
 
 
         </div>
 
-        </section>
-
-        ` : ""
-    }
-
-
-
-
-
+    </section>
     `;
 
 }
 
+function showTab(tab, button){
+
+
+    document
+    .querySelectorAll(".tab-content")
+    .forEach(content=>{
+
+        content.classList.add("hidden");
+
+    });
+
+
+
+    document
+    .querySelectorAll(".tab-btn")
+    .forEach(btn=>{
+
+        btn.classList.remove("active");
+
+    });
+
+
+
+    document
+    .getElementById(tab + "Tab")
+    .classList.remove("hidden");
+
+
+    button.classList.add("active");
+
+}
 
 loadAnimeDetails();

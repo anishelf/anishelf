@@ -1,0 +1,82 @@
+.list-page{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:flex-start;
+
+    padding:4rem 2rem;
+
+}
+
+.list-page h1{
+
+    margin-bottom:.5rem;
+
+}
+
+
+.list-page p{
+
+    color:var(--muted);
+
+    margin-bottom:2rem;
+
+}
+.list-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:1rem;
+
+}
+.list-header h1{
+
+    margin:0;
+
+}
+.list-card{
+
+    width:100%;
+
+    max-width:1000px;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:2rem;
+
+}
+
+.back-btn{
+
+    border:none;
+
+    background:rgba(255,255,255,.05);
+
+    color:var(--text);
+
+    padding:.7rem 1rem;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    transition:.2s ease;
+
+}
+.back-btn:hover{
+
+    color:#8b5cf6;
+
+}

@@ -14,6 +14,7 @@ const cors = require("cors");
 
 const pool = require("./db/db");
 const animeRoutes = require("./routes/animeRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 
 // ===============================
@@ -46,7 +47,10 @@ app.use(express.json());
 // Example:
 // GET /api/anime/search?q=monster
 app.use("/api/anime", animeRoutes);
-
+app.use(
+    "/api/auth",
+    authRoutes
+);
 
 // ===============================
 // Database test

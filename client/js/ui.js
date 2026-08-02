@@ -17,89 +17,7 @@ function displayAnime(animeList, containerId) {
 
     animeList.forEach(anime => {
 
-        container.innerHTML += `
-
-            <div class="anime-card" onclick="openAnime(${anime.id})">
-
-
-                <div class="card-image">
-
-
-                    <img
-                        src="${anime.image}"
-                        alt="${anime.title}"
-                    >
-
-
-                    <span class="rating-badge">
-
-                        ⭐ ${
-                            anime.score
-                            ? (anime.score / 10).toFixed(1)
-                            : "N/A"
-                        }
-
-                    </span>
-
-
-                </div>
-
-
-
-                <div class="card-content">
-
-
-                    <div class="card-title-row">
-
-
-                        <h3>
-                            ${anime.title}
-                        </h3>
-
-
-                        <button
-                            class="card-menu"
-                            onclick="toggleCardMenu(event, ${anime.id})">
-
-                            ⋮
-
-                        </button>
-                        <div class="card-dropdown" id="menu-${anime.id}">
-
-                            <button
-                                onclick="addToList(${anime.id})">
-                                 ➕Add to List
-                            </button>
-
-                        </div>
-                    </div>
-
-
-                    <div class="card-badges">
-
-
-                        <span>
-                            ${anime.format || "TV"}
-                        </span>
-
-
-                        <span>
-                            ${anime.year || "N/A"}
-                        </span>
-                        <span>
-                            ${(anime.genres || ["Anime"])[0]} 
-                        </span>
-
-                    </div>
-
-
-                </div>
-
-
-            </div>
-
-        `;
-
+        container.innerHTML += createAnimeCard(anime);
     });
 
 }
@@ -216,3 +134,79 @@ document.addEventListener(
 
     }
 );
+
+function createAnimeCard(anime){
+
+    return `
+
+    <div class="anime-card"
+    onclick="openAnime(${anime.id})">
+
+
+        <img
+        src="${anime.image}"
+        alt="${anime.title}">
+
+
+        <div class="card-content">
+
+
+            <div class="card-title-row">
+
+                <h3>
+                    ${anime.title}
+                </h3>
+
+
+                <button
+                class="card-menu"
+                onclick="toggleCardMenu(event, ${anime.id})">
+
+                    ⋮
+
+                </button>
+
+
+            </div>
+
+
+
+            <div class="card-badges">
+
+
+                <span class="card-rating">
+
+                    ⭐ ${
+                    anime.score
+                    ? (anime.score/10).toFixed(1)
+                    : "N/A"
+                    }
+
+                </span>
+
+
+                <span class="card-badge">
+
+                    ${anime.format || "TV"}
+
+                </span>
+
+
+                <span class="card-badge">
+
+                    ${anime.year || "----"}
+
+                </span>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+    `;
+
+}

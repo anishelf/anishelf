@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        AniShelf | Login
+    </title>
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/library.css">
+
+</head>
+
+<body>
+    
+    <nav class="navbar">
+        
+        <div class="logo">
+            AniShelf
+        </div>     
+        <ul
+        class="nav-links"
+        id="navLinks">       
+        </ul>
+    
+    </nav>
+
+    <!-- LOGIN CONTENT GOES HERE -->
+    <section class="library-page">
+
+        <div class="library-header">
+
+            <h1>
+                My Library
+            </h1>
+
+            <button
+            id="createListBtn"
+            class="anime-btn">
+
+                + Create List
+
+            </button>
+
+        </div>
+
+
+        <div
+        id="libraryLists"
+        class="library-grid">
+
+        </div>
+
+    </section>
+
+
+    <div
+    id="listModal"
+    class="modal hidden">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h2>
+                    Create New List
+                </h2>
+
+                <button
+                id="closeModalBtn"
+                class="close-modal">
+
+                    ✕
+
+                </button>
+
+            </div>
+
+            <input
+            type="text"
+            id="listName"
+            placeholder="List Name">
+            <textarea
+                id="listDescription"
+                placeholder="Description (optional)">
+            </textarea>
+            <button
+            id="saveListBtn"
+            class="anime-btn create-btn">
+
+                Create
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <script src="js/navbar.js"></script>
+    <script src="js/library.js"></script>
+    
+</body>
+
+</html>
+
+
+

@@ -24,7 +24,6 @@
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/hero.css">
     <link rel="stylesheet" href="css/cards.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/search.css">
@@ -43,15 +42,7 @@
             AniShelf
         </div>
 
-        <ul class="nav-links">
-
-            <li><a href="index.html">Home</a></li>
-
-            <li><a href="search.html">Search</a></li>
-
-            <li><a href="#">Top Rated</a></li>
-
-            <li><a href="#">About</a></li>
+        <ul class="nav-links" id="navLinks">
 
         </ul>
 
@@ -68,6 +59,152 @@
                 type="text"
                 id="searchInput"
                 placeholder="Search anime...">
+        </div>
+
+        <div class="search-filters">
+
+
+            <select id="genreFilter">
+
+                <option value="">
+                    All Genres
+                </option>
+
+                <option value="Action">
+                    Action
+                </option>
+
+                <option value="Adventure">
+                    Adventure
+                </option>
+
+                <option value="Comedy">
+                    Comedy
+                </option>
+
+                <option value="Drama">
+                    Drama
+                </option>
+
+                <option value="Fantasy">
+                    Fantasy
+                </option>
+
+                <option value="Horror">
+                    Horror
+                </option>
+
+                <option value="Romance">
+                    Romance
+                </option>
+
+            </select>
+
+
+
+            <select id="formatFilter">
+
+                <option value="">
+                    All Formats
+                </option>
+
+                <option value="TV">
+                    TV
+                </option>
+
+                <option value="MOVIE">
+                    Movie
+                </option>
+
+                <option value="OVA">
+                    OVA
+                </option>
+
+                <option value="ONA">
+                    ONA
+                </option>
+
+            </select>
+
+
+
+            <select id="yearFilter">
+
+                <option value="">
+                    Any Year
+                </option>
+
+                <option value="2026">
+                    2026
+                </option>
+
+                <option value="2025">
+                    2025
+                </option>
+
+                <option value="2024">
+                    2024
+                </option>
+
+                <option value="2023">
+                    2023
+                </option>
+
+            </select>
+
+
+
+            <select id="seasonFilter">
+
+                <option value="">
+                    Any Season
+                </option>
+
+                <option value="WINTER">
+                    Winter
+                </option>
+
+                <option value="SPRING">
+                    Spring
+                </option>
+
+                <option value="SUMMER">
+                    Summer
+                </option>
+
+                <option value="FALL">
+                    Fall
+                </option>
+
+            </select>
+
+
+
+            <select id="sortFilter">
+
+                <option value="">
+                    Sort By
+                </option>
+
+                <option value="TRENDING_DESC">
+                    Trending
+                </option>
+
+                <option value="POPULARITY_DESC">
+                    Popular
+                </option>
+
+                <option value="SCORE_DESC">
+                    Highest Rated
+                </option>
+
+                <option value="START_DATE_DESC">
+                    Newest
+                </option>
+
+            </select>
+
+
         </div>
 
     </section>
@@ -90,7 +227,7 @@
 
     </section>
     <!-- JavaScript -->
-
+    <script src="js/navbar.js"></script>
     <script src="js/api.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/utils.js"></script>

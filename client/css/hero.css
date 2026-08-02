@@ -99,30 +99,6 @@
 
 }
 
-.search-box button{
-
-    padding:18px 34px;
-
-    border:none;
-
-    border-radius:15px;
-
-    background:var(--gradient);
-
-    color:white;
-
-    font-weight:600;
-
-    transition:.25s;
-
-}
-
-.search-box button:hover{
-
-    transform:translateY(-3px);
-
-}
-
 .hero-bottom{
 
     display:flex;

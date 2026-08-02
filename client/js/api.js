@@ -166,3 +166,32 @@ async function getUpcomingAnime(){
 
 }
 
+async function searchAnimeWithFilters(params){
+
+    try {
+
+        const response =
+        await fetch(
+            `https://anishelf-api.onrender.com/api/anime/search?${params}`
+        );
+
+
+        return await response.json();
+
+
+    } catch(error){
+
+        console.error(
+            "Filter Search Error:",
+            error
+        );
+
+
+        return {
+            success:false,
+            results:[]
+        };
+
+    }
+
+}

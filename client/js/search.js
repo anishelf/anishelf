@@ -1,15 +1,25 @@
+
 // ========================================
 // AniShelf Search Page
 // ========================================
+const genreFilter =
+document.getElementById("genreFilter");
 
 
-const searchInput =
-document.getElementById("searchInput");
+const formatFilter =
+document.getElementById("formatFilter");
 
 
-const searchBtn =
-document.getElementById("searchBtn");
+const yearFilter =
+document.getElementById("yearFilter");
 
+
+const seasonFilter =
+document.getElementById("seasonFilter");
+
+
+const sortFilter =
+document.getElementById("sortFilter");
 
 
 // Get query from URL
@@ -61,22 +71,17 @@ searchInput.addEventListener(
     "input",
     () => {
 
-        clearTimeout(
-            searchTimeout
-        );
+        clearTimeout(searchTimeout);
 
         searchTimeout =
         setTimeout(() => {
 
-            performSearch(
-                searchInput.value.trim()
-            );
+            runSearch();
 
         },300);
 
     }
 );
-
 
 if(urlQuery){
 
@@ -89,12 +94,12 @@ if(urlQuery){
 }
 
 async function loadDiscoverAnime(){
-
+    
     const data =
     await getTrendingAnime();
-
+    
     if(data.success){
-
+        
         displayAnime(
             data.results,
             "animeContainer"
@@ -104,7 +109,97 @@ async function loadDiscoverAnime(){
             "resultsTitle"
         ).textContent =
         "🔥 Discover Anime";
+        
+    }
+    
+}
+
+async function runSearch(){
+
+    const query =
+    searchInput.value.trim();
+
+
+    const params =
+    new URLSearchParams();
+
+
+    if(query)
+        params.append("q",query);
+
+
+    if(genreFilter.value)
+        params.append(
+            "genre",
+            genreFilter.value
+        );
+
+
+    if(formatFilter.value)
+        params.append(
+            "format",
+            formatFilter.value
+        );
+
+
+    if(yearFilter.value)
+        params.append(
+            "year",
+            yearFilter.value
+        );
+
+
+    if(seasonFilter.value)
+        params.append(
+            "season",
+            seasonFilter.value
+        );
+
+
+    if(sortFilter.value)
+        params.append(
+            "sort",
+            sortFilter.value
+        );
+
+
+    if(query || params.toString()){
+
+
+        const data =await searchAnimeWithFilters(params);
+
+
+        if(data.success){
+            displayAnime(
+                data.results,
+                "animeContainer"
+            );
+
+        }
+
+
+    }else{
+
+
+        loadDiscoverAnime();
+
 
     }
 
 }
+
+[
+    genreFilter,
+    formatFilter,
+    yearFilter,
+    seasonFilter,
+    sortFilter
+
+].forEach(filter => {
+
+    filter.addEventListener(
+        "change",
+        runSearch
+    );
+
+});
