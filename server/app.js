@@ -15,6 +15,7 @@ const cors = require("cors");
 const pool = require("./db/db");
 const animeRoutes = require("./routes/animeRoutes");
 const authRoutes = require("./routes/authRoutes");
+const verifyToken = require("./middleware/authMiddleware");
 
 
 // ===============================
@@ -51,7 +52,21 @@ app.use(
     "/api/auth",
     authRoutes
 );
+app.get(
+    "/api/auth/profile",
+    verifyToken,
+    (req,res)=>{
 
+        res.json({
+
+            success:true,
+
+            user:req.user
+
+        });
+
+    }
+);
 // ===============================
 // Database test
 // Temporary check that Neon/PostgreSQL works
