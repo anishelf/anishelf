@@ -89,3 +89,22 @@ async function getProfile(){
     return await response.json();
 
 }
+
+async function logoutUser(){
+
+    const response =
+    await fetch(
+        `${AUTH_URL}/logout`,
+        {
+
+            method:"POST",
+
+            credentials:"include"
+
+        }
+    );
+
+
+    return await response.json();
+
+}

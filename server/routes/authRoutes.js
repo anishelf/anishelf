@@ -2,7 +2,8 @@ const express = require("express");
 
 const {
     register,
-    login
+    login,
+    logout
 } = require("../controllers/authController");
 
 
@@ -21,6 +22,10 @@ router.post(
     login
 );
 
+router.post(
+    "/logout",
+    logout
+);
 
 
 module.exports = router;

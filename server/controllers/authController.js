@@ -206,13 +206,31 @@ const login = async(req,res)=>{
     }
 
 };
+const logout = (req,res)=>{
 
+    res.clearCookie(
+        "token",
+        {
+            httpOnly:true,
+            secure:true,
+            sameSite:"none"
+        }
+    );
+
+
+    res.json({
+
+        success:true,
+
+        message:"Logged out"
+
+    });
+
+};
 
 
 module.exports = {
-
     register,
-
-    login
-
+    login,
+    logout
 };
