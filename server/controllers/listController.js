@@ -199,11 +199,179 @@ const getList = async(req,res)=>{
     }
 
 };
+const addAnimeToList = async(req,res)=>{
 
+    try{
+
+        const listId =
+        req.params.id;
+
+        const {
+
+            anime_id,
+
+            anime_title,
+
+            anime_cover
+
+        } = req.body;
+
+
+
+        const listCheck =
+        await pool.query(
+
+            `
+            SELECT *
+            FROM lists
+            WHERE id = $1
+            AND user_id = $2
+            `,
+
+            [
+                listId,
+                req.user.id
+            ]
+
+        );
+
+
+
+        if(
+            listCheck.rows.length === 0
+        ){
+
+            return res.status(404).json({
+
+                success:false,
+
+                message:"List not found"
+
+            });
+
+        }
+
+
+
+        const result =
+        await pool.query(
+
+            `
+            INSERT INTO list_anime
+            (
+                list_id,
+                anime_id,
+                anime_title,
+                anime_cover
+            )
+            VALUES
+            (
+                $1,
+                $2,
+                $3,
+                $4
+            )
+            RETURNING *
+            `,
+
+            [
+                listId,
+                anime_id,
+                anime_title,
+                anime_cover
+            ]
+
+        );
+
+
+
+        res.status(201).json({
+
+            success:true,
+
+            anime:
+            result.rows[0]
+
+        });
+
+    }catch(error){
+
+        console.error(error);
+
+        res.status(500).json({
+
+            success:false,
+
+            message:
+            "Failed to add anime"
+
+        });
+
+    }
+
+};
+
+
+
+const getListAnime = async(req,res)=>{
+
+    try{
+
+        const listId =
+        req.params.id;
+
+
+
+        const result =
+        await pool.query(
+
+            `
+            SELECT *
+            FROM list_anime
+            WHERE list_id = $1
+            ORDER BY created_at DESC
+            `,
+
+            [
+                listId
+            ]
+
+        );
+
+
+
+        res.json({
+
+            success:true,
+
+            anime:
+            result.rows
+
+        });
+
+    }catch(error){
+
+        console.error(error);
+
+        res.status(500).json({
+
+            success:false,
+
+            message:
+            "Failed to load anime"
+
+        });
+
+    }
+
+};
 
 module.exports = {
 
     getLists,
     createList,
-    getList
+    getList,
+    addAnimeToList,
+    getListAnime
+
 };

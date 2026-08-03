@@ -13,7 +13,9 @@ require("../middleware/authMiddleware");
 const {
     getLists,
     createList,
-    getList
+    getList,
+    addAnimeToList,
+    getListAnime
 } = require(
     "../controllers/listController"
 );
@@ -37,6 +39,20 @@ router.get(
     "/:id",
     verifyToken,
     getList
+);
+
+router.post(
+    "/:id/anime",
+    verifyToken,
+    addAnimeToList
+);
+
+
+
+router.get(
+    "/:id/anime",
+    verifyToken,
+    getListAnime
 );
 
 module.exports =
