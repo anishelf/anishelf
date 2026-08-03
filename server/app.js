@@ -15,6 +15,7 @@ const cookieParser = require("cookie-parser");
 const pool = require("./db/db");
 const animeRoutes = require("./routes/animeRoutes");
 const authRoutes = require("./routes/authRoutes");
+const listRoutes =require("./routes/listRoutes");
 const verifyToken = require("./middleware/authMiddleware");
 
 
@@ -81,6 +82,10 @@ app.use("/api/anime", animeRoutes);
 app.use(
     "/api/auth",
     authRoutes
+);
+app.use(
+    "/api/lists",
+    listRoutes
 );
 app.get(
     "/api/auth/profile",
