@@ -2,21 +2,25 @@
 // AniShelf Navbar
 // ========================================
 
-function renderNavbar(){
+
+async function renderNavbar(){
 
     const navLinks =
     document.getElementById(
         "navLinks"
     );
 
+
     if(!navLinks) return;
 
-    const user =
-    JSON.parse(
-        localStorage.getItem("user")
-    );
 
-    if(user){
+
+    const result =
+    await checkAuth();
+
+
+
+    if(result.success){
 
         navLinks.innerHTML = `
 
@@ -26,11 +30,13 @@ function renderNavbar(){
                 </a>
             </li>
 
+
             <li>
                 <a href="search.html">
                     Search
                 </a>
             </li>
+
 
             <li>
                 <a href="library.html">
@@ -38,11 +44,13 @@ function renderNavbar(){
                 </a>
             </li>
 
+
             <li>
                 <a href="community.html">
                     Community
                 </a>
             </li>
+
 
             <li>
                 <a href="ai-search.html">
@@ -50,15 +58,58 @@ function renderNavbar(){
                 </a>
             </li>
 
+
             <li>
                 <a href="profile.html">
                     Profile
                 </a>
             </li>
 
+
+            <li>
+                <button id="logoutBtn">
+                    Logout
+                </button>
+            </li>
+
         `;
 
+
+        const logoutBtn =
+        document.getElementById(
+            "logoutBtn"
+        );
+
+
+        if(logoutBtn){
+
+            logoutBtn.addEventListener(
+                "click",
+                async()=>{
+
+
+                    const response =
+                    await logoutUser();
+
+
+
+                    if(response.success){
+
+                        window.location.href =
+                        "index.html";
+
+                    }
+
+
+                }
+            );
+
+        }
+
+
+
     }else{
+
 
         navLinks.innerHTML = `
 
@@ -68,17 +119,20 @@ function renderNavbar(){
                 </a>
             </li>
 
+
             <li>
                 <a href="search.html">
                     Search
                 </a>
             </li>
 
+
             <li>
                 <a href="login.html">
                     Login
                 </a>
             </li>
+
 
             <li>
                 <a href="signup.html">
@@ -88,8 +142,15 @@ function renderNavbar(){
 
         `;
 
+
     }
+
 
 }
 
-renderNavbar();
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    renderNavbar
+);

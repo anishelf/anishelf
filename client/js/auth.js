@@ -108,3 +108,25 @@ async function logoutUser(){
     return await response.json();
 
 }
+async function checkAuth(){
+
+    const response =
+    await fetch(
+        `${AUTH_URL}/profile`,
+        {
+
+            method:"GET",
+
+            credentials:"include"
+
+        }
+    );
+
+
+    const data =
+    await response.json();
+
+
+    return data;
+
+}

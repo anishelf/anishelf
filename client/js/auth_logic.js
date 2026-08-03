@@ -36,22 +36,8 @@ if(loginForm){
 
             if(result.success){
 
-
-                localStorage.setItem(
-                    "token",
-                    result.token
-                );
-
-
-                localStorage.setItem(
-                    "user",
-                    JSON.stringify(result.user)
-                );
-
-
                 window.location.href =
                 "index.html";
-
 
             }else{
 
