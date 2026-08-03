@@ -85,15 +85,76 @@ app.use(
 app.get(
     "/api/auth/profile",
     verifyToken,
-    (req,res)=>{
+    async(req,res)=>{
 
-        res.json({
+        try{
 
-            success:true,
 
-            user:req.user
+            const result =
+            await pool.query(
 
-        });
+                `
+                SELECT
+                    id,
+                    username,
+                    email
+                FROM users
+                WHERE id = $1
+                `,
+
+                [
+                    req.user.id
+                ]
+
+            );
+
+
+
+            if(
+                result.rows.length === 0
+            ){
+
+                return res.status(404).json({
+
+                    success:false,
+
+                    message:
+                    "User not found"
+
+                });
+
+            }
+
+
+
+            res.json({
+
+                success:true,
+
+                user:
+                result.rows[0]
+
+            });
+
+
+
+        }catch(error){
+
+
+            console.error(error);
+
+
+
+            res.status(500).json({
+
+                success:false,
+
+                message:
+                "Server error"
+
+            });
+
+        }
 
     }
 );

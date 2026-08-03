@@ -65,48 +65,7 @@ async function renderNavbar(){
                 </a>
             </li>
 
-
-            <li>
-                <button id="logoutBtn">
-                    Logout
-                </button>
-            </li>
-
         `;
-
-
-        const logoutBtn =
-        document.getElementById(
-            "logoutBtn"
-        );
-
-
-        if(logoutBtn){
-
-            logoutBtn.addEventListener(
-                "click",
-                async()=>{
-
-
-                    const response =
-                    await logoutUser();
-
-
-
-                    if(response.success){
-
-                        window.location.href =
-                        "index.html";
-
-                    }
-
-
-                }
-            );
-
-        }
-
-
 
     }else{
 

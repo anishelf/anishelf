@@ -3,50 +3,105 @@
 // ========================================
 
 
-const user =
-JSON.parse(
-    localStorage.getItem("user")
+document.addEventListener(
+    "DOMContentLoaded",
+    async()=>{
+
+
+        const result =
+        await checkAuth();
+
+
+
+        if(!result.success){
+
+            window.location.href =
+            "login.html";
+
+            return;
+
+        }
+
+
+
+        const user =
+        result.user;
+
+
+
+        document.getElementById(
+            "username"
+        ).textContent =
+        user.username;
+
+
+
+        document.getElementById(
+            "email"
+        ).textContent =
+        user.email ||
+        "No email available";
+
+
+
+        document
+        .getElementById(
+            "logoutBtn"
+        )
+        .addEventListener(
+            "click",
+            async()=>{
+
+
+                const response =
+                await logoutUser();
+
+
+
+                if(response.success){
+
+                    window.location.href =
+                    "index.html";
+
+                }
+
+
+            }
+        );
+
+
+    }
 );
 
 
-if(!user){
 
-    window.location.href =
-    "login.html";
-
-}
-
-
-
+const logoutBtn =
 document.getElementById(
-    "username"
-).textContent =
-user.username;
+    "logoutBtn"
+);
+
+
+if(logoutBtn){
+
+    logoutBtn.addEventListener(
+        "click",
+        async()=>{
+
+
+            const response =
+            await logoutUser();
 
 
 
-document.getElementById(
-    "email"
-).textContent =
-user.email || "No email available";
+            if(response.success){
+
+                window.location.href =
+                "index.html";
+
+            }
 
 
-
-
-document
-.getElementById("logoutBtn")
-.addEventListener(
-"click",
-()=>{
-
-
-    localStorage.removeItem(
-        "user"
+        }
     );
 
-
-    window.location.href =
-    "index.html";
-
-
-});
+}
