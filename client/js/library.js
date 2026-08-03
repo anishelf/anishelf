@@ -3,12 +3,10 @@ document.getElementById(
     "createListBtn"
 );
 
-
 const modal =
 document.getElementById(
     "listModal"
 );
-
 
 createListBtn.addEventListener(
     "click",
@@ -20,91 +18,145 @@ createListBtn.addEventListener(
 
     }
 );
+
 document
-.getElementById("saveListBtn")
+.getElementById(
+    "closeModalBtn"
+)
 .addEventListener(
-"click",
-()=>{
+    "click",
+    () => {
 
-    const name =
-    document.getElementById(
-        "listName"
-    ).value.trim();
-    const description =
-    document.getElementById(
-        "listDescription"
-    ).value.trim();
+        modal.classList.add(
+            "hidden"
+        );
 
-    if(!name) return;
+    }
+);
 
+document
+.getElementById(
+    "saveListBtn"
+)
+.addEventListener(
+    "click",
+    async()=>{
 
-    const lists =
-    JSON.parse(
-        localStorage.getItem(
-            "animeLists"
-        )
-    ) || [];
+        const name =
+        document.getElementById(
+            "listName"
+        ).value.trim();
 
+        const description =
+        document.getElementById(
+            "listDescription"
+        ).value.trim();
 
-    lists.push({
+        if(!name) return;
 
-        id:Date.now(),
+        const result =
+        await createList(
 
-        name,
-        description,
-        anime:[]
+            name,
 
-    });
+            description
 
+        );
 
-    localStorage.setItem(
+        if(result.success){
 
-        "animeLists",
+            modal.classList.add(
+                "hidden"
+            );
 
-        JSON.stringify(lists)
+            document.getElementById(
+                "listName"
+            ).value = "";
 
-    );
+            document.getElementById(
+                "listDescription"
+            ).value = "";
 
+            loadLists();
 
-    modal.classList.add(
-        "hidden"
-    );
+        }else{
 
+            alert(
+                result.message ||
+                "Failed to create list"
+            );
 
-    loadLists();
+        }
 
-});
-function loadLists(){
+    }
+);
+
+async function loadLists(){
 
     const container =
     document.getElementById(
         "libraryLists"
     );
 
+    const result =
+    await getLists();
+
+    if(!result.success){
+
+        container.innerHTML = `
+
+            <p>
+                Failed to load lists
+            </p>
+
+        `;
+
+        return;
+
+    }
 
     const lists =
-    JSON.parse(
-        localStorage.getItem(
-            "animeLists"
-        )
-    ) || [];
+    result.lists;
 
+    if(lists.length === 0){
+
+        container.innerHTML = `
+
+            <p>
+                No lists yet.
+            </p>
+
+        `;
+
+        return;
+
+    }
 
     container.innerHTML =
     lists.map(list => `
 
-        <div class="library-card" onclick="openList(${list.id})">
+        <div
+        class="library-card"
+        onclick="openList(${list.id})">
 
             <h3>
+
                 ${list.name}
+
             </h3>
+
             <p class="description">
-                ${list.description || "No description"}
+
+                ${
+                    list.description ||
+                    "No description"
+                }
+
             </p>
+
             <p>
 
-                ${list.anime.length}
-                Anime
+                0 Anime
 
             </p>
 
@@ -120,18 +172,5 @@ function openList(id){
     `library-list.html?id=${id}`;
 
 }
-
-document
-.getElementById("closeModalBtn")
-.addEventListener(
-"click",
-()=>{
-
-    modal.classList.add(
-        "hidden"
-    );
-
-});
-
 
 loadLists();

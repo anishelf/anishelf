@@ -12,7 +12,8 @@ require("../middleware/authMiddleware");
 
 const {
     getLists,
-    createList
+    createList,
+    getList
 } = require(
     "../controllers/listController"
 );
@@ -29,6 +30,13 @@ router.post(
     "/",
     verifyToken,
     createList
+);
+
+
+router.get(
+    "/:id",
+    verifyToken,
+    getList
 );
 
 module.exports =

@@ -5,84 +5,113 @@ new URLSearchParams(
 
 
 const listId =
-Number(
-    params.get("id")
-);
+params.get("id");
 
 
-const lists =
-JSON.parse(
-    localStorage.getItem(
-        "animeLists"
-    )
-) || [];
+async function loadList(){
 
 
-const list =
-lists.find(
-    item => item.id === listId
-);
+    const response =
+    await fetch(
+
+        `https://anishelf-api.onrender.com/api/lists/${listId}`,
+
+        {
+
+            credentials:"include"
+
+        }
+
+    );
 
 
-const container =
-document.getElementById(
-    "listPage"
-);
+    const result =
+    await response.json();
 
 
-if(!list){
 
-    container.innerHTML =
-    "<h1>List not found</h1>";
+    const container =
+    document.getElementById(
+        "listPage"
+    );
 
-}else{
+
+
+    if(!result.success){
+
+        container.innerHTML =
+        "<h1>List not found</h1>";
+
+        return;
+
+    }
+
+
+
+    const list =
+    result.list;
+
+
 
     container.innerHTML = `
 
-    <div class="list-card">
+        <div class="list-card">
 
-        
 
-        <div class="list-header">
+            <div class="list-header">
 
-            <h1>
 
-                ${list.name}
+                <h1>
 
-            </h1>
+                    ${list.name}
 
-            <button
-            class="back-btn"
-            onclick="history.back()">
+                </h1>
 
-                ← Back
 
-            </button>
+                <button
+                class="back-btn"
+                onclick="history.back()">
+
+                    ← Back
+
+                </button>
+
+
+            </div>
+
+
+
+            <p>
+
+                ${
+                    list.description ||
+                    "No description"
+                }
+
+            </p>
+
+
+
+            <h3>
+
+                0 Anime
+
+            </h3>
+
+
+
+            <div
+            class="anime-container">
+
+            </div>
+
 
         </div>
-
-        <p>
-
-            ${
-                list.description ||
-                "No description"
-            }
-
-        </p>
-
-        <h3>
-
-            ${list.anime.length}
-            Anime
-
-        </h3>
-
-        <div
-        class="anime-container">
-
-        </div>
-
-    </div>
 
     `;
+
+
 }
+
+
+loadList();
