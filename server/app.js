@@ -40,7 +40,7 @@ const allowedOrigins = [
 
     "http://127.0.0.1:5500",
 
-    "http://anishelf-alpha.vercel.app"
+    "https://anishelf-alpha.vercel.app"
 
 ];
 
