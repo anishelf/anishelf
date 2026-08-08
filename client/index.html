@@ -1,368 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1.0">
+        <title>AniShelf</title>
+        <!-- Google Font -->
+        <link rel="preconnect"
+            href="https://fonts.googleapis.com">
+        <link rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet">
+        <!-- CSS -->
+        <link rel="stylesheet" href="css/base/variable.css">
+        <link rel="stylesheet" href="css/base/reset.css">
+        <link rel="stylesheet" href="css/base/global.css">
 
-<head>
+        <link rel="stylesheet" href="css/components/navbar.css">
+     
+        <link rel="stylesheet" href="css/components/shelves.css">
+        <link rel="stylesheet" href="css/components/slider.css">
+        <link rel="stylesheet" href="css/components/animeCards.css">
+        <link rel="stylesheet" href="css/components/dropdown.css">
+        <link rel="stylesheet" href="css/components/button.css">
 
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/pages/home.css">
+        <link rel="stylesheet" href="assets/modal/css/modal.css">
+    </head>
 
-    <title>AniShelf</title>
-
-    <!-- Google Font -->
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
-
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/hero.css">
-    <link rel="stylesheet" href="css/cards.css">
-    <link rel="stylesheet" href="css/responsive.css">
-
-</head>
-
-<body>
-
-    <!-- ========================= -->
-    <!-- Navbar -->
-    <!-- ========================= -->
-
-    <nav class="navbar">
-
-        <div class="logo">
-            AniShelf
-        </div>
-
-        <ul class="nav-links" id="navLinks">
-
-        </ul>
-
-    </nav>
-
-    <!-- ========================= -->
-    <!-- Hero Section -->
-    <!-- ========================= -->
-
-
-
-
-
-
-
-    <section class="hero" id="featuredHero">
-
-        <div class="hero-content">
-
-            <h1 id="featuredTitle">
-                Loading anime...
-            </h1>
-
-
-            <p id="featuredDescription">
-                Discovering something amazing...
-            </p>
-
-
-            <div class="hero-info">
-
-                <span id="featuredScore">
-                    ⭐ --
-                </span>
-
-
-                <span id="featuredYear">
-                    --
-                </span>
-
+    <body>
+        <!-- ========================= -->
+        <!-- Navbar -->
+        <!-- ========================= -->
+        <nav class="navbar">
+            <div class="logo">
+                AniShelf
             </div>
+            <ul class="nav-links" id="navLinks">
+            </ul>
+        </nav>
+        <!-- ========================= -->
+        <!-- Hero Section -->
+        <!-- ========================= -->
+        <section class="hero" id="featuredHero">
 
+            <div class="hero-content">
 
-            
-            
-            <!-- Keep your search -->
-            
-            <div class="search-box">
-                
-                <input
-                type="text"
-                id="searchInput"
-                placeholder="Search anime...">
-                
+                <h1 id="featuredTitle">
+                    Loading anime...
+                </h1>
+                <p id="featuredDescription">
+                    Discovering something amazing...
+                </p>
+                <div class="hero-info">
+                    <span id="featuredScore">
+                        ⭐ --
+                    </span>
+                    <span id="featuredYear">
+                        --
+                    </span>
+                </div>
+                <!-- search -->
+                <div class="search-box">
+                    <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search anime...">
+                </div>
+                <div class="hero-bottom">
+                    <!--CAROUSEL DOTS -->
+                    <div
+                        id="heroIndicators"
+                        class="hero-indicators">
+                    </div>
+                    <!-- HERO BUTTONS -->
+                    <div class="hero-buttons">
+                        <a
+                            id="heroDetailsBtn"
+                            class="hero-btn primary">
+                            ▶ View Details
+                        </a>
+                        <button
+                            id="heroListBtn"
+                            class="hero-btn secondary">
+                            ➕ Add To List
+                        </button>
+
+                    </div>
+                </div>
             </div>
-            <div class="hero-bottom">
-
-                <!-- NEW CAROUSEL DOTS -->
-    
+        </section>
+        <!-- trending anime-->
+        <section class="anime-section">
+            <div class="section-header">
+                <h2>Trending Anime</h2>
+            </div>
+            <div class="slider-wrapper">
+                <button
+                    class="slider-btn left"
+                    data-target="trendingContainer">
+                    &#10094;
+                </button>
                 <div
-                    id="heroIndicators"
-                    class="hero-indicators">
-    
+                    class="anime-container slider"
+                    id="trendingContainer">
                 </div>
-                <!-- NEW HERO BUTTONS -->
-    
-                <div class="hero-buttons">
-    
-                    <a
-                        id="heroDetailsBtn"
-                        class="hero-btn primary">
-    
-                        ▶ View Details
-    
-                    </a>
-    
-    
-                    <button
-                        id="heroListBtn"
-                        class="hero-btn secondary">
-    
-                        ➕ Add To List
-    
-                    </button>
-    
+
+                <button
+                    class="slider-btn right"
+                    data-target="trendingContainer">
+                    &#10095;
+                </button>
+            </div>
+        </section>
+        <!-- new releases -->
+        <section class="anime-section">
+            <div class="section-header">
+                <h2>New Releases</h2>
+            </div>
+            <div class="slider-wrapper">
+                <button
+                    class="slider-btn left"
+                    data-target="newContainer">
+                    &#10094;
+                </button>
+                <div
+                    class="anime-container slider"
+                    id="newContainer">
                 </div>
-                
+                <button
+                    class="slider-btn right"
+                    data-target="newContainer">
+                    &#10095;
+                </button>
             </div>
-
-        </div>
-
-    </section>
-
-    <section class="anime-section">
-
-        <div class="section-header">
-
-            <h2>Trending Anime</h2>
-
-        </div>
-
-        <div class="slider-wrapper">
-
-            <button
-                class="slider-btn left"
-                data-target="trendingContainer">
-
-                &#10094;
-
-            </button>
-
-            <div
-                class="anime-container slider"
-                id="trendingContainer">
-
+        </section>
+        <!-- Top Rated -->
+        <section class="anime-section">
+            <div class="section-header">
+                <h2>Top Rated</h2>
             </div>
+            <div class="slider-wrapper">
+                <button class="slider-btn left"
+                data-target="topRatedContainer">
+                    &#10094;
+                </button>
+                <div
+                    class="anime-container slider"
+                    id="topRatedContainer">
 
-            <button
-                class="slider-btn right"
-                data-target="trendingContainer">
-
-                &#10095;
-
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <section class="anime-section">
-
-        <div class="section-header">
-
-            <h2>New Releases</h2>
-
-        </div>
-
-        <div class="slider-wrapper">
-
-            <button
-                class="slider-btn left"
-                data-target="newContainer">
-
-                &#10094;
-
-            </button>
-
-            <div
-                class="anime-container slider"
-                id="newContainer">
-
+                </div>
+                <button class="slider-btn right"
+                data-target="topRatedContainer">
+                    &#10095;
+                </button>
             </div>
-
-            <button
-                class="slider-btn right"
-                data-target="newContainer">
-
-                &#10095;
-
-            </button>
-
-        </div>
-
-    </section>
-    
-
-
-    <section class="anime-section">
-
-        <div class="section-header">
-
-            <h2>Top Rated</h2>
-
-        </div>
-
-        <div class="slider-wrapper">
-
-            <button class="slider-btn left"
-            data-target="topRatedContainer">
-
-                &#10094;
-
-            </button>
-
-            <div
-                class="anime-container slider"
-                id="topRatedContainer">
-
+        </section>
+        <!-- Anime Movies -->
+        <section class="anime-section">
+            <div class="section-header">
+                <h2>Anime Movies </h2>
             </div>
-
-            <button class="slider-btn right"
-            data-target="topRatedContainer">
-
-                &#10095;
-
-            </button>
-
-        </div>
-
-    </section>
-
-    <section class="anime-section">
-
-        <div class="section-header">
-
-            <h2>Anime Movies </h2>
-
-        </div>
-
-        <div class="slider-wrapper">
-
-            <button class="slider-btn left"
-            data-target="moviesContainer">
-
-                &#10094;
-
-            </button>
-
-            <div
-                class="anime-container slider"
-                id="moviesContainer">
-
+            <div class="slider-wrapper">
+                <button class="slider-btn left"
+                data-target="moviesContainer">
+                    &#10094;
+                </button>
+                <div
+                    class="anime-container slider"
+                    id="moviesContainer">
+                </div>
+                <button class="slider-btn right"
+                data-target="moviesContainer">
+                    &#10095;
+                </button>
             </div>
-
-            <button class="slider-btn right"
-            data-target="moviesContainer">
-
-                &#10095;
-
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-
-    <section class="anime-section">
-
-        <div class="section-header">
-
-            <h2>Horror Anime</h2>
-
-        </div>
-
-        <div class="slider-wrapper">
-
-            <button class="slider-btn left"
-            data-target="horrorContainer">
-
-                &#10094;
-
-            </button>
-
-            <div
-                class="anime-container slider"
-                id="horrorContainer">
-
+        </section>
+        <!-- Horror Anime -->
+        <section class="anime-section">
+            <div class="section-header">
+                <h2>Horror Anime</h2>
             </div>
-
-            <button class="slider-btn right"
-            data-target="horrorContainer">
-
-                &#10095;
-
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <section class="anime-section">
-
-        <div class="section-header">
-
-            <h2>Upcoming Anime</h2>
-
-        </div>
-
-        <div class="slider-wrapper">
-
-            <button class="slider-btn left"
-            data-target="upcomingContainer">
-
-                &#10094;
-
-            </button>
-
-            <div
-                class="anime-container slider"
-                id="upcomingContainer">
-
+            <div class="slider-wrapper">
+                <button class="slider-btn left"
+                data-target="horrorContainer">
+                    &#10094;
+                </button>
+                <div
+                    class="anime-container slider"
+                    id="horrorContainer">
+                </div>
+                <button class="slider-btn right"
+                data-target="horrorContainer">
+                    &#10095;
+                </button>
             </div>
+        </section>
+        <!-- Upcoming Anime -->
+        <section class="anime-section">
+            <div class="section-header">
+                <h2>Upcoming Anime</h2>
+            </div>
+            <div class="slider-wrapper">
+                <button class="slider-btn left"
+                data-target="upcomingContainer">
+                    &#10094;
+                </button>
+                <div
+                    class="anime-container slider"
+                    id="upcomingContainer">
+                </div>
+                <button class="slider-btn right"
+                data-target="upcomingContainer">
+                    &#10095;
+                </button>
+            </div>           
+        </section>
+        <!--modal-->
+        <div id="globalModal"></div>
+        <!-- JavaScript -->
+        <script src="assets/modal/js/modal.js"></script>
 
-            <button class="slider-btn right"
-            data-target="upcomingContainer">
+        <script src="js/api/animeApi.js"></script>
+        <script src="js/api/authApi.js"></script>
+        <script src="js/api/listApi.js"></script>
 
-                &#10095;
+        <script src="js/componenets/navbar.js"></script>
+        <script src="js/componenets/animeCard.js"></script>
+        <script src="js/componenets/dropdown.js"></script>
+        <script src="js/componenets/cardActions.js"></script>
 
-            </button>
+        <script src="js/ui.js"></script>
 
-        </div>
+        <script src="js/componenets/featuredHero.js"></script>
+        <script src="js/componenets/slider.js"></script>
 
-    </section>
+        <script src="js/pages/home.js"></script>
 
-    <!-- JavaScript -->
-    <script src="js/auth.js"></script>
-    <script src="js/auth_logic.js"></script>
-    <script src="js/navbar.js"></script>
-    <script src="js/api.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/slider.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/hero.js"></script>
-    <script src="js/app.js"></script>
-
-</body>
+    </body>
 
 </html>

@@ -1,0 +1,81 @@
+/* ==========================================
+   CARD DROPDOWN MENU
+========================================== */
+.card-dropdown{
+    position:absolute;
+    top: 40px;
+    right:0;
+    width:170px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:.5rem;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-10px);
+    transition:.2s ease;
+    z-index:9999;
+
+}
+
+
+
+.card-dropdown.active{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+
+
+.dropdown-item{
+    position: relative;
+    z-index: 100000;
+    width:100%;
+
+    padding:.7rem;
+
+    border:none;
+
+    background:none;
+
+    color:var(--text);
+
+    text-align:left;
+
+    border-radius:10px;
+
+}
+
+
+
+.dropdown-item:hover{
+
+    background:
+    rgba(255,255,255,.08);
+
+}
+
+.card-dropdown .dropdown-item {
+    position: relative;
+    z-index: 100000;
+
+    width: 100%;
+
+    padding: .7rem;
+
+    border: none;
+
+    background: none;
+
+    color: var(--text);
+
+    text-align: left;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+.card-dropdown .dropdown-item:hover {
+    background: rgba(255,255,255,.08);
+}

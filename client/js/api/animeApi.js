@@ -107,6 +107,10 @@ async function getFeaturedAnime() {
     }
 
 }
+// ============================
+// Get new releases
+// ============================
+
 
 async function getNewReleases(){
 
@@ -118,6 +122,10 @@ async function getNewReleases(){
     return await response.json();
 
 }
+// ============================
+// Get top rated animes
+// ============================
+
 
 async function getTopRatedAnime(){
 
@@ -129,7 +137,9 @@ async function getTopRatedAnime(){
     return await response.json();
 
 }
-
+// ============================
+// Get anime movies
+// ============================
 
 async function getMovies(){
 
@@ -141,7 +151,9 @@ async function getMovies(){
     return await response.json();
 
 }
-
+// ============================
+// Get horror anime
+// ============================
 
 async function getHorrorAnime(){
 
@@ -153,6 +165,9 @@ async function getHorrorAnime(){
     return await response.json();
 
 }
+// ============================
+// Get upcoming anime
+// ============================
 
 
 async function getUpcomingAnime(){
@@ -166,6 +181,9 @@ async function getUpcomingAnime(){
 
 }
 
+// ============================
+// search anime with filters
+// ============================
 async function searchAnimeWithFilters(params){
 
     try {

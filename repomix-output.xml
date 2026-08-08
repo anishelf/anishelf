@@ -1,0 +1,2148 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+base/
+  global.css
+  reset.css
+  variable.css
+components/
+  animeCards.css
+  button.css
+  dropdown.css
+  hero.css
+  navbar.css
+  shelves.css
+  slider.css
+pages/
+  animeDetails.css
+  auth.css
+  home.css
+  library.css
+  libraryList.css
+  profile.css
+  search.css
+responsive.css
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="base/global.css">
+body{
+    font-family:"Poppins",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+}
+
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    top:-250px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:900px;
+
+    height:900px;
+
+    background:radial-gradient(
+        circle,
+        rgba(139,92,246,.18),
+        rgba(59,130,246,.08),
+        transparent 70%
+    );
+
+    pointer-events:none;
+
+    z-index:-1;
+}
+
+
+.hidden{
+    display:none;
+}
+</file>
+
+<file path="base/reset.css">
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+ul{
+    list-style:none;
+}
+</file>
+
+<file path="base/variable.css">
+:root{
+
+    --bg:#0A0A0F;
+
+    --surface:#141420;
+
+    --purple:#8B5CF6;
+
+    --blue:#3B82F6;
+
+    --text:#F8FAFC;
+
+    --muted:#94A3B8;
+
+    --border:#252535;
+
+    --gradient:
+        linear-gradient(
+            90deg,
+            #8B5CF6,
+            #3B82F6
+        );
+
+}
+</file>
+
+<file path="components/animeCards.css">
+/* ===========================
+   ANIME GRID
+=========================== */
+
+.anime-container{
+
+    display:flex;
+
+    gap:1.5rem;
+
+    overflow-x:auto;
+
+    padding:1rem 0 2rem;
+
+    scroll-behavior:smooth;
+
+}
+
+
+/* Hide scrollbar */
+
+.anime-container::-webkit-scrollbar{
+
+    display:none;
+
+}
+
+/* ===========================
+   ANIME CARD CONTAINER
+=========================== */
+
+.anime-container{
+
+    display:flex;
+
+    gap:1.5rem;
+
+    overflow-x:auto;
+
+    padding:1rem 0 2rem;
+
+    scroll-behavior:smooth;
+
+}
+
+
+/* Hide scrollbar */
+
+.anime-container::-webkit-scrollbar{
+
+    display:none;
+
+}
+
+
+
+/* ===========================
+   ANIME CARD
+=========================== */
+
+.anime-card{
+
+    background:var(--surface);
+
+    width:250px;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    flex-shrink:0;
+
+    cursor:pointer;
+
+    transition:.3s ease;
+
+}
+
+
+.anime-card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+
+
+/* ===========================
+   CARD IMAGE
+=========================== */
+
+.anime-card img{
+
+    width:100%;
+
+    height:250px;
+
+    object-fit:cover;
+
+}
+
+
+
+/* ===========================
+   CARD CONTENT
+=========================== */
+
+.card-content{
+
+    padding:1rem;
+
+}
+
+
+
+.card-title-row{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:.5rem;
+
+    position:relative;
+
+}
+
+
+
+.card-title-row h3{
+
+    font-size:1rem;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+
+
+/* ===========================
+   CARD MENU BUTTON
+=========================== */
+
+.card-menu{
+
+    border:none;
+
+    background:none;
+
+    color:white;
+
+    font-size:1.5rem;
+
+    cursor:pointer;
+
+}
+
+
+
+/* ===========================
+   CARD BADGES
+=========================== */
+
+.card-badges{
+
+    display:flex;
+
+    gap:.5rem;
+
+    margin-top:.8rem;
+
+}
+
+
+
+.card-badges span{
+
+    padding:5px 10px;
+
+    border-radius:999px;
+
+    background:rgba(139,92,246,.15);
+
+    color:#b892ff;
+
+    font-size:.75rem;
+
+    font-weight:600;
+
+}
+
+
+
+/* ===========================
+   RATING BADGE
+=========================== */
+
+.rating-badge{
+
+    position:absolute;
+
+    top:12px;
+
+    right:12px;
+
+    padding:6px 12px;
+
+    border-radius:999px;
+
+    background:rgba(0,0,0,.65);
+
+    backdrop-filter:blur(8px);
+
+    font-size:.85rem;
+
+    font-weight:600;
+
+}
+</file>
+
+<file path="components/button.css">
+button{
+
+    cursor:pointer;
+
+    font-family:inherit;
+
+}
+
+
+.hero-btn{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:12px 24px;
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+}
+
+.hero-btn.primary{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+.hero-btn.secondary{
+
+    background:rgba(255,255,255,.1);
+
+    color:white;
+
+    border:1px solid rgba(255,255,255,.2);
+
+}
+.hero-buttons{
+
+    display:flex;
+
+    gap:1rem;
+
+}
+
+
+.auth-card button{
+
+    padding:1rem;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:var(--gradient);
+
+    color:white;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+}
+</file>
+
+<file path="components/dropdown.css">
+.add-list-panel{
+
+    position:fixed;
+
+    right:20px;
+
+    top:100px;
+
+    width:280px;
+
+    background:#1e1e1e;
+
+    border:1px solid rgba(
+        255,
+        255,
+        255,
+        .1
+    );
+
+    border-radius:16px;
+
+    padding:1rem;
+
+    z-index:9999;
+
+}
+
+
+.list-option,
+.create-list-btn{
+
+    width:100%;
+
+    padding:12px;
+
+    margin-top:8px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    background:rgba(
+        255,
+        255,
+        255,
+        .08
+    );
+
+    color:white;
+
+}
+
+.list-option:hover,
+.create-list-btn:hover{
+
+    background:var(--primary);
+
+}
+</file>
+
+<file path="components/hero.css">
+/* ===========================
+   HERO SECTION
+   =========================== */
+
+.hero{
+
+    height:500px;
+
+    width:min(1400px,95%);
+
+    margin:2rem auto;
+    align-items:flex-start;
+    text-align:left;
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-repeat:no-repeat;
+
+}
+
+.hero h1{
+
+    font-size:clamp(2rem, 3rem);
+
+    max-width:750px;
+
+    line-height:1.15;
+
+    margin-bottom:1rem;
+
+}
+
+.hero p{
+
+    color:var(--muted);
+
+    font-size:1.1rem;
+
+    max-width:550px;
+
+    margin-bottom:3rem;
+
+}
+
+.hero-content{
+
+    max-width:100%;
+
+    height:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:flex-end;
+
+    padding:3rem;
+
+}
+
+/* ===========================
+   SEARCH
+   =========================== */
+
+.search-box{
+
+    display:flex;
+
+    gap:1rem;
+
+    width:100%;
+
+}
+
+.search-box input{
+
+    flex:1;
+    width:100%;
+
+    padding:18px 22px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:15px;
+
+    background:var(--surface);
+
+    color:var(--text);
+
+    font-size:1rem;
+
+}
+
+.hero-bottom{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-top:1.5rem;
+
+}
+.hero-indicators{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:20px;
+
+}
+.hero-dot{
+
+    width:12px;
+
+    height:12px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,0.4);
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+}
+.hero-dot.active{
+
+    background: var(blue);
+
+    transform: scale(1.3);
+
+    box-shadow:
+        0 0 10px var(--primary);
+
+}
+
+.hero-btn{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:12px 24px;
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+}
+
+.hero-btn.primary{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+.hero-btn.secondary{
+
+    background:rgba(255,255,255,.1);
+
+    color:white;
+
+    border:1px solid rgba(255,255,255,.2);
+
+}
+.hero-buttons{
+
+    display:flex;
+
+    gap:1rem;
+
+}
+#featuredDescription{
+
+    max-width:700px;
+
+    overflow:hidden;
+
+}
+#featuredTitle{
+
+    display:-webkit-box;
+
+    -webkit-line-clamp:2;
+
+    -webkit-box-orient:vertical;
+
+    overflow:hidden;
+
+}
+
+.hero-info{
+
+    display:flex;
+
+    gap:1rem;
+
+    margin-bottom:1rem;
+
+}
+.hero-info span{
+
+    padding:8px 14px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.1);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    backdrop-filter:blur(10px);
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+}
+</file>
+
+<file path="components/navbar.css">
+/* ===========================
+   NAVBAR
+   =========================== */
+
+.navbar{
+
+    width:100%;
+
+    height:80px;
+
+    padding:0 8%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    background:rgba(10,10,15,.85);
+
+    backdrop-filter:blur(14px);
+
+    border-bottom:1px solid var(--border);
+
+}
+
+/* ===========================
+   LOGO
+   =========================== */
+
+.logo{
+
+    font-size:1.8rem;
+
+    font-weight:700;
+
+    background:var(--gradient);
+
+    background-clip:text;
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+    cursor:pointer;
+
+}
+
+/* ===========================
+   NAVIGATION LINKS
+   =========================== */
+
+.nav-links{
+
+    display:flex;
+
+    gap:2rem;
+
+}
+
+.nav-links a{
+
+    color:var(--muted);
+
+    transition:.25s;
+
+    font-weight:500;
+
+}
+
+.nav-links a:hover{
+
+    color:var(--text);
+
+}
+</file>
+
+<file path="components/shelves.css">
+.anime-section{
+
+    width:90%;
+
+    max-width:1400px;
+
+    margin:4rem auto;
+
+}
+
+
+.anime-section h2{
+
+    font-size:2rem;
+
+    margin-bottom:1.5rem;
+
+}
+</file>
+
+<file path="components/slider.css">
+/* ===========================
+   SLIDER LAYOUT
+=========================== */
+
+
+.slider-wrapper{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+
+
+.slider{
+
+    overflow-x:auto;
+
+    scroll-behavior:smooth;
+
+    scrollbar-width:none;
+
+    -ms-overflow-style:none;
+
+}
+
+
+.slider::-webkit-scrollbar{
+
+    display:none;
+
+}
+
+
+
+.slider-btn{
+
+    position:absolute;
+
+    z-index:10;
+
+    width:50px;
+
+    height:50px;
+
+    border:none;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    font-size:1.3rem;
+
+    background:rgba(20,20,35,.9);
+
+    color:white;
+
+    transition:.3s;
+
+}
+
+
+
+.slider-btn:hover{
+
+    transform:scale(1.1);
+
+}
+
+
+
+.slider-btn.left{
+
+    left:-20px;
+
+}
+
+
+
+.slider-btn.right{
+
+    right:-20px;
+
+}
+</file>
+
+<file path="pages/animeDetails.css">
+/* ========================================
+AniShelf
+File: animeDetails.css
+Purpose: Anime details page styling
+======================================== */
+
+
+.anime-details{
+
+    min-height:100vh;
+
+    padding-bottom:4rem;
+
+}
+
+
+
+.anime-banner{
+
+    height:550px;
+
+    background-size:cover;
+
+    background-position:center;
+
+}
+
+
+
+.anime-main{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    gap:2rem;
+
+    padding:0 8%;
+
+    margin-top:-300px;
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.anime-poster{
+
+    width:260px;
+
+    border-radius:15px;
+
+}
+
+
+
+.anime-info{
+
+    align-self:flex-start;
+
+    margin-top:40px;
+
+    flex:1;
+
+}
+
+
+
+.anime-info h1{
+
+    font-size:3rem;
+
+}
+
+.info-panel iframe{
+
+    width:100%;
+
+    height:420px;
+
+    border:none;
+
+    border-radius:15px;
+
+}
+
+
+.anime-content{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr;
+
+    gap:2rem;
+
+    padding:3rem 8%;
+
+}
+
+.content-left,
+.content-right{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:2rem;
+
+}
+
+.info-panel{
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:1.5rem;
+
+}
+
+.info-panel h2{
+
+    margin-bottom:1rem;
+
+}
+
+.detail-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:.9rem 0;
+
+    color:var(--muted);
+
+    border-bottom:
+    1px solid rgba(255,255,255,.06);
+
+}
+
+
+.detail-row span:last-child{
+
+    color:var(--text);
+
+    font-weight:600;
+
+}
+.detail-row:last-of-type{
+
+    border-bottom:none;
+
+}
+.genre-list{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:.6rem;
+
+    margin-top:1.5rem;
+
+}
+
+.genre-badge{
+
+    background:rgba(139,92,246,.15);
+
+    color:#b892ff;
+
+    padding:.45rem .9rem;
+
+    border-radius:999px;
+
+    font-size:.8rem;
+
+    font-weight:600;
+
+}
+.anime-actions{
+
+    display:flex;
+
+    gap:1rem;
+
+    justify-content:flex-end;
+
+    margin-top:-1.8rem;
+
+}
+
+.anime-btn{
+
+    border:none;
+
+    padding:.9rem 1.3rem;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    color:white;
+
+    background:var(--gradient);
+
+}
+.bottom-panel{
+
+    padding:0 8% 4rem;
+
+}
+.bottom-tabs{
+
+    display:flex;
+
+    gap:1rem;
+
+    margin-bottom:2rem;
+
+}
+
+.tab-btn{
+
+    border:none;
+
+    padding:.8rem 1.2rem;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    background:var(--surface);
+
+    color:var(--text);
+
+}
+
+.tab-btn.active{
+
+    background:var(--gradient);
+
+}
+.hidden{
+
+    display:none;
+
+}
+/* ===========================
+   RECOMMENDATIONS
+=========================== */
+
+
+#recommendationsTab{
+
+    margin-top:1rem;
+
+}
+
+
+#recommendationsTab .anime-container{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fill,minmax(220px,1fr));
+
+    gap:2rem;
+
+    padding-top:1rem;
+
+}
+
+
+
+#recommendationsTab .anime-card{
+
+    width:100%;
+
+}
+
+
+
+#recommendationsTab .anime-card img{
+
+    height:300px;
+
+}
+.content-left .info-panel{
+
+    background:none;
+
+    border:none;
+
+    padding:0;
+
+}
+.content-left{
+
+    gap:3rem;
+
+}
+.content-left p{
+
+    color:var(--muted);
+
+    line-height:1.8;
+
+    font-size:1rem;
+
+}
+
+/* ===========================
+   COMMENTS
+=========================== */
+
+
+.comments-box{
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:2rem;
+}
+
+
+.comments-box h2{
+
+    margin-bottom:1.5rem;
+
+}
+
+
+.comments-box textarea{
+
+    width:100%;
+
+    min-height:120px;
+
+    resize:none;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid var(--border);
+
+    border-radius:15px;
+
+    padding:1rem;
+
+    color:var(--text);
+
+    font-family:inherit;
+
+    outline:none;
+
+    margin-bottom:1rem;
+
+}
+
+
+.comments-box textarea:focus{
+
+    border-color:#8b5cf6;
+
+}
+
+.comment-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:1rem;
+
+    margin-top:1.5rem;
+
+    margin-bottom:2.5rem;
+
+}
+
+
+
+.comment-composer{
+
+    border-top:1px solid var(--border);
+
+    padding-top:2rem;
+
+}
+
+
+
+.comment-composer textarea{
+
+    margin-bottom:1rem;
+
+}
+
+
+.comment-card{
+
+    background:rgba(255,255,255,.04);
+
+    border-radius:15px;
+
+    padding:1rem 1.2rem;
+
+}
+
+
+.comment-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:.7rem;
+
+}
+
+
+.comment-header span{
+
+    color:var(--muted);
+
+    font-size:.85rem;
+
+}
+
+
+.comment-card p{
+
+    color:var(--muted);
+
+}
+</file>
+
+<file path="pages/auth.css">
+.auth-page{
+
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:2rem;
+
+}
+
+.auth-card{
+
+    width:100%;
+
+    max-width:450px;
+
+    background:var(--surface);
+
+    border-radius:24px;
+
+    padding:2rem;
+
+}
+
+.auth-card h1{
+
+    margin-bottom:.5rem;
+
+}
+
+.auth-card p{
+
+    color:var(--muted);
+
+    margin-bottom:1.5rem;
+
+}
+
+.auth-card form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:1rem;
+
+}
+
+.auth-card input{
+
+    padding:1rem;
+
+    border-radius:12px;
+
+    border:1px solid var(--border);
+
+    background:#111;
+
+    color:white;
+
+}
+
+
+
+.auth-link{
+
+    text-align:center;
+
+    margin-top:1.5rem;
+
+}
+
+.auth-link{
+
+    margin-top:2rem;
+
+    color:var(--muted);
+
+}
+
+
+.auth-link a{
+
+    color:#b892ff;
+
+    font-weight:600;
+
+    text-decoration:none;
+
+}
+
+
+.auth-link a:hover{
+
+    text-decoration:underline;
+
+}
+.auth-card h1{
+
+    font-size:2.3rem;
+
+    margin-bottom:.8rem;
+
+}
+
+
+.auth-card p{
+
+    line-height:1.6;
+
+}
+</file>
+
+<file path="pages/home.css">
+/* ===========================
+   HERO SECTION
+   =========================== */
+
+.hero{
+
+    height:500px;
+
+    width:min(1400px,95%);
+
+    margin:2rem auto;
+    align-items:flex-start;
+    text-align:left;
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-repeat:no-repeat;
+
+}
+
+.hero h1{
+
+    font-size:clamp(2rem, 3rem);
+
+    max-width:750px;
+
+    line-height:1.15;
+
+    margin-bottom:1rem;
+
+}
+
+.hero p{
+
+    color:var(--muted);
+
+    font-size:1.1rem;
+
+    max-width:550px;
+
+    margin-bottom:3rem;
+
+}
+
+.hero-content{
+
+    max-width:100%;
+
+    height:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:flex-end;
+
+    padding:3rem;
+
+}
+
+/* ===========================
+   SEARCH
+   =========================== */
+
+.search-box{
+
+    display:flex;
+
+    gap:1rem;
+
+    width:100%;
+
+}
+
+.search-box input{
+
+    flex:1;
+    width:100%;
+
+    padding:18px 22px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:15px;
+
+    background:var(--surface);
+
+    color:var(--text);
+
+    font-size:1rem;
+
+}
+
+.hero-bottom{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-top:1.5rem;
+
+}
+.hero-indicators{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:20px;
+
+}
+.hero-dot{
+
+    width:12px;
+
+    height:12px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,0.4);
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+}
+.hero-dot.active{
+
+    background: var(blue);
+
+    transform: scale(1.3);
+
+    box-shadow:
+        0 0 10px var(--primary);
+
+}
+
+.hero-btn{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:12px 24px;
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+}
+
+.hero-btn.primary{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+.hero-btn.secondary{
+
+    background:rgba(255,255,255,.1);
+
+    color:white;
+
+    border:1px solid rgba(255,255,255,.2);
+
+}
+.hero-buttons{
+
+    display:flex;
+
+    gap:1rem;
+
+}
+#featuredDescription{
+
+    max-width:700px;
+
+    overflow:hidden;
+
+}
+#featuredTitle{
+
+    display:-webkit-box;
+
+    -webkit-line-clamp:2;
+
+    -webkit-box-orient:vertical;
+
+    overflow:hidden;
+
+}
+
+.hero-info{
+
+    display:flex;
+
+    gap:1rem;
+
+    margin-bottom:1rem;
+
+}
+.hero-info span{
+
+    padding:8px 14px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.1);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    backdrop-filter:blur(10px);
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+}
+</file>
+
+<file path="pages/library.css">
+.library-page{
+
+    padding:3rem 8%;
+
+}
+
+
+.library-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:2rem;
+
+}
+
+
+.library-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fill,minmax(250px,1fr));
+
+    gap:1.5rem;
+
+}
+
+
+.library-card{
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:1.5rem;
+
+}
+
+
+.library-card h3{
+
+    margin-bottom:.8rem;
+
+}
+
+
+.library-card p{
+
+    color:var(--muted);
+
+}
+
+
+
+#createListBtn:hover{
+
+    transform:translateY(-2px);
+
+}
+.create-btn{
+
+    width:100%;
+
+    margin-top:1rem;
+
+}
+
+
+
+.list-description{
+
+    color:var(--muted);
+
+    margin:.8rem 0;
+
+    font-size:.9rem;
+
+    line-height:1.4;
+
+}
+</file>
+
+<file path="pages/libraryList.css">
+.list-page{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:flex-start;
+
+    padding:4rem 2rem;
+
+}
+
+.list-page h1{
+
+    margin-bottom:.5rem;
+
+}
+
+
+.list-page p{
+
+    color:var(--muted);
+
+    margin-bottom:2rem;
+
+}
+.list-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:1rem;
+
+}
+.list-header h1{
+
+    margin:0;
+
+}
+.list-card{
+
+    width:100%;
+
+    max-width:1000px;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:2rem;
+
+}
+
+.back-btn{
+
+    border:none;
+
+    background:rgba(255,255,255,.05);
+
+    color:var(--text);
+
+    padding:.7rem 1rem;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    transition:.2s ease;
+
+}
+.back-btn:hover{
+
+    color:#8b5cf6;
+
+}
+</file>
+
+<file path="pages/profile.css">
+.profile-page{
+
+    min-height:80vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+
+.profile-card{
+
+    width:100%;
+
+    max-width:400px;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:24px;
+
+    padding:2.5rem;
+
+    text-align:center;
+
+}
+
+
+
+.profile-avatar{
+
+    width:90px;
+
+    height:90px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:2.5rem;
+
+    background:rgba(139,92,246,.15);
+
+}
+
+
+
+.profile-card h1{
+
+    margin-top:1rem;
+
+}
+
+
+
+.profile-card p{
+
+    color:var(--muted);
+
+}
+
+
+
+.logout-btn{
+
+    margin-top:2rem;
+
+    width:100%;
+
+    padding:1rem;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:var(--gradient);
+
+    color:white;
+
+    cursor:pointer;
+
+}
+</file>
+
+<file path="pages/search.css">
+/* ==========================================
+   SEARCH HERO
+========================================== */
+
+.hero {
+    height: 130px;
+    width: min(1400px, 95%);
+    margin: 2rem auto;
+    text-align: left;
+    border-radius: 24px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hero-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 3rem;
+}
+
+.hero h1 {
+    font-size: clamp(2rem, 3rem);
+    max-width: 750px;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    color: var(--muted);
+    font-size: 1.1rem;
+    max-width: 550px;
+    margin-bottom: 3rem;
+}
+
+
+/* ==========================================
+   SEARCH BAR
+========================================== */
+
+.search-box {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.search-box input {
+    flex: 1;
+    width: 100%;
+    padding: 18px 22px;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    background: var(--surface);
+    color: var(--text);
+    font-size: 1rem;
+}
+
+
+/* ==========================================
+   SEARCH FILTERS
+========================================== */
+
+.search-filters {
+    display: flex;
+    gap: 1rem;
+    width: min(1000px, 95%);
+    margin: 1.5rem auto 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.search-filters select {
+    appearance: none;
+    background: rgba(255,255,255,.05);
+    backdrop-filter: blur(10px);
+    color: white;
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 999px;
+    padding: 12px 20px;
+    min-width: 150px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.search-filters select:hover {
+    transform: translateY(-3px);
+    border-color: var(--purple);
+}
+
+.search-filters select:focus {
+    box-shadow: 0 0 0 3px rgba(139,92,246,.25);
+}
+
+/* ==========================================
+   SEARCH RESULTS
+========================================== */
+
+.anime-section {
+    padding: 2rem 5%;
+}
+
+.anime-section h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.anime-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+</file>
+
+<file path="responsive.css">
+
+</file>
+
+</files>

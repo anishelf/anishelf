@@ -24,6 +24,36 @@ async function loadList(){
 
     );
 
+    const animeResponse =
+    await fetch(
+
+        `https://anishelf-api.onrender.com/api/lists/${listId}/anime`,
+
+        {
+            credentials:"include"
+        }
+
+    );
+
+    const animeResult =
+    await animeResponse.json();
+
+    const animeList =
+    animeResult.success
+    ? animeResult.anime
+    : [];
+
+
+
+
+
+
+
+
+
+
+
+
 
     const result =
     await response.json();
@@ -89,21 +119,58 @@ async function loadList(){
                 }
 
             </p>
-
-
-
             <h3>
 
-                0 Anime
+                ${animeList.length} Anime
 
             </h3>
-
-
 
             <div
             class="anime-container">
 
+                ${
+                    animeList.map(anime => `
+
+                        <div class="anime-card">
+
+                            <img
+                            src="${anime.anime_cover}"
+                            alt="${anime.anime_title}">
+
+                            <div class="card-content">
+
+                                <h3>
+
+                                    ${anime.anime_title}
+
+                                </h3>
+
+                            </div>
+
+                        </div>
+
+                    `).join("")
+                }
+
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         </div>

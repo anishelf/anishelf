@@ -4,7 +4,9 @@ let currentHero = 0;
 
 let heroTimer;
 
-
+// ============================
+// Load featured anime for hero carousel
+// ============================
 async function loadHeroCarousel(){
 
     const data =
@@ -21,6 +23,10 @@ async function loadHeroCarousel(){
 
 }
 
+// ============================
+// Render hero carousel
+// ============================
+
 function renderHero(){
 
     const anime =
@@ -36,6 +42,10 @@ function renderHero(){
     updateHeroDots();
 
 }
+
+// ============================
+// Start hero carousel timer
+// ============================
 
 function startHeroTimer(){
 
@@ -62,6 +72,9 @@ function startHeroTimer(){
 
 }
 
+// ============================
+// Update hero buttons
+// ============================
 function updateHeroButtons(anime){
 
 
@@ -91,6 +104,9 @@ function updateHeroButtons(anime){
 
 }
 
+// ============================
+// Update hero dots
+// ============================
 function updateHeroDots(){
 
     const container =

@@ -1,0 +1,317 @@
+/* ===========================
+   ANIME GRID
+=========================== */
+
+.anime-container{
+    display:flex;
+    gap:1.5rem;
+    overflow-x:auto;
+    padding:1rem 0 2rem;
+    scroll-behavior:smooth;
+
+}
+
+
+/* Hide scrollbar */
+
+.anime-container::-webkit-scrollbar{
+
+    display:none;
+
+}
+
+/* ===========================
+   ANIME CARD CONTAINER
+=========================== */
+
+.anime-container{
+
+    display:flex;
+
+    gap:1.5rem;
+
+    overflow-x:auto;
+
+    padding:1rem 0 2rem;
+
+    scroll-behavior:smooth;
+
+}
+
+
+/* Hide scrollbar */
+
+.anime-container::-webkit-scrollbar{
+
+    display:none;
+
+}
+
+
+
+/* ===========================
+   ANIME CARD
+=========================== */
+
+.anime-card{
+    background:var(--surface);
+    width:250px;
+    border-radius:18px;
+    overflow:visible;
+    flex-shrink:0;
+    cursor:pointer;
+    transition:.3s ease;
+}
+
+
+.anime-card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+
+
+/* ===========================
+   CARD IMAGE
+=========================== */
+
+.anime-card img{
+
+    width:100%;
+
+    height:250px;
+
+    object-fit:cover;
+
+}
+
+
+
+/* ===========================
+   CARD CONTENT
+=========================== */
+
+.card-content{
+    z-index: 2;
+    padding:1rem;
+    position: relative;
+
+}
+
+
+
+.card-title-row{
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:.5rem;
+
+}
+
+
+
+.card-title-row h3{
+
+    font-size:1rem;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+
+
+/* ===========================
+   CARD MENU BUTTON
+=========================== */
+
+.card-menu{
+
+    border:none;
+
+    background:none;
+
+
+    font-size:1.5rem;
+
+    cursor:pointer;
+
+}
+
+
+
+/* ===========================
+   CARD BADGES
+=========================== */
+
+.card-badges{
+
+    display:flex;
+
+    gap:.5rem;
+
+    margin-top:.8rem;
+
+}
+
+
+
+.card-badges span{
+
+    padding:5px 10px;
+
+    border-radius:999px;
+
+    background:rgba(139,92,246,.15);
+
+    color:#b892ff;
+
+    font-size:.75rem;
+
+    font-weight:600;
+
+}
+
+
+
+/* ===========================
+   RATING BADGE
+=========================== */
+
+.rating-badge{
+
+    position:absolute;
+
+    top:12px;
+
+    right:12px;
+
+    padding:6px 12px;
+
+    border-radius:999px;
+
+    background:rgba(0,0,0,.65);
+
+    backdrop-filter:blur(8px);
+
+    font-size:.85rem;
+
+    font-weight:600;
+
+}
+
+
+
+
+
+
+/* ===========================
+LIBRARY ANIME CARD
+=========================== */
+
+.library-anime-card {
+
+    background:
+        var(--surface);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        14px;
+
+    overflow:hidden;
+
+    min-width:0;
+
+}
+
+
+/* ===========================
+IMAGE
+=========================== */
+
+.library-anime-card img {
+
+    width:100%;
+
+    aspect-ratio:2 / 3;
+
+    object-fit:cover;
+
+    display:block;
+
+}
+
+
+/* ===========================
+CONTENT
+=========================== */
+
+.library-anime-content {
+
+    padding:.75rem;
+
+}
+
+
+/* ===========================
+TITLE ROW
+=========================== */
+
+.library-anime-title-row {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:.5rem;
+
+}
+
+
+.library-anime-title-row h3 {
+
+    flex:1;
+
+    min-width:0;
+
+    margin:0;
+
+    font-size:.9rem;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+
+/* ===========================
+MENU
+=========================== */
+
+.library-anime-menu {
+
+    flex-shrink:0;
+
+    border:none;
+
+    background:none;
+
+    color:var(--text);
+
+    font-size:1.3rem;
+
+    cursor:pointer;
+
+    padding:0 .25rem;
+
+}

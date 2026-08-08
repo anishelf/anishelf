@@ -1,0 +1,39 @@
+body{
+    font-family:"Poppins",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+}
+
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    top:-250px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:900px;
+
+    height:900px;
+
+    background:radial-gradient(
+        circle,
+        rgba(139,92,246,.18),
+        rgba(59,130,246,.08),
+        transparent 70%
+    );
+
+    pointer-events:none;
+
+    z-index:-1;
+}
+
+
+.hidden{
+    display:none;
+}

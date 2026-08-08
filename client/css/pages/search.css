@@ -1,0 +1,116 @@
+/* ==========================================
+   SEARCH HERO
+========================================== */
+
+.hero {
+    height: 130px;
+    width: min(1400px, 95%);
+    margin: 2rem auto;
+    text-align: left;
+    border-radius: 24px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hero-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 3rem;
+}
+
+.hero h1 {
+    font-size: clamp(2rem, 3rem);
+    max-width: 750px;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    color: var(--muted);
+    font-size: 1.1rem;
+    max-width: 550px;
+    margin-bottom: 3rem;
+}
+
+
+/* ==========================================
+   SEARCH BAR
+========================================== */
+
+.search-box {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.search-box input {
+    flex: 1;
+    width: 100%;
+    padding: 18px 22px;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    background: var(--surface);
+    color: var(--text);
+    font-size: 1rem;
+}
+
+
+/* ==========================================
+   SEARCH FILTERS
+========================================== */
+
+.search-filters {
+    display: flex;
+    gap: 1rem;
+    width: min(1000px, 95%);
+    margin: 1.5rem auto 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.search-filters select {
+    appearance: none;
+    background: rgba(255,255,255,.05);
+    backdrop-filter: blur(10px);
+    color: white;
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 999px;
+    padding: 12px 20px;
+    min-width: 150px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.search-filters select:hover {
+    transform: translateY(-3px);
+    border-color: var(--purple);
+}
+
+.search-filters select:focus {
+    box-shadow: 0 0 0 3px rgba(139,92,246,.25);
+}
+
+/* ==========================================
+   SEARCH RESULTS
+========================================== */
+
+.anime-section {
+    padding: 2rem 5%;
+}
+
+.anime-section h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.anime-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+}

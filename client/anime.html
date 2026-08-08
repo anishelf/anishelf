@@ -1,82 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AniShelf | Anime Details</title>
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+        <!-- CSS -->
+        <link rel="stylesheet" href="css/base/variable.css">
+        <link rel="stylesheet" href="css/base/reset.css">
+        <link rel="stylesheet" href="css/base/global.css">
+        
+        <link rel="stylesheet" href="css/components/navbar.css">
+        <link rel="stylesheet" href="css/components/button.css">
+        <link rel="stylesheet" href="css/components/animeCards.css">
+        <link rel="stylesheet" href="css/components/dropdown.css">
+      
 
-<head>
+        <link rel="stylesheet" href="css/pages/animeDetails.css">
+        <link rel="stylesheet" href="assets/modal/css/modal.css">
+    </head>
+    <body>
+        <!-- ========================= -->
+        <!-- Navbar -->
+        <!-- ========================= -->
+        <nav class="navbar">
+            <div class="logo">
+                AniShelf
+            </div>
+            <ul class="nav-links" id="navLinks" >
+            </ul>
+        </nav>
+        <!-- ========================= -->
+        <!-- Anime Details -->
+        <!-- ========================= -->
+        <section class="anime-details" id="animeDetails">
+            <p>
+                Loading anime...
+            </p>
+        </section>
+    <script src="js/api/authApi.js"></script>
 
-    <meta charset="UTF-8">
+    <script src="js/componenets/navbar.js"></script>
+    <script src="js/componenets/animeCard.js"></script>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/api.js"></script>
 
-    <title>AniShelf | Anime Details</title>
-
-
-    <!-- Fonts -->
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
-
-
-    <!-- CSS -->
-
-    <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/cards.css">
-    <link rel="stylesheet" href="css/anime.css">
-</head>
-
-
-<body>
-
-
-<!-- ========================= -->
-<!-- Navbar -->
-<!-- ========================= -->
-
-
-<nav class="navbar">
-
-    <div class="logo">
-
-        AniShelf
-
-    </div>
-
-
-    <ul class="nav-links" id="navLinks" >
-
-    </ul>
-
-</nav>
+    <script src="js/pages/animedetail.js"></script>
 
 
-
-<!-- ========================= -->
-<!-- Anime Details -->
-<!-- ========================= -->
-
-
-<section class="anime-details" id="animeDetails">
-
-
-    <p>
-        Loading anime...
-    </p>
-
-
-</section>
-
-<script src="js/auth.js"></script>
-<script src="js/navbar.js"></script>
-<script src="js/api.js"></script>
-<script src="js/ui.js"></script>
-<script src="js/anime.js"></script>
-
-
-</body>
-
+    </body>
 </html>

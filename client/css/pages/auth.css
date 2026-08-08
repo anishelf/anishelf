@@ -63,23 +63,7 @@
 
 }
 
-.auth-card button{
 
-    padding:1rem;
-
-    border:none;
-
-    border-radius:12px;
-
-    background:var(--gradient);
-
-    color:white;
-
-    cursor:pointer;
-
-    font-weight:600;
-
-}
 
 .auth-link{
 

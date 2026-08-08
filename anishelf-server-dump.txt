@@ -1,0 +1,2368 @@
+This file is a merged representation of a subset of the codebase, containing specifically included files and files not matching ignore patterns, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of a subset of the repository's contents that is considered the most important context.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Only files matching these patterns are included: server/**
+- Files matching these patterns are excluded: node_modules, .git, .env
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+server/
+  controllers/
+    animeController.js
+    authController.js
+    listController.js
+  db/
+    db.js
+  middleware/
+    authMiddleware.js
+  models/
+    userModel.js
+  routes/
+    animeRoutes.js
+    authRoutes.js
+    listRoutes.js
+  app.js
+  package.json
+  server.js
+  test-db.js
+  test-network.js
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="server/db/db.js">
+const { Pool } = require("pg");
+
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+
+    ssl: {
+        rejectUnauthorized: false
+    },
+
+    connectionTimeoutMillis: 15000,
+
+    // Force IPv4
+    family: 4
+});
+
+module.exports = pool;
+</file>
+
+<file path="server/models/userModel.js">
+const pool = require("../db/db");
+
+
+const createUser = async(
+    username,
+    email,
+    passwordHash
+)=>{
+
+    const result =
+    await pool.query(
+
+        `
+        INSERT INTO users
+        (
+            username,
+            email,
+            password_hash
+        )
+
+        VALUES($1,$2,$3)
+
+        RETURNING id, username, email
+        `,
+
+        [
+            username,
+            email,
+            passwordHash
+        ]
+
+    );
+
+
+    return result.rows[0];
+
+};
+
+
+
+const findUserByEmail = async(email)=>{
+
+    const result =
+    await pool.query(
+
+        `
+        SELECT *
+        FROM users
+        WHERE email=$1
+        `,
+
+        [email]
+
+    );
+
+
+    return result.rows[0];
+
+};
+
+
+module.exports = {
+
+    createUser,
+
+    findUserByEmail
+
+};
+</file>
+
+<file path="server/server.js">
+require("dotenv").config();
+
+const app = require("./app");
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+    console.log(`🚀 AniShelf API running on http://localhost:${PORT}`);
+});
+</file>
+
+<file path="server/test-db.js">
+const { Pool } = require("pg");
+
+require("dotenv").config();
+
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    },
+    connectionTimeoutMillis: 15000,
+    family: 4
+});
+
+async function test() {
+    try {
+        const result = await pool.query("SELECT NOW()");
+        console.log("SUCCESS:", result.rows);
+    } catch (err) {
+        console.error("FAILED:", err);
+    } finally {
+        await pool.end();
+    }
+}
+
+test();
+</file>
+
+<file path="server/test-network.js">
+const dns = require("dns");
+const net = require("net");
+
+const host = "ep-restless-bonus-ax5grc3p-pooler.c-4.us-east-2.aws.neon.tech";
+
+dns.lookup(host, (err, address) => {
+    if (err) {
+        console.error("DNS failed:", err);
+        return;
+    }
+
+    console.log("Resolved IP:", address);
+
+    const socket = new net.Socket();
+
+    socket.setTimeout(10000);
+
+    socket.on("connect", () => {
+        console.log("✅ Port 5432 is reachable");
+        socket.destroy();
+    });
+
+    socket.on("timeout", () => {
+        console.log("❌ Connection timed out");
+        socket.destroy();
+    });
+
+    socket.on("error", (err) => {
+        console.log("❌ Socket error:", err.message);
+    });
+
+    socket.connect(5432, host);
+});
+</file>
+
+<file path="server/controllers/listController.js">
+const pool = require("../db/db");
+
+
+const getLists = async(req,res)=>{
+
+    try{
+
+
+        const result =
+        await pool.query(
+
+            `
+            SELECT *
+            FROM lists
+            WHERE user_id = $1
+            ORDER BY created_at DESC
+            `,
+
+            [
+                req.user.id
+            ]
+
+        );
+
+
+
+        res.json({
+
+            success:true,
+
+            lists:
+            result.rows
+
+        });
+
+
+
+    }catch(error){
+
+
+        console.error(error);
+
+
+
+        res.status(500).json({
+
+            success:false,
+
+            message:
+            "Failed to fetch lists"
+
+        });
+
+    }
+
+};
+
+const createList = async(req,res)=>{
+
+    try{
+
+
+        const {
+            name,
+            description
+        } = req.body;
+
+
+
+        const result =
+        await pool.query(
+
+            `
+            INSERT INTO lists
+            (
+                user_id,
+                name,
+                description
+            )
+            VALUES
+            (
+                $1,
+                $2,
+                $3
+            )
+            RETURNING *
+            `,
+
+            [
+                req.user.id,
+                name,
+                description
+            ]
+
+        );
+
+
+
+        res.status(201).json({
+
+            success:true,
+
+            list:
+            result.rows[0]
+
+        });
+
+
+
+    }catch(error){
+
+
+        console.error(error);
+
+
+
+        res.status(500).json({
+
+            success:false,
+
+            message:
+            "Failed to create list"
+
+        });
+
+    }
+
+};
+
+const getList = async(req,res)=>{
+
+    try{
+
+
+        const result =
+        await pool.query(
+
+            `
+            SELECT *
+            FROM lists
+            WHERE id = $1
+            AND user_id = $2
+            `,
+
+            [
+
+                req.params.id,
+
+                req.user.id
+
+            ]
+
+        );
+
+
+
+        if(
+            result.rows.length === 0
+        ){
+
+            return res.status(404).json({
+
+                success:false,
+
+                message:
+                "List not found"
+
+            });
+
+        }
+
+
+
+        res.json({
+
+            success:true,
+
+            list:
+            result.rows[0]
+
+        });
+
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        res.status(500).json({
+
+            success:false,
+
+            message:
+            "Server error"
+
+        });
+
+    }
+
+};
+const addAnimeToList = async(req,res)=>{
+
+    try{
+
+        const listId =
+        req.params.id;
+
+        const {
+
+            anime_id,
+
+            anime_title,
+
+            anime_cover
+
+        } = req.body;
+
+
+
+        const listCheck =
+        await pool.query(
+
+            `
+            SELECT *
+            FROM lists
+            WHERE id = $1
+            AND user_id = $2
+            `,
+
+            [
+                listId,
+                req.user.id
+            ]
+
+        );
+
+
+
+        if(
+            listCheck.rows.length === 0
+        ){
+
+            return res.status(404).json({
+
+                success:false,
+
+                message:"List not found"
+
+            });
+
+        }
+
+
+
+        const result =
+        await pool.query(
+
+            `
+            INSERT INTO list_anime
+            (
+                list_id,
+                anime_id,
+                anime_title,
+                anime_cover
+            )
+            VALUES
+            (
+                $1,
+                $2,
+                $3,
+                $4
+            )
+            RETURNING *
+            `,
+
+            [
+                listId,
+                anime_id,
+                anime_title,
+                anime_cover
+            ]
+
+        );
+
+
+
+        res.status(201).json({
+
+            success:true,
+
+            anime:
+            result.rows[0]
+
+        });
+
+    }catch(error){
+
+        console.error(error);
+
+        res.status(500).json({
+
+            success:false,
+
+            message:
+            "Failed to add anime"
+
+        });
+
+    }
+
+};
+
+
+
+const getListAnime = async(req,res)=>{
+
+    try{
+
+        const listId =
+        req.params.id;
+
+
+
+        const result =
+        await pool.query(
+
+            `
+            SELECT *
+            FROM list_anime
+            WHERE list_id = $1
+            ORDER BY created_at DESC
+            `,
+
+            [
+                listId
+            ]
+
+        );
+
+
+
+        res.json({
+
+            success:true,
+
+            anime:
+            result.rows
+
+        });
+
+    }catch(error){
+
+        console.error(error);
+
+        res.status(500).json({
+
+            success:false,
+
+            message:
+            "Failed to load anime"
+
+        });
+
+    }
+
+};
+
+module.exports = {
+
+    getLists,
+    createList,
+    getList,
+    addAnimeToList,
+    getListAnime
+
+};
+</file>
+
+<file path="server/middleware/authMiddleware.js">
+const jwt = require("jsonwebtoken");
+
+
+function verifyToken(req,res,next){
+
+
+    const token =
+    req.cookies.token;
+
+
+
+    if(!token){
+
+        return res.status(401).json({
+
+            success:false,
+
+            message:"No token provided"
+
+        });
+
+    }
+
+
+
+    try{
+
+
+        const decoded =
+        jwt.verify(
+            token,
+            process.env.JWT_SECRET
+        );
+
+
+        req.user =
+        decoded;
+
+
+
+        next();
+
+
+
+    }catch(error){
+
+
+        return res.status(401).json({
+
+            success:false,
+
+            message:"Invalid token"
+
+        });
+
+
+    }
+
+
+}
+
+
+
+module.exports = verifyToken;
+</file>
+
+<file path="server/routes/authRoutes.js">
+const express = require("express");
+
+const {
+    register,
+    login,
+    logout
+} = require("../controllers/authController");
+
+
+const router = express.Router();
+
+
+
+router.post(
+    "/register",
+    register
+);
+
+
+router.post(
+    "/login",
+    login
+);
+
+router.post(
+    "/logout",
+    logout
+);
+
+
+module.exports = router;
+</file>
+
+<file path="server/routes/listRoutes.js">
+const express =
+require("express");
+
+
+const router =
+express.Router();
+
+
+const verifyToken =
+require("../middleware/authMiddleware");
+
+
+const {
+    getLists,
+    createList,
+    getList,
+    addAnimeToList,
+    getListAnime
+} = require(
+    "../controllers/listController"
+);
+
+
+
+router.get(
+    "/",
+    verifyToken,
+    getLists
+);
+
+router.post(
+    "/",
+    verifyToken,
+    createList
+);
+
+
+router.get(
+    "/:id",
+    verifyToken,
+    getList
+);
+
+router.post(
+    "/:id/anime",
+    verifyToken,
+    addAnimeToList
+);
+
+
+
+router.get(
+    "/:id/anime",
+    verifyToken,
+    getListAnime
+);
+
+module.exports =
+router;
+</file>
+
+<file path="server/package.json">
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "axios": "^1.18.1",
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.22.0",
+    "slugify": "^1.6.9"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
+</file>
+
+<file path="server/controllers/authController.js">
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+const {
+    createUser,
+    findUserByEmail
+}
+=
+require("../models/userModel");
+
+
+
+const register = async(req,res)=>{
+
+    try{
+
+        const {
+            username,
+            email,
+            password
+        }
+        =
+        req.body;
+
+
+
+        const existingUser =
+        await findUserByEmail(email);
+
+
+
+        if(existingUser){
+
+            return res.status(400).json({
+
+                success:false,
+
+                message:"Email already exists"
+
+            });
+
+        }
+
+
+
+        const hash =
+        await bcrypt.hash(
+            password,
+            10
+        );
+
+
+
+        const user =
+        await createUser(
+            username,
+            email,
+            hash
+        );
+
+
+
+        res.json({
+
+            success:true,
+
+            user
+
+        });
+
+
+
+    }catch(error){
+
+        console.error(error);
+
+        res.status(500).json({
+
+            success:false,
+
+            message:"Registration failed"
+
+        });
+
+    }
+
+};
+
+
+
+
+const login = async(req,res)=>{
+
+    try{
+
+        const {
+            email,
+            password
+        }
+        =
+        req.body;
+
+
+
+        const user =
+        await findUserByEmail(email);
+
+
+
+        if(!user){
+
+            return res.status(400).json({
+
+                success:false,
+
+                message:"Invalid credentials"
+
+            });
+
+        }
+
+
+
+        const match =
+        await bcrypt.compare(
+            password,
+            user.password_hash
+        );
+
+
+
+        if(!match){
+
+            return res.status(400).json({
+
+                success:false,
+
+                message:"Invalid credentials"
+
+            });
+
+        }
+
+
+
+        const token =
+        jwt.sign(
+
+            {
+                id:user.id
+            },
+
+            process.env.JWT_SECRET,
+
+            {
+                expiresIn:"7d"
+            }
+
+        );
+
+
+
+        res.cookie(
+            "token",
+            token,
+            {
+                httpOnly:true,
+
+                secure:true,
+
+                sameSite:"none",
+
+                maxAge:
+                7 * 24 * 60 * 60 * 1000
+            }
+        );
+
+
+        res.json({
+
+            success:true,
+
+            user:{
+
+                id:user.id,
+
+                username:user.username,
+
+                email:user.email
+
+            }
+
+        });
+
+
+    }catch(error){
+
+        console.error(error);
+
+        res.status(500).json({
+
+            success:false
+
+        });
+
+    }
+
+};
+const logout = (req,res)=>{
+
+    res.clearCookie(
+        "token",
+        {
+            httpOnly:true,
+            secure:true,
+            sameSite:"none"
+        }
+    );
+
+
+    res.json({
+
+        success:true,
+
+        message:"Logged out"
+
+    });
+
+};
+
+
+module.exports = {
+    register,
+    login,
+    logout
+};
+</file>
+
+<file path="server/routes/animeRoutes.js">
+const express = require("express");
+const { 
+    searchAnime,
+    getTrendingAnime,
+    getFeaturedAnime,
+    getAnimeById,
+    getNewReleases,
+    getTopRatedAnime,
+    getMovies,
+    getHorrorAnime,
+    getUpcomingAnime
+ } = require("../controllers/animeController");
+
+const router = express.Router();
+
+router.get("/search", searchAnime);
+router.get("/trending", getTrendingAnime);
+router.get("/featured", getFeaturedAnime);
+router.get("/new-releases", getNewReleases);
+router.get("/top-rated", getTopRatedAnime);
+router.get("/movies", getMovies);
+router.get("/horror", getHorrorAnime);
+router.get("/upcoming", getUpcomingAnime);
+router.get("/:id", getAnimeById);
+
+module.exports = router;
+</file>
+
+<file path="server/app.js">
+// ===============================
+// Dependencies
+// External packages and libraries
+// ===============================
+
+const express = require("express");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+
+// ===============================
+// Internal files
+// Routes, database, utilities
+// ===============================
+
+const pool = require("./db/db");
+const animeRoutes = require("./routes/animeRoutes");
+const authRoutes = require("./routes/authRoutes");
+const listRoutes =require("./routes/listRoutes");
+const verifyToken = require("./middleware/authMiddleware");
+
+
+// ===============================
+// App initialization
+// Creates our Express application
+// ===============================
+
+const app = express();
+
+
+// ===============================
+// Middlewares
+// Functions that run between the
+// request and the response
+// ===============================
+
+// Allows requests from frontend
+const allowedOrigins = [
+
+    "http://localhost:5500",
+
+    "http://127.0.0.1:5500",
+
+    "https://your-future-frontend-url.com"
+
+];
+
+
+app.use(cors({
+
+    origin:function(origin,callback){
+
+        if(!origin ||
+        allowedOrigins.includes(origin)){
+
+            callback(null,true);
+
+        }else{
+
+            callback(new Error("Not allowed"));
+
+        }
+
+    },
+
+    credentials:true
+
+}));
+
+// Allows Express to read JSON request bodies
+app.use(express.json());
+app.use(cookieParser());
+
+// ===============================
+// Routes
+// API endpoints live here
+// ===============================
+
+// Anime-related endpoints
+// Example:
+// GET /api/anime/search?q=monster
+app.use("/api/anime", animeRoutes);
+app.use(
+    "/api/auth",
+    authRoutes
+);
+app.use(
+    "/api/lists",
+    listRoutes
+);
+app.get(
+    "/api/auth/profile",
+    verifyToken,
+    async(req,res)=>{
+
+        try{
+
+
+            const result =
+            await pool.query(
+
+                `
+                SELECT
+                    id,
+                    username,
+                    email
+                FROM users
+                WHERE id = $1
+                `,
+
+                [
+                    req.user.id
+                ]
+
+            );
+
+
+
+            if(
+                result.rows.length === 0
+            ){
+
+                return res.status(404).json({
+
+                    success:false,
+
+                    message:
+                    "User not found"
+
+                });
+
+            }
+
+
+
+            res.json({
+
+                success:true,
+
+                user:
+                result.rows[0]
+
+            });
+
+
+
+        }catch(error){
+
+
+            console.error(error);
+
+
+
+            res.status(500).json({
+
+                success:false,
+
+                message:
+                "Server error"
+
+            });
+
+        }
+
+    }
+);
+// ===============================
+// Database test
+// Temporary check that Neon/PostgreSQL works
+// Remove later or move into a health route
+// ===============================
+
+pool.query("SELECT NOW()")
+    .then(result => {
+        console.log("✅ Database connected:");
+        console.log(result.rows[0]);
+    })
+    .catch(error => {
+        console.error("❌ Database connection failed:");
+        console.error(error);
+        console.error("code:", error.code);
+        console.error("message:", error.message);
+    });
+
+
+// ===============================
+// Default route
+// Basic API health check
+// ===============================
+
+app.get("/", (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "Welcome to AniShelf API"
+    });
+});
+
+
+// ===============================
+// Export app
+// Used by server.js
+// ===============================
+
+module.exports = app;
+</file>
+
+<file path="server/controllers/animeController.js">
+const axios = require("axios");
+const e = require("express");
+
+
+const fetchAnime = async (query) => {
+
+    const response = await axios.post(
+        "https://graphql.anilist.co",
+        {
+            query
+        }
+    );
+
+    return response.data.data.Page.media.map(item => ({
+
+        id: item.id,
+
+        title:
+            item.title.english ||
+            item.title.romaji,
+
+        image:
+            item.coverImage.large,
+
+        year:
+            item.startDate.year,
+
+        score:
+            item.averageScore,
+
+        genres:
+            item.genres
+
+    }));
+
+};
+
+const searchAnime = async (req, res) => {
+
+    try {
+
+        const {
+            q,
+            genre,
+            format,
+            year,
+            season,
+            status,
+            sort
+        } = req.query;
+
+
+        let filters = `
+            type: ANIME
+        `;
+
+
+        if(q){
+
+            filters += `
+                search: "${q}"
+            `;
+
+        }
+
+
+        if(genre){
+
+            filters += `
+                genre: "${genre}"
+            `;
+
+        }
+
+
+        if(format){
+
+            filters += `
+                format: ${format}
+            `;
+
+        }
+
+
+        if(year){
+
+            filters += `
+                seasonYear: ${year}
+            `;
+
+        }
+
+
+        if(season){
+
+            filters += `
+                season: ${season}
+            `;
+
+        }
+
+
+        if(status){
+
+            filters += `
+                status: ${status}
+            `;
+
+        }
+
+
+        const sorting =
+            sort || "POPULARITY_DESC";
+
+
+        const query = `
+
+        query {
+
+            Page(perPage: 20) {
+
+                media(
+
+                    ${filters}
+
+                    sort: ${sorting}
+
+                ) {
+
+                    id
+
+
+                    title {
+
+                        romaji
+
+                        english
+
+                    }
+
+
+                    coverImage {
+
+                        large
+
+                        extraLarge
+
+                    }
+
+
+                    startDate {
+
+                        year
+
+                    }
+
+
+                    season
+
+                    episodes
+
+                    format
+
+                    status
+
+                    averageScore
+
+                    genres
+
+                }
+
+            }
+
+        }
+
+        `;
+
+
+        const response = await axios.post(
+            "https://graphql.anilist.co",
+            {
+                query
+            }
+        );
+
+
+        const anime =
+        response.data.data.Page.media.map(item => ({
+
+            id:item.id,
+
+            title:
+                item.title.english ||
+                item.title.romaji,
+
+
+            image:
+                item.coverImage.large,
+
+
+            year:
+                item.startDate.year,
+
+
+            season:
+                item.season,
+
+
+            episodes:
+                item.episodes,
+
+
+            format:
+                item.format,
+
+
+            status:
+                item.status,
+
+
+            score:
+                item.averageScore,
+
+
+            genres:
+                item.genres
+
+        }));
+
+
+        res.json({
+
+            success:true,
+
+            results:anime
+
+        });
+
+
+    } catch(error){
+
+
+        console.error(
+            error.response?.data ||
+            error.message
+        );
+
+
+        res.status(500).json({
+
+            success:false,
+
+            message:"Anime service unavailable"
+
+        });
+
+    }
+
+};
+
+const getTrendingAnime = async (req, res) => {
+
+    try {
+
+        const query = `
+        query {
+
+            Page(perPage: 10) {
+            media(type: ANIME, sort: TRENDING_DESC) {
+
+                    id
+
+                    title {
+                        romaji
+                        english
+                    }
+
+                    coverImage {
+                        large
+                        extraLarge
+                    }
+
+                    bannerImage
+
+                    startDate {
+                        year
+                    }
+
+                    season
+
+                    episodes
+
+                    format
+
+                    status
+
+                    averageScore
+
+                    genres
+
+                }
+
+            }
+
+        }
+        `;
+
+
+        const response = await axios.post(
+            "https://graphql.anilist.co",
+            {
+                query
+            }
+        );
+
+
+        const anime = response.data.data.Page.media.map(item => ({
+            id: item.id,
+
+            title: item.title.english || item.title.romaji,
+
+            image: item.coverImage.large,
+
+            heroImage:
+                item.bannerImage ||
+                item.coverImage.extraLarge,
+
+            year: item.startDate.year,
+
+            season: item.season,
+
+            episodes: item.episodes,
+
+            format: item.format,
+
+            status: item.status,
+
+            score: item.averageScore,
+
+            genres: item.genres
+        
+        }));
+
+
+        res.json({
+
+            success:true,
+
+            results:anime
+
+        });
+
+
+    } catch(error){
+
+        console.error(
+            error.response?.data || error.message
+        );
+
+
+        res.status(500).json({
+
+            success:false,
+
+            message:"Unable to fetch trending anime"
+
+        });
+
+    }
+
+};
+
+const getFeaturedAnime = async (req, res) => {
+
+    try {
+
+        const query = `
+        query {
+
+            Page(perPage: 4) {
+                media(type: ANIME, sort: TRENDING_DESC) {
+
+                    id
+
+                    title {
+                        romaji
+                        english
+                    }
+
+                    coverImage {
+                        large
+                        extraLarge
+                    }
+
+                    bannerImage
+
+                    startDate {
+                        year
+                    }
+
+                    season
+
+                    episodes
+
+                    format
+
+                    status
+
+                    averageScore
+                    
+                    genres
+
+                    description
+
+                }
+
+            }
+
+        }
+        `;
+
+
+        const response = await axios.post(
+            "https://graphql.anilist.co",
+            {
+                query
+            }
+        );
+
+
+        const animeList = response.data.data.Page.media;
+
+
+
+        res.json({
+
+            success: true,
+
+            results: animeList.map(anime => ({
+
+                id: anime.id,
+
+                title:
+                    anime.title.english ||
+                    anime.title.romaji,
+
+                image:
+                    anime.coverImage.extraLarge,
+
+                heroImage:
+                    anime.bannerImage ||
+                    anime.coverImage.extraLarge,
+
+                description:
+                    anime.description,
+
+                year:
+                    anime.startDate.year,
+
+                season:
+                    anime.season,
+
+                episodes:
+                    anime.episodes,
+
+                format:
+                    anime.format,
+
+                status:
+                    anime.status,
+
+                score:
+                    anime.averageScore,
+
+                genres:
+                    anime.genres
+
+            }))
+
+        });
+
+
+    } catch(error){
+
+        console.error(
+            error.response?.data || error.message
+        );
+
+
+        res.status(500).json({
+
+            success:false,
+
+            message:"Unable to fetch featured anime"
+
+        });
+
+    }
+
+};
+
+// ========================================
+// Get Anime Details
+// ========================================
+
+const getAnimeById = async (req, res) => {
+
+    try {
+
+        const { id } = req.params;
+
+        const query = `
+        query($id: Int){
+
+            Media(id: $id, type: ANIME){
+
+                id
+
+                title{
+                    romaji
+                    english
+                }
+
+                description
+
+                bannerImage
+                trailer{
+                    id
+                    site
+                }
+                coverImage{
+                    extraLarge
+                }
+
+                averageScore
+
+                episodes
+
+                duration
+
+                format
+
+                status
+
+                season
+
+                genres
+
+                recommendations(sort: RATING_DESC, perPage: 6){
+
+                    nodes{
+
+                        mediaRecommendation{
+
+                            id
+
+                            title{
+                                romaji
+                                english
+                            }
+
+                            coverImage{
+                                extraLarge
+                            }
+
+                            averageScore
+
+                        }
+
+                    }
+
+                }
+
+                startDate{
+                    year
+                }
+
+                studios(isMain:true){
+
+                    nodes{
+                        name
+                    }
+
+                }
+
+            }
+
+        }
+        `;
+
+        const response = await axios.post(
+            "https://graphql.anilist.co",
+            {
+                query,
+                variables:{
+                    id:Number(id)
+                }
+            }
+        );
+
+        const anime = response.data.data.Media;
+
+        res.json({
+
+            success:true,
+
+            result:{
+
+                id:anime.id,
+
+                title:
+                    anime.title.english ||
+                    anime.title.romaji,
+
+                description:anime.description
+                ?.replace(/<[^>]*>/g, "")
+                .replace(/\n/g, " ")
+                .trim(),
+
+                image:anime.coverImage.extraLarge,
+
+                banner:anime.bannerImage,
+                trailer:anime.trailer,
+
+                score:anime.averageScore,
+
+                episodes:anime.episodes,
+
+                duration:anime.duration,
+
+                format:anime.format,
+
+                status:anime.status,
+
+                season:anime.season,
+
+                year:anime.startDate.year,
+
+                genres:anime.genres,
+
+                recommendations:anime.recommendations.nodes.map(item => ({
+
+                    id:item.mediaRecommendation.id,
+
+                    title:
+                        item.mediaRecommendation.title.english ||
+                        item.mediaRecommendation.title.romaji,
+
+                    image:item.mediaRecommendation.coverImage.extraLarge,
+
+                    score:item.mediaRecommendation.averageScore
+
+                })),
+
+                studio:
+                    anime.studios.nodes[0]?.name ||
+                    "Unknown"
+
+            }
+
+        });
+
+    } catch(error){
+
+        console.error(error.response?.data || error);
+
+        res.status(500).json({
+
+            success:false,
+
+            message:"Unable to fetch anime."
+
+        });
+
+    }
+
+};
+// ========================================
+// New Releases
+// ========================================
+
+const getNewReleases = async (req, res) => {
+
+    try {
+
+        const query = `
+        query {
+
+            Page(perPage: 12) {
+
+                media(
+                    type: ANIME
+                    sort: START_DATE_DESC
+                ) {
+
+                    id
+
+                    title {
+                        romaji
+                        english
+                    }
+
+                    coverImage {
+                        large
+                    }
+
+                    startDate {
+                        year
+                    }
+
+                    averageScore
+
+                    genres
+
+                }
+
+            }
+
+        }
+        `;
+
+        const response = await axios.post(
+            "https://graphql.anilist.co",
+            { query }
+        );
+
+        const anime =
+        response.data.data.Page.media.map(item => ({
+
+            id: item.id,
+
+            title:
+                item.title.english ||
+                item.title.romaji,
+
+            image:
+                item.coverImage.large,
+
+            year:
+                item.startDate.year,
+
+            score:
+                item.averageScore,
+
+            genres:
+                item.genres
+
+        }));
+
+
+        res.json({
+
+            success: true,
+
+            results: anime
+
+        });
+
+    } catch(error){
+
+        console.error(error.response?.data || error.message);
+
+        res.status(500).json({
+
+            success: false,
+            error: 
+                error.response?.data || error.message,            
+
+        });
+
+    }
+
+};
+
+const getTopRatedAnime = async (req,res)=>{
+
+    try{
+
+    const query = `
+        query {
+
+        Page(perPage:12){
+
+        media(
+        type:ANIME
+        sort:SCORE_DESC
+        ){
+
+        id
+
+        title{
+        english
+        romaji
+        }
+
+        coverImage{
+        large
+        }
+
+        startDate{
+        year
+        }
+
+        averageScore
+
+        genres
+
+        }
+
+        }
+
+        }
+    `;
+
+    const anime = await fetchAnime(query);
+
+
+    res.json({
+
+        success:true,
+
+        results:anime
+
+    });
+
+
+    }catch(error){
+
+        console.error(error.message);
+
+        res.status(500).json({
+
+        success:false
+
+    });
+
+    }
+
+};
+
+const getMovies = async(req,res)=>{
+
+try{
+
+const query = `
+query{
+
+Page(perPage:12){
+
+media(
+type:ANIME
+format:MOVIE
+sort:POPULARITY_DESC
+){
+
+id
+
+title{
+english
+romaji
+}
+
+coverImage{
+large
+}
+
+startDate{
+year
+}
+
+averageScore
+
+genres
+
+}
+
+}
+
+}
+`;
+
+const anime = await fetchAnime(query);
+
+
+res.json({
+
+success:true,
+
+results:anime
+
+});
+
+
+}catch(error){
+
+    console.error(
+        error.response?.data || error.message
+    );
+
+    res.status(500).json({
+
+        success:false,
+
+        message:
+        error.response?.data || error.message
+
+    });
+
+}
+
+
+
+
+
+
+
+
+
+};
+
+
+const getHorrorAnime = async(req,res)=>{
+
+try{
+
+const query = `
+query{
+
+Page(perPage:12){
+
+media(
+type:ANIME
+genre:"Horror"
+sort:POPULARITY_DESC
+){
+
+id
+
+title{
+english
+romaji
+}
+
+coverImage{
+large
+}
+
+startDate{
+year
+}
+
+averageScore
+
+genres
+
+}
+
+}
+
+}
+`;
+
+const anime = await fetchAnime(query);
+
+
+res.json({
+
+success:true,
+
+results:anime
+
+});
+
+
+}catch(error){
+
+    console.error(
+        error.response?.data || error.message
+    );
+
+    res.status(500).json({
+
+        success:false,
+
+        message:
+        error.response?.data || error.message
+
+    });
+
+}
+};
+
+
+const getUpcomingAnime = async(req,res)=>{
+
+try{
+
+const query = `
+query{
+
+Page(perPage:12){
+
+media(
+type:ANIME
+status:NOT_YET_RELEASED
+sort:POPULARITY_DESC
+){
+
+id
+
+title{
+english
+romaji
+}
+
+coverImage{
+large
+}
+
+startDate{
+year
+}
+
+averageScore
+
+genres
+
+}
+
+}
+
+}
+`;
+
+const anime = await fetchAnime(query);
+
+
+res.json({
+
+success:true,
+
+results:anime
+
+});
+
+
+}catch(error){
+
+    console.error(
+        error.response?.data || error.message
+    );
+
+    res.status(500).json({
+
+        success:false,
+
+        message:
+        error.response?.data || error.message
+
+    });
+
+}
+
+};
+
+
+
+
+
+module.exports = {
+    searchAnime,
+    getTrendingAnime,
+    getFeaturedAnime,
+    getAnimeById,
+    getNewReleases,
+    getTopRatedAnime,
+    getMovies,
+    getHorrorAnime,
+    getUpcomingAnime
+};
+</file>
+
+</files>

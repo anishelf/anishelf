@@ -1,8 +1,8 @@
 const AUTH_URL =
 "https://anishelf-api.onrender.com/api/auth";
-
-
-
+// ============================
+// Register user
+// ============================
 async function registerUser(
     username,
     email,
@@ -39,9 +39,9 @@ async function registerUser(
 
 }
 
-
-
-
+// ============================
+// Login user
+// ============================
 async function loginUser(
     email,
     password
@@ -70,7 +70,9 @@ async function loginUser(
     return await response.json();
 
 }
-
+// ============================
+// Get user profile
+// ============================
 async function getProfile(){
 
     const response =
@@ -89,7 +91,9 @@ async function getProfile(){
     return await response.json();
 
 }
-
+// ============================
+// Logout user
+// ============================
 async function logoutUser(){
 
     const response =
@@ -108,6 +112,9 @@ async function logoutUser(){
     return await response.json();
 
 }
+// ============================
+// Check authentication status
+// ============================
 async function checkAuth(){
 
     const response =

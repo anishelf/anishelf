@@ -1,0 +1,180 @@
+/* ==========================================
+   GLOBAL BUTTON SYSTEM
+========================================== */
+
+.btn {
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:.5rem;
+
+    padding:.8rem 1.3rem;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-family:inherit;
+
+    font-weight:600;
+
+    font-size:.95rem;
+
+    transition:.25s ease;
+
+    text-decoration:none;
+
+}
+
+
+/* ==========================================
+   PRIMARY BUTTON
+========================================== */
+
+.btn-primary {
+
+    background:var(--gradient);
+
+    color:white;
+
+}
+
+
+.btn-primary:hover {
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 10px 25px rgba(139,92,246,.35);
+
+}
+
+
+/* ==========================================
+   SECONDARY BUTTON
+========================================== */
+
+.btn-secondary {
+
+    background:
+    rgba(255,255,255,.1);
+
+    color:var(--text);
+
+    border:
+    1px solid rgba(255,255,255,.15);
+
+}
+
+
+.btn-secondary:hover {
+
+    background:
+    rgba(255,255,255,.18);
+
+    transform:translateY(-3px);
+
+}
+
+
+/* ==========================================
+   DANGER BUTTON
+========================================== */
+
+.btn-danger {
+
+    background:#ef4444;
+
+    color:white;
+
+}
+
+
+.btn-danger:hover {
+
+    background:#dc2626;
+
+}
+
+
+/* ==========================================
+   GHOST BUTTON
+========================================== */
+
+.btn-ghost {
+
+    background:transparent;
+
+    color:var(--text);
+
+}
+
+
+.btn-ghost:hover {
+
+    background:
+    rgba(255,255,255,.08);
+
+}
+
+
+/* ==========================================
+   ICON BUTTON
+========================================== */
+
+.btn-icon {
+
+    width:42px;
+
+    height:42px;
+
+    padding:0;
+
+    border-radius:50%;
+
+}
+
+
+/* ==========================================
+   SMALL BUTTON
+========================================== */
+
+.btn-small {
+
+    padding:.5rem .9rem;
+
+    font-size:.85rem;
+
+}
+
+
+/* ==========================================
+   LARGE BUTTON
+========================================== */
+
+.btn-large {
+
+    padding:1rem 2rem;
+
+    font-size:1.1rem;
+
+}
+
+
+/* ==========================================
+   DISABLED
+========================================== */
+
+.btn:disabled {
+
+    opacity:.5;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+}
