@@ -158,15 +158,10 @@ ul{
 =========================== */
 
 .anime-container{
-
     display:flex;
-
     gap:1.5rem;
-
     overflow-x:auto;
-
     padding:1rem 0 2rem;
-
     scroll-behavior:smooth;
 
 }
@@ -214,21 +209,13 @@ ul{
 =========================== */
 
 .anime-card{
-
     background:var(--surface);
-
     width:250px;
-
     border-radius:18px;
-
-    overflow:hidden;
-
+    overflow:visible;
     flex-shrink:0;
-
     cursor:pointer;
-
     transition:.3s ease;
-
 }
 
 
@@ -261,8 +248,9 @@ ul{
 =========================== */
 
 .card-content{
-
+    z-index: 2;
     padding:1rem;
+    position: relative;
 
 }
 
@@ -271,14 +259,9 @@ ul{
 .card-title-row{
 
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     gap:.5rem;
-
-    position:relative;
 
 }
 
@@ -308,7 +291,6 @@ ul{
 
     background:none;
 
-    color:white;
 
     font-size:1.5rem;
 
@@ -377,142 +359,383 @@ ul{
     font-weight:600;
 
 }
-</file>
 
-<file path="components/button.css">
-button{
 
-    cursor:pointer;
 
-    font-family:inherit;
+
+
+
+/* ===========================
+LIBRARY ANIME CARD
+=========================== */
+
+.library-anime-card {
+
+    background:
+        var(--surface);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        14px;
+
+    overflow:hidden;
+
+    min-width:0;
 
 }
 
 
-.hero-btn{
+/* ===========================
+IMAGE
+=========================== */
+
+.library-anime-card img {
+
+    width:100%;
+
+    aspect-ratio:2 / 3;
+
+    object-fit:cover;
+
+    display:block;
+
+}
+
+
+/* ===========================
+CONTENT
+=========================== */
+
+.library-anime-content {
+
+    padding:.75rem;
+
+}
+
+
+/* ===========================
+TITLE ROW
+=========================== */
+
+.library-anime-title-row {
 
     display:flex;
 
     align-items:center;
 
-    justify-content:center;
+    gap:.5rem;
 
-    padding:12px 24px;
+}
 
-    border-radius:12px;
 
-    text-decoration:none;
+.library-anime-title-row h3 {
+
+    flex:1;
+
+    min-width:0;
+
+    margin:0;
+
+    font-size:.9rem;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+
+/* ===========================
+MENU
+=========================== */
+
+.library-anime-menu {
+
+    flex-shrink:0;
+
+    border:none;
+
+    background:none;
+
+    color:var(--text);
+
+    font-size:1.3rem;
 
     cursor:pointer;
 
-    font-weight:600;
+    padding:0 .25rem;
 
 }
+</file>
 
-.hero-btn.primary{
+<file path="components/button.css">
+/* ==========================================
+   GLOBAL BUTTON SYSTEM
+========================================== */
 
-    background:var(--primary);
-
-    color:white;
-
-}
-.hero-btn.secondary{
-
-    background:rgba(255,255,255,.1);
-
-    color:white;
-
-    border:1px solid rgba(255,255,255,.2);
-
-}
-.hero-buttons{
+.btn {
 
     display:flex;
+    align-items:center;
+    justify-content:center;
 
-    gap:1rem;
+    gap:.5rem;
 
-}
-
-
-.auth-card button{
-
-    padding:1rem;
+    padding:.8rem 1.3rem;
 
     border:none;
 
     border-radius:12px;
+
+    cursor:pointer;
+
+    font-family:inherit;
+
+    font-weight:600;
+
+    font-size:.95rem;
+
+    transition:.25s ease;
+
+    text-decoration:none;
+
+}
+
+
+/* ==========================================
+   PRIMARY BUTTON
+========================================== */
+
+.btn-primary {
 
     background:var(--gradient);
 
     color:white;
 
-    cursor:pointer;
-
-    font-weight:600;
-
 }
-</file>
 
-<file path="components/dropdown.css">
-.add-list-panel{
 
-    position:fixed;
+.btn-primary:hover {
 
-    right:20px;
+    transform:translateY(-3px);
 
-    top:100px;
-
-    width:280px;
-
-    background:#1e1e1e;
-
-    border:1px solid rgba(
-        255,
-        255,
-        255,
-        .1
-    );
-
-    border-radius:16px;
-
-    padding:1rem;
-
-    z-index:9999;
+    box-shadow:
+    0 10px 25px rgba(139,92,246,.35);
 
 }
 
 
-.list-option,
-.create-list-btn{
+/* ==========================================
+   SECONDARY BUTTON
+========================================== */
 
-    width:100%;
+.btn-secondary {
 
-    padding:12px;
+    background:
+    rgba(255,255,255,.1);
 
-    margin-top:8px;
+    color:var(--text);
 
-    border:none;
+    border:
+    1px solid rgba(255,255,255,.15);
 
-    border-radius:10px;
+}
 
-    cursor:pointer;
 
-    background:rgba(
-        255,
-        255,
-        255,
-        .08
-    );
+.btn-secondary:hover {
+
+    background:
+    rgba(255,255,255,.18);
+
+    transform:translateY(-3px);
+
+}
+
+
+/* ==========================================
+   DANGER BUTTON
+========================================== */
+
+.btn-danger {
+
+    background:#ef4444;
 
     color:white;
 
 }
 
-.list-option:hover,
-.create-list-btn:hover{
 
-    background:var(--primary);
+.btn-danger:hover {
 
+    background:#dc2626;
+
+}
+
+
+/* ==========================================
+   GHOST BUTTON
+========================================== */
+
+.btn-ghost {
+
+    background:transparent;
+
+    color:var(--text);
+
+}
+
+
+.btn-ghost:hover {
+
+    background:
+    rgba(255,255,255,.08);
+
+}
+
+
+/* ==========================================
+   ICON BUTTON
+========================================== */
+
+.btn-icon {
+
+    width:42px;
+
+    height:42px;
+
+    padding:0;
+
+    border-radius:50%;
+
+}
+
+
+/* ==========================================
+   SMALL BUTTON
+========================================== */
+
+.btn-small {
+
+    padding:.5rem .9rem;
+
+    font-size:.85rem;
+
+}
+
+
+/* ==========================================
+   LARGE BUTTON
+========================================== */
+
+.btn-large {
+
+    padding:1rem 2rem;
+
+    font-size:1.1rem;
+
+}
+
+
+/* ==========================================
+   DISABLED
+========================================== */
+
+.btn:disabled {
+
+    opacity:.5;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+}
+</file>
+
+<file path="components/dropdown.css">
+/* ==========================================
+   CARD DROPDOWN MENU
+========================================== */
+.card-dropdown{
+    position:absolute;
+    top: 40px;
+    right:0;
+    width:170px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:.5rem;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-10px);
+    transition:.2s ease;
+    z-index:9999;
+
+}
+
+
+
+.card-dropdown.active{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+
+
+.dropdown-item{
+    position: relative;
+    z-index: 100000;
+    width:100%;
+
+    padding:.7rem;
+
+    border:none;
+
+    background:none;
+
+    color:var(--text);
+
+    text-align:left;
+
+    border-radius:10px;
+
+}
+
+
+
+.dropdown-item:hover{
+
+    background:
+    rgba(255,255,255,.08);
+
+}
+
+.card-dropdown .dropdown-item {
+    position: relative;
+    z-index: 100000;
+
+    width: 100%;
+
+    padding: .7rem;
+
+    border: none;
+
+    background: none;
+
+    color: var(--text);
+
+    text-align: left;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+.card-dropdown .dropdown-item:hover {
+    background: rgba(255,255,255,.08);
 }
 </file>
 

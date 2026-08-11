@@ -1,81 +1,109 @@
-/* ==========================================
-   CARD DROPDOWN MENU
-========================================== */
+/* =========================================================
+CARD DROPDOWN MENU
+========================================================= */
 .card-dropdown{
-    position:absolute;
-    top: 40px;
-    right:0;
-    width:170px;
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:14px;
-    padding:.5rem;
-    opacity:0;
-    visibility:hidden;
-    transform:translateY(-10px);
-    transition:.2s ease;
-    z-index:9999;
+
+position:absolute;
+
+top:40px;
+
+right:0;
+
+width:170px;
+
+background:var(--surface);
+
+border:1px solid var(--border);
+
+border-radius:14px;
+
+padding:.5rem;
+
+opacity:0;
+
+visibility:hidden;
+
+transform:translateY(-10px);
+
+transition:
+    opacity .2s ease,
+    transform .2s ease,
+    visibility .2s ease;
+
+z-index:99999;
+
+box-shadow:
+    0 15px 35px rgba(0,0,0,.35);
 
 }
 
-
+/* =========================================================
+ACTIVE DROPDOWN
+========================================================= */
 
 .card-dropdown.active{
-    opacity:1;
-    visibility:visible;
-    transform:translateY(0);
-}
 
+opacity:1;
 
+visibility:visible;
 
-.dropdown-item{
-    position: relative;
-    z-index: 100000;
-    width:100%;
-
-    padding:.7rem;
-
-    border:none;
-
-    background:none;
-
-    color:var(--text);
-
-    text-align:left;
-
-    border-radius:10px;
+transform:translateY(0);
+z-index: 100;
 
 }
 
+/* =========================================================
+DROPDOWN ITEM
+========================================================= */
 
+.card-dropdown .dropdown-item{
 
-.dropdown-item:hover{
+position:relative;
 
-    background:
-    rgba(255,255,255,.08);
+width:100%;
+
+padding:.7rem;
+
+border:none;
+
+background:transparent;
+
+color:var(--text);
+
+text-align:left;
+
+border-radius:10px;
+
+cursor:pointer;
+
+font-family:inherit;
+
+transition:
+    background .2s ease,
+    color .2s ease;
 
 }
 
-.card-dropdown .dropdown-item {
-    position: relative;
-    z-index: 100000;
+/* =========================================================
+ITEM HOVER
+========================================================= */
 
-    width: 100%;
+.card-dropdown .dropdown-item:hover{
 
-    padding: .7rem;
+background:rgba(255,255,255,.08);
 
-    border: none;
-
-    background: none;
-
-    color: var(--text);
-
-    text-align: left;
-
-    border-radius: 10px;
-
-    cursor: pointer;
 }
-.card-dropdown .dropdown-item:hover {
-    background: rgba(255,255,255,.08);
+
+/* =========================================================
+TOUCH DEVICES
+========================================================= */
+
+@media (hover:none){
+
+.card-dropdown .dropdown-item:hover{
+
+    background:transparent;
+
+}
+
 }

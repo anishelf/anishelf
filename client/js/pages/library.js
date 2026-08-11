@@ -160,7 +160,7 @@ async function openList(
         Modal.open({
 
             title:name,
-            discri
+            discription: ,
             content:`
 
                 <div

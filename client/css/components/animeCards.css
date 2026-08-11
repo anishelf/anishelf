@@ -1,317 +1,416 @@
-/* ===========================
-   ANIME GRID
-=========================== */
+/* =========================================================
+ANIME CONTAINER
+========================================================= */
 
 .anime-container{
-    display:flex;
-    gap:1.5rem;
-    overflow-x:auto;
-    padding:1rem 0 2rem;
-    scroll-behavior:smooth;
+
+
+display:flex;
+
+gap:1.5rem;
+
+overflow-x:visible;
+
+padding:1rem 0 2rem;
+
+scroll-behavior:smooth;
+
+scrollbar-width:none;
+
+-ms-overflow-style:none;
 
 }
-
 
 /* Hide scrollbar */
 
 .anime-container::-webkit-scrollbar{
 
-    display:none;
+display:none;
+
 
 }
 
-/* ===========================
-   ANIME CARD CONTAINER
-=========================== */
-
-.anime-container{
-
-    display:flex;
-
-    gap:1.5rem;
-
-    overflow-x:auto;
-
-    padding:1rem 0 2rem;
-
-    scroll-behavior:smooth;
-
-}
-
-
-/* Hide scrollbar */
-
-.anime-container::-webkit-scrollbar{
-
-    display:none;
-
-}
-
-
-
-/* ===========================
-   ANIME CARD
-=========================== */
+/* =========================================================
+ANIME CARD
+========================================================= */
 
 .anime-card{
-    background:var(--surface);
-    width:250px;
-    border-radius:18px;
-    overflow:visible;
-    flex-shrink:0;
-    cursor:pointer;
-    transition:.3s ease;
-}
 
+
+background:var(--surface);
+position: relative;
+width:250px;
+
+border-radius:18px;
+
+overflow:visible;
+
+flex-shrink:0;
+
+cursor:pointer;
+
+transition:.3s ease;
+
+}
 
 .anime-card:hover{
 
-    transform:translateY(-8px);
+
+transform:translateY(-8px);
+
 
 }
 
-
-
-/* ===========================
-   CARD IMAGE
-=========================== */
+/* =========================================================
+CARD IMAGE
+========================================================= */
 
 .anime-card img{
 
-    width:100%;
 
-    height:250px;
+width:100%;
 
-    object-fit:cover;
+height:250px;
+
+object-fit:cover;
+
+display:block;
+
 
 }
 
-
-
-/* ===========================
-   CARD CONTENT
-=========================== */
+/* =========================================================
+CARD CONTENT
+========================================================= */
 
 .card-content{
-    z-index: 2;
-    padding:1rem;
-    position: relative;
+
+
+z-index:2;
+
+padding:1rem;
+
+position:relative;
+
 
 }
-
-
 
 .card-title-row{
 
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:.5rem;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+gap:.5rem;
+position: relative;
+
 
 }
 
+.card-title-row h3{
+
+
+min-width:0;
+
+font-size:1rem;
+
+white-space:nowrap;
+
+overflow:hidden;
+
+text-overflow:ellipsis;
+
+
+}
+
+/* =========================================================
+CARD MENU BUTTON
+========================================================= */
+
+.card-menu{
+
+
+flex-shrink:0;
+
+border:none;
+
+background:none;
+
+color:var(--text);
+
+font-size:1.5rem;
+
+cursor:pointer;
+
+
+}
+
+/* =========================================================
+CARD BADGES
+========================================================= */
+
+.card-badges{
+
+
+display:flex;
+
+gap:.5rem;
+
+margin-top:.8rem;
+
+flex-wrap:wrap;
+
+
+}
+
+.card-badges span{
+
+
+padding:5px 10px;
+
+border-radius:999px;
+
+background:rgba(139,92,246,.15);
+
+color:#b892ff;
+
+font-size:.75rem;
+
+font-weight:600;
+
+
+}
+
+/* =========================================================
+RATING BADGE
+========================================================= */
+
+.rating-badge{
+
+
+position:absolute;
+
+top:12px;
+
+right:12px;
+
+padding:6px 12px;
+
+border-radius:999px;
+
+background:rgba(0,0,0,.65);
+
+backdrop-filter:blur(8px);
+
+font-size:.85rem;
+
+font-weight:600;
+
+
+}
+
+/* =========================================================
+TABLETS / IPADS
+========================================================= */
+
+@media (max-width:900px){
+
+.anime-container{
+
+    gap:1rem;
+
+    padding:1rem 0 1.5rem;
+
+}
+
+
+.anime-card{
+
+    width:210px;
+
+}
+
+
+.anime-card img{
+
+    height:210px;
+
+}
+
+
+.card-content{
+
+    padding:.85rem;
+
+}
 
 
 .card-title-row h3{
 
-    font-size:1rem;
-
-    white-space:nowrap;
-
-    overflow:hidden;
-
-    text-overflow:ellipsis;
+    font-size:.95rem;
 
 }
 
-
-
-/* ===========================
-   CARD MENU BUTTON
-=========================== */
 
 .card-menu{
 
-    border:none;
-
-    background:none;
-
-
-    font-size:1.5rem;
-
-    cursor:pointer;
+    font-size:1.3rem;
 
 }
 
-
-
-/* ===========================
-   CARD BADGES
-=========================== */
 
 .card-badges{
 
-    display:flex;
+    gap:.4rem;
 
-    gap:.5rem;
-
-    margin-top:.8rem;
+    margin-top:.6rem;
 
 }
-
 
 
 .card-badges span{
 
-    padding:5px 10px;
+    padding:4px 8px;
 
-    border-radius:999px;
-
-    background:rgba(139,92,246,.15);
-
-    color:#b892ff;
-
-    font-size:.75rem;
-
-    font-weight:600;
+    font-size:.7rem;
 
 }
 
-
-
-/* ===========================
-   RATING BADGE
-=========================== */
 
 .rating-badge{
 
-    position:absolute;
+    top:10px;
 
-    top:12px;
+    right:10px;
 
-    right:12px;
+    padding:5px 9px;
 
-    padding:6px 12px;
+    font-size:.75rem;
 
-    border-radius:999px;
+}
 
-    background:rgba(0,0,0,.65);
 
-    backdrop-filter:blur(8px);
+}
+
+/* =========================================================
+MOBILE
+========================================================= */
+
+@media (max-width:600px){
+
+
+.anime-container{
+
+    gap:.75rem;
+
+    padding:.75rem 0 1.25rem;
+
+}
+
+
+.anime-card{
+
+    width:170px;
+
+    border-radius:14px;
+
+}
+
+
+.anime-card img{
+
+    height:210px;
+
+}
+
+
+.card-content{
+
+    padding:.7rem;
+
+}
+
+
+.card-title-row{
+
+    gap:.35rem;
+
+}
+
+
+.card-title-row h3{
 
     font-size:.85rem;
 
-    font-weight:600;
+}
+
+
+.card-menu{
+
+    font-size:1.15rem;
 
 }
 
 
+.card-badges{
 
+    gap:.3rem;
 
-
-
-/* ===========================
-LIBRARY ANIME CARD
-=========================== */
-
-.library-anime-card {
-
-    background:
-        var(--surface);
-
-    border:
-        1px solid var(--border);
-
-    border-radius:
-        14px;
-
-    overflow:hidden;
-
-    min-width:0;
+    margin-top:.5rem;
 
 }
 
 
-/* ===========================
-IMAGE
-=========================== */
+.card-badges span{
 
-.library-anime-card img {
+    padding:3px 7px;
 
-    width:100%;
-
-    aspect-ratio:2 / 3;
-
-    object-fit:cover;
-
-    display:block;
+    font-size:.65rem;
 
 }
 
 
-/* ===========================
-CONTENT
-=========================== */
+.rating-badge{
 
-.library-anime-content {
+    top:8px;
 
-    padding:.75rem;
+    right:8px;
 
-}
+    padding:4px 7px;
 
-
-/* ===========================
-TITLE ROW
-=========================== */
-
-.library-anime-title-row {
-
-    display:flex;
-
-    align-items:center;
-
-    gap:.5rem;
+    font-size:.7rem;
 
 }
 
+/* Disable the desktop hover lift on touch devices */
 
-.library-anime-title-row h3 {
+.anime-card:hover{
 
-    flex:1;
+    transform:none;
 
-    min-width:0;
+}
+}
 
-    margin:0;
+/* =========================================================
+VERY SMALL PHONES
+========================================================= */
 
-    font-size:.9rem;
+@media (max-width:400px){
 
-    white-space:nowrap;
+.anime-card{
 
-    overflow:hidden;
-
-    text-overflow:ellipsis;
+    width:155px;
 
 }
 
+.anime-card img{
 
-/* ===========================
-MENU
-=========================== */
-
-.library-anime-menu {
-
-    flex-shrink:0;
-
-    border:none;
-
-    background:none;
-
-    color:var(--text);
-
-    font-size:1.3rem;
-
-    cursor:pointer;
-
-    padding:0 .25rem;
+    height:195px;
 
 }
+
+}
+

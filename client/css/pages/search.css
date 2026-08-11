@@ -1,40 +1,67 @@
 /* ==========================================
+   SEARCH PAGE
+========================================== */
+
+
+/* ==========================================
    SEARCH HERO
 ========================================== */
 
 .hero {
     height: 130px;
+
     width: min(1400px, 95%);
+
     margin: 2rem auto;
+
     text-align: left;
+
     border-radius: 24px;
+
     overflow: hidden;
+
     background-size: cover;
+
     background-position: center;
+
     background-repeat: no-repeat;
 }
 
+
 .hero-content {
     height: 100%;
+
     display: flex;
+
     flex-direction: column;
+
     justify-content: flex-end;
+
     padding: 3rem;
 }
 
+
 .hero h1 {
     font-size: clamp(2rem, 3rem);
+
     max-width: 750px;
+
     line-height: 1.15;
+
     margin-bottom: 1rem;
 }
 
+
 .hero p {
     color: var(--muted);
+
     font-size: 1.1rem;
+
     max-width: 550px;
+
     margin-bottom: 3rem;
 }
+
 
 
 /* ==========================================
@@ -43,21 +70,33 @@
 
 .search-box {
     display: flex;
+
     gap: 1rem;
+
     width: 100%;
 }
 
+
 .search-box input {
     flex: 1;
+
     width: 100%;
+
     padding: 18px 22px;
+
     border: none;
+
     outline: none;
+
     border-radius: 15px;
+
     background: var(--surface);
+
     color: var(--text);
+
     font-size: 1rem;
 }
+
 
 
 /* ==========================================
@@ -65,52 +104,587 @@
 ========================================== */
 
 .search-filters {
+
     display: flex;
+
     gap: 1rem;
-    width: min(1000px, 95%);
+
+    width: 90%;
+
+    max-width: 1400px;
+
     margin: 1.5rem auto 3rem;
-    justify-content: center;
-    flex-wrap: wrap;
+
+    justify-content: stretch;
+
+    align-items: center;
+
+    flex-wrap: nowrap;
 }
 
+
 .search-filters select {
+
     appearance: none;
+
+    flex: 1;
+
+    width: 100%;
+
+    min-width: 0;
+
     background: rgba(255,255,255,.05);
+
     backdrop-filter: blur(10px);
+
     color: white;
+
     border: 1px solid rgba(255,255,255,.15);
+
     border-radius: 999px;
+
     padding: 12px 20px;
-    min-width: 150px;
+
     cursor: pointer;
+
     transition: .25s;
 }
 
+
 .search-filters select:hover {
+
     transform: translateY(-3px);
+
     border-color: var(--purple);
 }
 
+
 .search-filters select:focus {
-    box-shadow: 0 0 0 3px rgba(139,92,246,.25);
+
+    outline: none;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(139,92,246,.25);
 }
+
+
 
 /* ==========================================
    SEARCH RESULTS
 ========================================== */
 
 .anime-section {
-    padding: 2rem 5%;
+
+    width: 90%;
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 2rem 0;
 }
 
+
 .anime-section h2 {
+
     font-size: 2rem;
+
     margin-bottom: 1.5rem;
 }
 
+
+
+/* ==========================================
+   SEARCH RESULT GRID
+========================================== */
+
 .anime-grid {
+
     display: grid;
+
     grid-template-columns:
-        repeat(auto-fill, minmax(220px, 1fr));
+        repeat(
+            auto-fill,
+            minmax(220px, 1fr)
+        );
+
     gap: 1.5rem;
+}
+
+
+
+/* ==========================================
+   SEARCH RESULT CARD
+========================================== */
+
+.anime-grid .anime-card {
+
+    width: 100%;
+
+    min-width: 0;
+
+    background: var(--surface);
+
+    border-radius: 18px;
+
+    overflow: visible;
+}
+
+
+.anime-grid .anime-card img {
+
+    width: 100%;
+
+    height: 280px;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+.anime-grid .card-content {
+
+    padding: 1rem;
+}
+
+
+.anime-grid .card-title-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: .5rem;
+}
+
+
+.anime-grid .card-title-row h3 {
+
+    min-width: 0;
+
+    font-size: 1rem;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+
+/* ==========================================
+   MOBILE SEARCH
+========================================== */
+
+@media (max-width: 768px) {
+
+
+    /* ======================================
+       HERO
+    ====================================== */
+
+    .hero {
+
+        width: 95%;
+
+        height: 110px;
+
+        margin: 1rem auto;
+
+        border-radius: 18px;
+    }
+
+
+    .hero-content {
+
+        padding: 1.5rem;
+    }
+
+
+    .hero h1 {
+
+        font-size: 1.5rem;
+
+        margin-bottom: .4rem;
+    }
+
+
+    .hero p {
+
+        font-size: .85rem;
+
+        margin-bottom: 1rem;
+    }
+
+
+
+    /* ======================================
+       SEARCH BAR
+    ====================================== */
+
+    .search-box {
+
+        width: 100%;
+
+        gap: .5rem;
+    }
+
+
+    .search-box input {
+
+        padding: 14px 16px;
+
+        font-size: .9rem;
+
+        border-radius: 12px;
+    }
+
+
+
+    /* ======================================
+       FILTERS
+    ====================================== */
+
+    .search-filters {
+
+        width: 100%;
+
+        max-width: none;
+
+        padding: 0 1rem;
+
+        box-sizing: border-box;
+
+        gap: .5rem;
+
+        margin: 1rem auto 2rem;
+
+        flex-wrap: nowrap;
+    }
+
+
+    .search-filters select {
+
+        flex: 1;
+
+        min-width: 0;
+
+        width: 100%;
+
+        padding: 10px 8px;
+
+        font-size: .8rem;
+
+        border-radius: 999px;
+
+        text-overflow: ellipsis;
+    }
+
+
+
+    /* ======================================
+       RESULTS SECTION
+    ====================================== */
+
+    .anime-section {
+
+        width: 100%;
+
+        padding: 1.5rem 1rem;
+
+        box-sizing: border-box;
+    }
+
+
+    .anime-section h2 {
+
+        font-size: 1.5rem;
+
+        margin-bottom: 1rem;
+    }
+
+
+
+    /* ======================================
+       RESULTS GRID
+    ====================================== */
+
+    .anime-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        overflow-y: auto;
+        overflow-x: visible;
+        padding: .25rem;
+        scrollbar-width: thin;
+        scrollbar-color:
+            rgba(139,92,246,.55)
+            transparent;
+
+
+    }
+    .anime-grid::-webkit-scrollbar {
+
+        width: 6px;
+    }
+
+
+    .anime-grid::-webkit-scrollbar-track {
+
+        background: transparent;
+    }
+
+
+    .anime-grid::-webkit-scrollbar-thumb {
+
+        background:
+            rgba(139,92,246,.55);
+
+        border-radius: 999px;
+    }
+
+
+
+    /* ======================================
+       HORIZONTAL MOBILE CARD
+    ====================================== */
+
+    .anime-grid .anime-card {
+
+        width: 100%;
+
+        height: 150px;
+
+        display: flex;
+
+        flex-direction: row;
+
+        align-items: stretch;
+
+        border-radius: 18px;
+
+        overflow: visible;
+
+        background: var(--surface);
+
+        border: 1px solid var(--border);
+    }
+
+
+    /* ======================================
+       MOBILE CARD IMAGE
+    ====================================== */
+
+    .anime-grid .anime-card img {
+
+        width: 105px;
+
+        height: 100%;
+
+        flex-shrink: 0;
+
+        object-fit: cover;
+    }
+
+
+    /* ======================================
+       MOBILE CARD CONTENT
+    ====================================== */
+
+    .anime-grid .card-content {
+
+        flex: 1;
+
+        min-width: 0;
+
+        padding: .8rem;
+
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: center;
+    }
+
+
+    .anime-grid .card-title-row {
+
+        width: 100%;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: .4rem;
+    }
+
+
+    .anime-grid .card-title-row h3 {
+
+        font-size: .95rem;
+
+        line-height: 1.3;
+    }
+
+
+    /* ======================================
+       MOBILE BADGES
+    ====================================== */
+
+    .anime-grid .card-badges {
+
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: .4rem;
+
+        margin-top: .6rem;
+    }
+
+
+    .anime-grid .card-badges span {
+
+        padding: 4px 8px;
+
+        font-size: .7rem;
+
+        border-radius: 999px;
+    }
+
+
+    /* ======================================
+       MOBILE MENU
+    ====================================== */
+
+    .anime-grid .card-menu {
+
+        font-size: 1.3rem;
+
+        flex-shrink: 0;
+    }
+
+}
+
+
+
+/* ==========================================
+   SMALL PHONES
+========================================== */
+
+@media (max-width: 480px) {
+
+
+    /* ======================================
+       HERO
+    ====================================== */
+
+    .hero {
+
+        width: 94%;
+
+        height: 100px;
+
+        border-radius: 16px;
+    }
+
+
+    .hero-content {
+
+        padding: 1.2rem;
+    }
+
+
+    .hero h1 {
+
+        font-size: 1.3rem;
+    }
+
+
+    .hero p {
+
+        font-size: .8rem;
+    }
+
+
+
+    /* ======================================
+       FILTERS
+    ====================================== */
+
+    .search-filters {
+
+        padding: 0 .6rem;
+
+        gap: .35rem;
+    }
+
+
+    .search-filters select {
+
+        padding: 9px 5px;
+
+        font-size: .7rem;
+    }
+
+
+
+    /* ======================================
+       SEARCH RESULTS
+    ====================================== */
+
+    .anime-section {
+
+        padding: 1.25rem .75rem;
+    }
+
+
+    .anime-grid {
+
+        gap: .75rem;
+    }
+
+
+    /* ======================================
+       MOBILE CARD
+    ====================================== */
+
+    .anime-grid .anime-card {
+
+        height: 135px;
+
+        border-radius: 16px;
+    }
+
+
+    .anime-grid .anime-card img {
+
+        width: 90px;
+    }
+
+
+    .anime-grid .card-content {
+
+        padding: .7rem;
+    }
+
+
+    .anime-grid .card-title-row h3 {
+
+        font-size: .85rem;
+    }
+
+
+    .anime-grid .card-badges span {
+
+        font-size: .65rem;
+
+        padding: 3px 7px;
+    }
+
 }

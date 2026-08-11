@@ -87,14 +87,16 @@ async function renderNavbar(){
 
 
             <li>
-                <a href="login.html">
+                <a href="login.html"
+                class = "authActions">
                     Login
                 </a>
             </li>
 
 
             <li>
-                <a href="signup.html">
+                <a href="signup.html"
+                class = "authActions">
                     Sign Up
                 </a>
             </li>
