@@ -34,15 +34,10 @@ ANIME CARD
 background:var(--surface);
 position: relative;
 width:250px;
-position: relative;
 border-radius:18px;
-
 overflow:visible;
-
 flex-shrink:0;
-
 cursor:pointer;
-
 transition:.3s ease;
 
 }
@@ -133,18 +128,28 @@ CARD MENU BUTTON
 .card-menu{
 
 
-flex-shrink:0;
+    flex-shrink:0;
 
-border:none;
+    width:20x;
+    height:20px;
 
-background:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-color:var(--text);
+    padding:0;
 
-font-size:1.5rem;
+    border:none;
 
-cursor:pointer;
+    background:transparent;
 
+    color:var(--text);
+
+    font-size:1.5rem;
+
+    cursor:pointer;
+
+    border-radius:10px;
 
 }
 
