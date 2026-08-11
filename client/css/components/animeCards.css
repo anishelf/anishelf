@@ -9,8 +9,8 @@ display:flex;
 
 gap:1.5rem;
 
-overflow-x:visible;
-
+overflow-x:auto;
+touch-action: pan-x;
 padding:1rem 0 2rem;
 
 scroll-behavior:smooth;
