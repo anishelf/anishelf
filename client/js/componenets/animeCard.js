@@ -197,41 +197,133 @@ function toggleCardMenu(event){
     event.stopPropagation();
     event.preventDefault();
 
+    const button =
+        event.currentTarget;
 
     const card =
-    event.target.closest(
-        ".anime-card"
-    );
-
+        button.closest(".anime-card");
 
     const dropdown =
-    card.querySelector(
-        ".card-dropdown"
-    );
+        card.querySelector(".card-dropdown");
 
 
+    // Close other menus
     document
-    .querySelectorAll(
-        ".card-dropdown"
-    )
-    .forEach(menu=>{
+        .querySelectorAll(".card-dropdown")
+        .forEach(menu => {
 
-        if(menu !== dropdown){
+            if(menu !== dropdown){
 
-            menu.classList.remove(
-                "active"
-            );
+                menu.classList.remove("active");
 
-        }
+            }
 
-    });
+        });
 
 
-    dropdown.classList.toggle(
-        "active"
-    );
+    // Toggle current menu
+    dropdown.classList.toggle("active");
+
+
+    if(!dropdown.classList.contains("active")){
+
+        return;
+
+    }
+
+
+    // Get button position
+    const rect =
+        button.getBoundingClientRect();
+
+
+    // Position dropdown
+    dropdown.style.position = "fixed";
+
+    dropdown.style.top =
+        `${rect.bottom + 6}px`;
+
+    dropdown.style.left =
+        `${rect.right - 170}px`;
 
 }
 
+
+// ========================================
+// CLOSE WHEN CLICKING OUTSIDE
+// ========================================
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        // If click is inside a dropdown,
+        // don't close it here.
+        if(
+            event.target.closest(".card-dropdown")
+        ){
+
+            return;
+
+        }
+
+
+        // If click is on a menu button,
+        // toggleCardMenu() handles it.
+        if(
+            event.target.closest(".card-menu")
+        ){
+
+            return;
+
+        }
+
+
+        // Otherwise close all menus
+        document
+            .querySelectorAll(".card-dropdown")
+            .forEach(menu => {
+
+                menu.classList.remove("active");
+
+            });
+
+    }
+);
+
+
+// ========================================
+// CLOSE AFTER CLICKING DROPDOWN OPTION
+// ========================================
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        const option =
+            event.target.closest(
+                ".card-dropdown .dropdown-item"
+            );
+
+
+        if(!option){
+
+            return;
+
+        }
+
+
+        const dropdown =
+            option.closest(".card-dropdown");
+
+
+        if(dropdown){
+
+            dropdown.classList.remove("active");
+
+        }
+
+    }
+);
 
 console.log("animeCard.js loaded");

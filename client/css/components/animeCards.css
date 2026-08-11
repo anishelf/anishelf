@@ -3,23 +3,17 @@ ANIME CONTAINER
 ========================================================= */
 
 .anime-container{
-
-
-display:flex;
-
-gap:1.5rem;
-
-overflow-x:auto;
-touch-action: pan-x;
-padding:1rem 0 2rem;
-
-scroll-behavior:smooth;
-
-scrollbar-width:none;
-
--ms-overflow-style:none;
-
+    display:flex;
+    gap:1.5rem;
+    overflow-x:auto;
+    overflow-y:hidden;
+    touch-action:pan-x;
+    padding:1rem 0 2rem;
+    scroll-behavior:smooth;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
 }
+
 
 /* Hide scrollbar */
 
