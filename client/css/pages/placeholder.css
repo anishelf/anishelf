@@ -1,0 +1,282 @@
+/* ========================================
+AniShelf
+File: placeholder.css
+Purpose: Community / AI Search placeholders
+======================================== */
+
+/* ========================================
+PAGE
+======================================== */
+
+.placeholder-page{
+
+
+min-height:calc(100vh - 80px);
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+padding:4rem 5%;
+
+}
+
+/* ========================================
+PLACEHOLDER CARD
+======================================== */
+
+.placeholder-card{
+
+width:min(700px, 100%);
+
+padding:3rem;
+
+text-align:center;
+
+background:var(--surface);
+
+border:1px solid var(--border);
+
+border-radius:24px;
+
+box-shadow:
+    0 20px 60px
+    rgba(0,0,0,.25);
+
+}
+
+/* ========================================
+ICON
+======================================== */
+
+.placeholder-icon{
+
+
+font-size:3rem;
+
+margin-bottom:1rem;
+
+
+}
+
+/* ========================================
+BADGE
+======================================== */
+
+.placeholder-badge{
+
+
+display:inline-block;
+
+padding:.4rem .9rem;
+
+border-radius:999px;
+
+background:rgba(139,92,246,.15);
+
+color:#b892ff;
+
+font-size:.8rem;
+
+font-weight:600;
+
+margin-bottom:1rem;
+
+
+}
+
+/* ========================================
+TITLE
+======================================== */
+
+.placeholder-card h1{
+
+
+font-size:2.4rem;
+
+margin-bottom:1rem;
+
+
+}
+
+/* ========================================
+DESCRIPTION
+======================================== */
+
+.placeholder-card p{
+
+
+max-width:600px;
+
+margin:0 auto;
+
+color:var(--muted);
+
+line-height:1.8;
+
+
+}
+
+/* ========================================
+COMMUNITY FEATURES
+======================================== */
+
+.placeholder-features{
+
+display:flex;
+
+justify-content:center;
+
+gap:1rem;
+
+margin-top:2rem;
+
+flex-wrap:wrap;
+
+
+}
+
+.placeholder-features div{
+
+display:flex;
+
+align-items:center;
+
+gap:.5rem;
+
+padding:.7rem 1rem;
+
+background:rgba(255,255,255,.05);
+
+border:1px solid var(--border);
+
+border-radius:12px;
+
+font-size:.85rem;
+
+
+}
+
+.placeholder-features span{
+
+
+font-size:1rem;
+
+
+}
+
+/* ========================================
+AI SEARCH EXAMPLE
+======================================== */
+
+.placeholder-example{
+
+
+margin-top:2rem;
+
+padding:1.2rem;
+
+text-align:left;
+
+background:rgba(255,255,255,.04);
+
+border:1px solid var(--border);
+
+border-radius:15px;
+
+
+}
+
+.placeholder-example span{
+
+
+display:block;
+
+color:var(--muted);
+
+font-size:.8rem;
+
+margin-bottom:.5rem;
+
+
+}
+
+.placeholder-example strong{
+
+
+display:block;
+
+color:var(--text);
+
+font-size:.9rem;
+
+line-height:1.6;
+
+
+}
+
+/* ========================================
+MOBILE
+======================================== */
+
+@media(max-width:600px){
+
+.placeholder-page{
+
+    min-height:calc(100vh - 70px);
+
+    padding:2rem 1rem;
+
+}
+
+
+.placeholder-card{
+
+    padding:2rem 1.2rem;
+
+    border-radius:20px;
+
+}
+
+
+.placeholder-card h1{
+
+    font-size:1.8rem;
+
+}
+
+
+.placeholder-card p{
+
+    font-size:.9rem;
+
+    line-height:1.7;
+
+}
+
+
+.placeholder-icon{
+
+    font-size:2.5rem;
+
+}
+
+
+.placeholder-features{
+
+    flex-direction:column;
+
+    gap:.7rem;
+
+}
+
+
+.placeholder-features div{
+
+    justify-content:center;
+
+}
+
+}

@@ -109,9 +109,69 @@ async function renderNavbar(){
 
 }
 
+function setupNavbar(){
+
+    const toggle =
+        document.getElementById("navToggle");
+
+    const navLinks =
+        document.getElementById("navLinks");
+
+
+    if(!toggle || !navLinks) return;
+
+
+    toggle.addEventListener("click", () => {
+
+        const isOpen =
+            navLinks.classList.toggle("mobile-open");
+
+
+        toggle.classList.toggle(
+            "active",
+            isOpen
+        );
+
+
+        toggle.setAttribute(
+            "aria-expanded",
+            isOpen
+        );
+
+    });
+
+
+    navLinks.addEventListener("click", event => {
+
+        if(event.target.tagName === "A"){
+
+            navLinks.classList.remove(
+                "mobile-open"
+            );
+
+            toggle.classList.remove(
+                "active"
+            );
+
+            toggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+
+    });
+
+}
 
 
 document.addEventListener(
     "DOMContentLoaded",
-    renderNavbar
+    async () => {
+
+        await renderNavbar();
+
+        setupNavbar();
+
+    }
 );
