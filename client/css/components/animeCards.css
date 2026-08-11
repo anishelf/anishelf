@@ -10,6 +10,7 @@ display:flex;
 gap:1.5rem;
 
 overflow-x:auto;
+touch-action: pan-x;
 padding:1rem 0 2rem;
 
 scroll-behavior:smooth;
@@ -39,7 +40,7 @@ ANIME CARD
 background:var(--surface);
 position: relative;
 width:250px;
-
+position: relative;
 border-radius:18px;
 
 overflow:visible;
@@ -123,6 +124,12 @@ overflow:hidden;
 text-overflow:ellipsis;
 
 
+}
+
+
+.card-menu-wrapper {
+    position: relative;
+    flex-shrink: 0;
 }
 
 /* =========================================================

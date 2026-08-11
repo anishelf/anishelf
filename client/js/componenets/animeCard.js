@@ -14,58 +14,53 @@ function createAnimeCard(anime){
         <div class="card-content">
 
 
-            <div class="card-title-row">
 
+
+            <div class="card-title-row">
 
                 <h3>
                     ${anime.title}
                 </h3>
 
-
-                <button
-                class="card-menu"
-                onclick="
-                event.stopPropagation();
-                toggleCardMenu(event)">
-                    ⋮
-                </button>
-
-
-                <div class="card-dropdown" 
-                onclick="event.stopPropagation()">
-
+                <div class="card-menu-wrapper">
 
                     <button
-                    class="dropdown-item add-list-btn"
-                    data-id="${anime.id}"
-                    data-title="${anime.title}"
-                    data-image="${anime.image}"
-                    >
-
-                        ➕ Add To List
-
+                        class="card-menu"
+                        onclick="
+                        event.stopPropagation();
+                        toggleCardMenu(event)">
+                        ⋮
                     </button>
 
+                    <div
+                        class="card-dropdown"
+                        onclick="event.stopPropagation()">
 
+                        <button
+                            class="dropdown-item add-list-btn"
+                            data-id="${anime.id}"
+                            data-title="${anime.title}"
+                            data-image="${anime.image}">
 
-                    <button
-                    class="dropdown-item share-btn"
-                    data-id="${anime.id}"
-                    data-title="${anime.title}"
-                    >
+                            ➕ Add To List
 
-                        🔗 Share
+                        </button>
 
-                    </button>
+                        <button
+                            class="dropdown-item share-btn"
+                            data-id="${anime.id}"
+                            data-title="${anime.title}">
 
+                            🔗 Share
+
+                        </button>
+
+                    </div>
 
                 </div>
 
-
             </div>
-
-
-
+           
             <div class="card-badges">
 
 
