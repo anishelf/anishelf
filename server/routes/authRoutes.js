@@ -88,4 +88,118 @@ router.get(
 );
 
 
+// ========================================
+// Save Profile Image
+// ========================================
+
+router.put(
+    "/profile-image",
+    verifyToken,
+    async (req, res) => {
+
+        try {
+
+            const { profileImage } = req.body;
+
+            if (!profileImage) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Profile image is required"
+
+                });
+
+            }
+
+
+            const result =
+                await pool.query(
+
+                    `
+                    UPDATE users
+                    SET profile_image = $1
+                    WHERE id = $2
+                    RETURNING
+                        id,
+                        username,
+                        email,
+                        profile_image
+                    `,
+
+                    [
+                        profileImage,
+                        req.user.id
+                    ]
+
+                );
+
+
+            if (
+                result.rows.length === 0
+            ) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "User not found"
+
+                });
+
+            }
+
+
+            res.json({
+
+                success: true,
+
+                user: {
+
+                    id:
+                        result.rows[0].id,
+
+                    username:
+                        result.rows[0].username,
+
+                    email:
+                        result.rows[0].email,
+
+                    profileImage:
+                        result.rows[0].profile_image
+
+                }
+
+            });
+
+
+        } catch (error) {
+
+            console.error(
+                "PROFILE IMAGE SAVE ERROR:",
+                error
+            );
+
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Failed to save profile image"
+
+            });
+
+        }
+
+    }
+);
+
+
+
+
+
 module.exports = router;
