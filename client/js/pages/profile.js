@@ -65,9 +65,8 @@ document.addEventListener(
 
         }
 
-
         // ============================
-        // Profile image preview
+        // Profile image upload
         // ============================
 
         const imageInput =
@@ -76,48 +75,257 @@ document.addEventListener(
             );
 
 
-        if(imageInput){
+        imageInput.addEventListener(
+            "change",
+            async event => {
 
-            imageInput.addEventListener(
-                "change",
-                event => {
-
-                    const file =
-                        event.target.files[0];
+                const file =
+                    event.target.files[0];
 
 
-                    if(!file){
+                if(!file){
 
-                        return;
+                    return;
+
+                }
+
+
+                // ============================
+                // Basic validation
+                // ============================
+
+                if(!file.type.startsWith("image/")){
+
+                    alert(
+                        "Please select an image."
+                    );
+
+                    return;
+
+                }
+
+
+                if(file.size > 5 * 1024 * 1024){
+
+                    alert(
+                        "Image must be smaller than 5MB."
+                    );
+
+                    return;
+
+                }
+
+
+                try {
+
+                    // ============================
+                    // Get ImageKit authentication
+                    // ============================
+
+                    const authResponse =
+                        await fetch(
+                            "https://anishelf-api.onrender.com/api/auth/imagekit",
+                            {
+                                credentials: "include"
+                            }
+                        );
+
+
+                    const authData =
+                        await authResponse.json();
+
+
+                    if(!authData.success){
+
+                        throw new Error(
+                            "Failed to authenticate with ImageKit"
+                        );
 
                     }
 
 
-                    const reader =
-                        new FileReader();
+                    // ============================
+                    // Prepare ImageKit upload
+                    // ============================
+
+                    const formData =
+                        new FormData();
 
 
-                    reader.onload =
-                        () => {
-
-                            avatar.innerHTML = `
-
-                                <img
-                                    src="${reader.result}"
-                                    alt="Profile picture"
-                                >
-
-                            `;
-
-                        };
+                    formData.append(
+                        "file",
+                        file
+                    );
 
 
-                    reader.readAsDataURL(file);
+                    formData.append(
+                        "fileName",
+                        `profile_${Date.now()}_${file.name}`
+                    );
+
+
+                    formData.append(
+                        "publicKey",
+                        authData.publicKey
+                    );
+
+
+                    formData.append(
+                        "signature",
+                        authData.signature
+                    );
+
+
+                    formData.append(
+                        "expire",
+                        authData.expire
+                    );
+
+
+                    formData.append(
+                        "token",
+                        authData.token
+                    );
+
+
+                    // ============================
+                    // Upload to ImageKit
+                    // ============================
+
+                    const uploadResponse =
+                        await fetch(
+                            "https://upload.imagekit.io/api/v1/files/upload",
+                            {
+                                method: "POST",
+                                body: formData
+                            }
+                        );
+
+
+                    const uploadData =
+                        await uploadResponse.json();
+
+
+                    if(!uploadResponse.ok){
+
+                        console.error(
+                            "IMAGEKIT UPLOAD ERROR:",
+                            uploadData
+                        );
+
+                        throw new Error(
+                            "Image upload failed"
+                        );
+
+                    }
+
+
+                    console.log(
+                        "IMAGEKIT UPLOAD:",
+                        uploadData
+                    );
+
+
+                    // ============================
+                    // Get uploaded image URL
+                    // ============================
+
+                    const imageUrl =
+                        uploadData.url;
+
+
+                    if(!imageUrl){
+
+                        throw new Error(
+                            "ImageKit did not return an image URL"
+                        );
+
+                    }
+
+
+                    // ============================
+                    // Save URL to AniShelf database
+                    // ============================
+
+                    const saveResponse =
+                        await fetch(
+                            "https://anishelf-api.onrender.com/api/auth/profile-image",
+                            {
+
+                                method: "PUT",
+
+                                credentials: "include",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body: JSON.stringify({
+
+                                    profileImage:
+                                        imageUrl
+
+                                })
+
+                            }
+                        );
+
+
+                    const saveData =
+                        await saveResponse.json();
+
+
+                    if(!saveData.success){
+
+                        throw new Error(
+                            saveData.message ||
+                            "Failed to save profile image"
+                        );
+
+                    }
+
+
+                    // ============================
+                    // Update profile picture
+                    // ============================
+
+                    avatar.innerHTML = `
+
+                        <img
+                            src="${imageUrl}"
+                            alt="${user.username}"
+                        >
+
+                    `;
+
+
+                    console.log(
+                        "PROFILE IMAGE SAVED:",
+                        imageUrl
+                    );
+
+
+                } catch(error) {
+
+                    console.error(
+                        "PROFILE IMAGE UPLOAD ERROR:",
+                        error
+                    );
+
+
+                    alert(
+                        "Failed to upload profile picture."
+                    );
 
                 }
-            );
 
-        }
+
+                // Allow selecting the same file again
+                imageInput.value = "";
+
+            }
+        );
 
 
         // ============================
@@ -233,16 +441,4 @@ async function loadMyLists(){
 
 
 
-// ========================================
-// Open Profile List
-// ========================================
-
-function openProfileList(id){
-
-    window.location.href = `library.html?list=${id}`;
-
-}
-
-
-window.openProfileList = openProfileList;
 

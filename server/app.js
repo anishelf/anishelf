@@ -104,7 +104,8 @@ app.get(
                 SELECT
                     id,
                     username,
-                    email
+                    email,
+                    profile_image
                 FROM users
                 WHERE id = $1
                 `,
@@ -138,8 +139,13 @@ app.get(
 
                 success:true,
 
-                user:
-                result.rows[0]
+                user:{
+                    id: result.rows[0].id,
+                    username: result.rows[0].username,
+                    email: result.row[0].email,
+                    profileImage: result.row[0].profile_image
+                }
+                
 
             });
 
