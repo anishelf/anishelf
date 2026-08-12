@@ -126,31 +126,19 @@ CARD MENU BUTTON
 ========================================================= */
 
 .card-menu{
-
-
     flex-shrink:0;
-
     width:20x;
     height:20px;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     padding:0;
-
     border:none;
-
     background:transparent;
-
     color:var(--text);
-
     font-size:1.5rem;
-
     cursor:pointer;
-
     border-radius:10px;
-
 }
 
 /* =========================================================

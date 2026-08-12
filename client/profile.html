@@ -1,90 +1,219 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
-    <head>
+<head>
 
-        <meta charset="UTF-8">
+```
+<meta charset="UTF-8">
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
-        <title>AniShelf | Profile</title>
-
-
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/navbar.css">
-        <link rel="stylesheet" href="css/cards.css">
-        <link rel="stylesheet" href="css/profile.css">
-
-    </head>
+<title>AniShelf | Profile</title>
 
 
-    <body>
+<link rel="stylesheet" href="css/base/global.css">
+<link rel="stylesheet" href="css/base/reset.css">
+<link rel="stylesheet" href="css/base/variable.css">
+
+<link rel="stylesheet" href="css/components/shelves.css">
+<link rel="stylesheet" href="css/components/navbar.css">
+
+<link rel="stylesheet" href="css/pages/profile.css">
+```
+
+</head>
+
+<body>
+
+```
+<!-- ========================= -->
+<!-- Navbar -->
+<!-- ========================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        AniShelf
+    </div>
 
 
-        <nav class="navbar">
+    <button
+        class="nav-toggle"
+        id="navToggle"
+        aria-label="Open navigation"
+        aria-expanded="false">
 
-            <div class="logo">
-                AniShelf
-            </div>
+        ☰
 
-
-            <ul 
-            class="nav-links"
-            id="navLinks">
-
-            </ul>
-
-        </nav>
-
-        <section class="profile-page">
+    </button>
 
 
-            <div class="profile-card">
+    <ul
+        class="nav-links"
+        id="navLinks">
+
+    </ul>
+
+</nav>
 
 
-                <div class="profile-avatar">
+<!-- ========================= -->
+<!-- Profile -->
+<!-- ========================= -->
 
+<main class="profile-page">
+
+
+    <section class="profile-card">
+       <!-- Profile Header -->
+
+        <div class="profile-header">
+
+            <div class="profile-avatar-wrapper">
+
+                <div
+                    class="profile-avatar"
+                    id="profileAvatar"
+                >
                     👤
-
                 </div>
 
+                <label
+                    class="profile-upload"
+                    for="profileImageInput"
+                >
+                    📷
+                </label>
 
-                <h1 id="username">
-
-                    User
-
-                </h1>
-
-
-                <p id="email">
-
-                    email@example.com
-
-                </p>
-
-
-                <button
-                class="logout-btn"
-                id="logoutBtn">
-
-                    Logout
-
-                </button>
-
+                <input
+                    type="file"
+                    id="profileImageInput"
+                    accept="image/*"
+                    hidden
+                >
 
             </div>
 
+
+            <h1 id="username">
+                User
+            </h1>
+
+
+            <p id="email">
+                email@example.com
+            </p>
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- PROFILE STATS -->
+        <!-- ========================= -->
+
+        <div class="profile-stats">
+
+            <div class="profile-stat">
+
+                <strong id="listCount">
+                    0
+                </strong>
+
+                <span>
+                    My Lists
+                </span>
+
+            </div>
+
+
+            <div class="profile-stat">
+
+                <strong id="publishedCount">
+                    0
+                </strong>
+
+                <span>
+                    Published
+                </span>
+
+            </div>
+
+
+            <div class="profile-stat">
+
+                <strong id="savedCount">
+                    0
+                </strong>
+
+                <span>
+                    Saved Lists
+                </span>
+
+            </div>
+
+        </div>
+
+
+        
+        <!-- saved list from the community !>
+        <! ========================= -->
+
+        <section class="profile-section">
+
+            <div class="profile-section-header">
+
+                <h2>
+                   saved list
+                </h2>
+
+            </div>
+
+
+            <div
+                class="my-lists"
+                id="myLists"
+            >
+
+                <p class="empty-state">
+                    Loading your lists...
+                </p>
+
+            </div>
 
         </section>
 
-    <script src="js/auth.js"></script>
-    <script src="js/auth_logic.js"></script>
-    <script src="js/navbar.js"></script>
 
-    <script src="js/profile.js"></script>
+        <!-- ========================= -->
+        <!-- ACTIONS -->
+        <!-- ========================= -->
+
+        <div class="profile-actions">
+
+            <button
+                class="logout-btn"
+                id="logoutBtn"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </section>
 
 
-    </body>
+</main>
+
+
+<script src="js/api/authApi.js"></script>
+<script src="js/api/listApi.js"></script>
+
+<script src="js/componenets/navbar.js"></script>
+
+<script src="js/pages/profile.js"></script>
+```
+
+</body>
 
 </html>
