@@ -140,7 +140,7 @@ app.get(
                 success:true,
 
                 user:{
-                    id: result.rows[0].id,
+                    id: result.row[0].id,
                     username: result.rows[0].username,
                     email: result.row[0].email,
                     profileImage: result.row[0].profile_image
