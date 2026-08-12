@@ -1,36 +1,122 @@
-.library-page{
+/* =========================================================
+   LIBRARY PAGE
+========================================================= */
+
+.library-page {
+
+    width:100%;
 
     padding:3rem 8%;
 
 }
 
 
-.library-header{
+/* =========================================================
+   LIBRARY HEADER
+========================================================= */
+
+.library-header {
 
     display:flex;
 
+    align-items:center;
+
     justify-content:space-between;
 
-    align-items:center;
+    gap:1rem;
 
     margin-bottom:2rem;
 
 }
 
 
-.library-grid{
+.library-header h1 {
+
+    margin:0;
+
+    font-size:2rem;
+
+}
+
+
+/* =========================================================
+   CREATE LIST BUTTON
+========================================================= */
+
+#createListBtn {
+
+    flex-shrink:0;
+
+    padding:.75rem 1.2rem;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:var(--gradient);
+
+    color:white;
+
+    font-family:inherit;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+
+}
+
+
+#createListBtn:hover {
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(139,92,246,.25);
+
+}
+
+
+#createListBtn:active {
+
+    transform:translateY(0);
+
+}
+
+
+/* =========================================================
+   LIBRARY GRID
+========================================================= */
+
+.library-grid {
 
     display:grid;
 
     grid-template-columns:
-    repeat(auto-fill,minmax(250px,1fr));
+        repeat(
+            auto-fill,
+            minmax(250px,1fr)
+        );
 
     gap:1.5rem;
 
 }
 
 
-.library-card{
+/* =========================================================
+   LIBRARY CARD
+========================================================= */
+
+.library-card {
+
+    position:relative;
+
+    min-width:0;
+
+    padding:1.5rem;
 
     background:var(--surface);
 
@@ -38,49 +124,524 @@
 
     border-radius:18px;
 
-    padding:1.5rem;
+    cursor:pointer;
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
 
 }
 
 
-.library-card h3{
+.library-card:hover {
 
-    margin-bottom:.8rem;
+    transform:translateY(-5px);
+
+    border-color:
+        rgba(139,92,246,.45);
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.18);
+
+}
+
+
+/* =========================================================
+   CARD TOP
+========================================================= */
+
+.library-card-header {
+
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:space-between;
+
+    gap:.75rem;
 
 }
 
 
-.library-card p{
+/* =========================================================
+   LIST TITLE
+========================================================= */
 
-    color:var(--muted);
+.library-card h3 {
+
+    margin:0;
+
+    min-width:0;
+
+    font-size:1.1rem;
+
+    line-height:1.3;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
 
 }
 
 
+/* =========================================================
+   LIST DESCRIPTION
+========================================================= */
 
-#createListBtn:hover{
+.library-card .description {
 
-    transform:translateY(-2px);
+    margin:.7rem 0 0;
+
+    color:rgba(255,255,255,.58);
+
+    font-size:.88rem;
+
+    line-height:1.5;
+
+    display:-webkit-box;
+
+    -webkit-line-clamp:2;
+
+    -webkit-box-orient:vertical;
+
+    overflow:hidden;
 
 }
-.create-btn{
+
+
+/* =========================================================
+   ANIME COUNT
+========================================================= */
+
+.library-card .anime-count {
+
+    position:absolute;
+
+    right:1.25rem;
+
+    bottom:1rem;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:.4rem;
+
+    color:#b892ff;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size:.75rem;
+
+    font-weight:700;
+
+    letter-spacing:.04em;
+
+    text-transform:uppercase;
+
+}
+
+
+/* Number */
+
+.library-card .anime-count strong {
+
+    font-size:.95rem;
+
+    font-weight:800;
+
+}
+
+/* =========================================================
+   THREE DOT MENU BUTTON
+========================================================= */
+
+.library-card-menu {
+
+    flex-shrink:0;
+
+    width:38px;
+
+    height:38px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:transparent;
+
+    color:var(--text);
+
+    font-size:1.4rem;
+
+    line-height:1;
+
+    cursor:pointer;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+
+}
+
+
+.library-card-menu:hover {
+
+    background:
+        rgba(255,255,255,.08);
+
+}
+
+
+.library-card-menu:active {
+
+    transform:scale(.92);
+
+}
+
+
+/* =========================================================
+   CARD DROPDOWN
+========================================================= */
+
+.library-card-dropdown {
+
+    position:absolute;
+
+    top:4rem;
+
+    right:1rem;
+
+    width:175px;
+
+    padding:.45rem;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.3);
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transform:
+        translateY(-8px);
+
+    transition:
+        opacity .2s ease,
+        transform .2s ease,
+        visibility .2s ease;
+
+    z-index:50;
+
+}
+
+
+/* =========================================================
+   ACTIVE DROPDOWN
+========================================================= */
+
+.library-card-dropdown.active {
+
+    opacity:1;
+
+    visibility:visible;
+
+    transform:
+        translateY(0);
+
+}
+
+
+/* =========================================================
+   DROPDOWN ITEMS
+========================================================= */
+
+.library-card-dropdown button {
 
     width:100%;
 
-    margin-top:1rem;
+    display:flex;
+
+    align-items:center;
+
+    gap:.6rem;
+
+    padding:.7rem .75rem;
+
+    border:none;
+
+    border-radius:9px;
+
+    background:transparent;
+
+    color:var(--text);
+
+    text-align:left;
+
+    font-family:inherit;
+
+    font-size:.85rem;
+
+    cursor:pointer;
+
+    transition:
+        background .2s ease,
+        color .2s ease;
 
 }
 
 
+.library-card-dropdown button:hover {
 
-.list-description{
+    background:
+        rgba(255,255,255,.07);
+
+}
+
+
+/* =========================================================
+   DELETE OPTION
+========================================================= */
+
+.library-card-dropdown
+.delete-list-btn:hover {
+
+    background:
+        rgba(239,68,68,.1);
+
+    color:#ff6b6b;
+
+}
+
+
+/* =========================================================
+   PUBLISH OPTION
+========================================================= */
+
+.library-card-dropdown
+.publish-list-btn:hover {
+
+    background:
+        rgba(34,197,94,.1);
+
+    color:#4ade80;
+
+}
+
+
+/* =========================================================
+   SHARE OPTION
+========================================================= */
+
+.library-card-dropdown
+.share-list-btn:hover {
+
+    background:
+        rgba(59,130,246,.1);
+
+    color:#60a5fa;
+
+}
+
+
+/* =========================================================
+   EMPTY LIBRARY
+========================================================= */
+
+.library-empty {
+
+    width:100%;
+
+    min-height:180px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:2rem;
+
+    border:1px dashed var(--border);
+
+    border-radius:18px;
 
     color:var(--muted);
 
-    margin:.8rem 0;
+    text-align:center;
 
-    font-size:.9rem;
+}
 
-    line-height:1.4;
+
+/* =========================================================
+   TABLETS
+========================================================= */
+
+@media (max-width:900px) {
+
+    .library-page {
+
+        padding:
+            2.5rem 5%;
+
+    }
+
+
+    .library-grid {
+
+        grid-template-columns:
+            repeat(
+                auto-fill,
+                minmax(220px,1fr)
+            );
+
+        gap:1rem;
+
+    }
+
+
+    .library-card {
+
+        padding:1.25rem;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width:600px) {
+
+    .library-page {
+
+        padding:
+            2rem 1rem;
+
+    }
+
+
+    .library-header {
+
+        margin-bottom:1.5rem;
+
+    }
+
+
+    .library-header h1 {
+
+        font-size:1.5rem;
+
+    }
+
+
+    #createListBtn {
+
+        padding:.65rem .9rem;
+
+        font-size:.8rem;
+
+    }
+
+
+    .library-grid {
+
+        grid-template-columns:1fr;
+
+        gap:.9rem;
+
+    }
+
+
+    .library-card {
+
+        padding:1.1rem;
+
+        border-radius:16px;
+
+    }
+
+
+    .library-card:hover {
+
+        transform:none;
+
+        box-shadow:none;
+
+    }
+
+
+    .library-card-menu {
+
+        width:40px;
+
+        height:40px;
+
+    }
+
+
+    .library-card-dropdown {
+
+        right:.75rem;
+
+        width:180px;
+
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width:400px) {
+
+    .library-page {
+
+        padding:
+            1.5rem .8rem;
+
+    }
+
+
+    .library-header h1 {
+
+        font-size:1.35rem;
+
+    }
+
+
+    #createListBtn {
+
+        padding:.6rem .75rem;
+
+    }
+
+
+    .library-card {
+
+        padding:1rem;
+
+    }
 
 }
