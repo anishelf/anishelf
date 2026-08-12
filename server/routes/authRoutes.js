@@ -1,3 +1,5 @@
+const pool = require("../db/db");
+
 const express = require("express");
 
 const {
