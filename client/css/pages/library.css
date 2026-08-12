@@ -29,7 +29,6 @@
 
 }
 
-
 .library-header h1 {
 
     margin:0;
@@ -69,16 +68,15 @@
 
 }
 
-
 #createListBtn:hover {
 
     transform:translateY(-2px);
 
     box-shadow:
-        0 8px 20px rgba(139,92,246,.25);
+        0 8px 20px
+        rgba(139,92,246,.25);
 
 }
-
 
 #createListBtn:active {
 
@@ -133,7 +131,6 @@
 
 }
 
-
 .library-card:hover {
 
     transform:translateY(-5px);
@@ -142,7 +139,8 @@
         rgba(139,92,246,.45);
 
     box-shadow:
-        0 12px 30px rgba(0,0,0,.18);
+        0 12px 30px
+        rgba(0,0,0,.18);
 
 }
 
@@ -191,11 +189,11 @@
    LIST DESCRIPTION
 ========================================================= */
 
-.library-card .description {
+.list-description {
 
     margin:.7rem 0 0;
-
-    color:rgba(255,255,255,.58);
+    color:
+        rgba(255,255,255,.58);
 
     font-size:.88rem;
 
@@ -216,7 +214,7 @@
    ANIME COUNT
 ========================================================= */
 
-.library-card .anime-count {
+.library-anime-count {
 
     position:absolute;
 
@@ -246,16 +244,14 @@
 
 }
 
-
-/* Number */
-
-.library-card .anime-count strong {
+.library-anime-count strong {
 
     font-size:.95rem;
 
     font-weight:800;
 
 }
+
 
 /* =========================================================
    THREE DOT MENU BUTTON
@@ -295,14 +291,12 @@
 
 }
 
-
 .library-card-menu:hover {
 
     background:
         rgba(255,255,255,.08);
 
 }
-
 
 .library-card-menu:active {
 
@@ -334,7 +328,8 @@
     border-radius:14px;
 
     box-shadow:
-        0 15px 35px rgba(0,0,0,.3);
+        0 15px 35px
+        rgba(0,0,0,.3);
 
     opacity:0;
 
@@ -351,11 +346,6 @@
     z-index:50;
 
 }
-
-
-/* =========================================================
-   ACTIVE DROPDOWN
-========================================================= */
 
 .library-card-dropdown.active {
 
@@ -407,7 +397,6 @@
 
 }
 
-
 .library-card-dropdown button:hover {
 
     background:
@@ -417,7 +406,7 @@
 
 
 /* =========================================================
-   DELETE OPTION
+   DELETE
 ========================================================= */
 
 .library-card-dropdown
@@ -432,7 +421,7 @@
 
 
 /* =========================================================
-   PUBLISH OPTION
+   PUBLISH
 ========================================================= */
 
 .library-card-dropdown
@@ -447,7 +436,7 @@
 
 
 /* =========================================================
-   SHARE OPTION
+   SHARE
 ========================================================= */
 
 .library-card-dropdown
@@ -489,159 +478,506 @@
 
 }
 
-
 /* =========================================================
-   TABLETS
+LIBRARY LIST MODAL
 ========================================================= */
 
-@media (max-width:900px) {
+.library-list-modal {
 
-    .library-page {
+    display:grid;
 
-        padding:
-            2.5rem 5%;
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(170px,1fr)
+        );
 
-    }
+    gap:1rem;
 
+    max-height:65vh;
 
-    .library-grid {
+    overflow-y:auto;
 
-        grid-template-columns:
-            repeat(
-                auto-fill,
-                minmax(220px,1fr)
-            );
+    overflow-x:hidden;
 
-        gap:1rem;
+    padding:.5rem;
 
-    }
+    scrollbar-width:thin;
 
+    scrollbar-color:
+        rgba(139,92,246,.55)
+        transparent;
+}
 
-    .library-card {
+/* =========================================================
+   LIBRARY LIST DESCRIPTION
+========================================================= */
 
-        padding:1.25rem;
+.library-list-description {
 
-    }
+    margin:0 0 1rem;
+    padding:.85rem 1rem;
+    color:var(--muted);
+    text-align: center;
+    font-size:.88rem;
+
+    line-height:1.55;
+
+    word-break:break-word;
 
 }
 
 
+
 /* =========================================================
-   MOBILE
+LIBRARY ANIME CARD
+========================================================= */
+
+.library-anime-card {
+
+    position:relative;
+
+    min-width:0;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:16px;
+
+    overflow:visible;
+
+    cursor:pointer;
+
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+
+.library-anime-card:hover {
+
+    transform:translateY(-4px);
+
+    border-color:
+        rgba(139,92,246,.45);
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.25);
+}
+
+
+/* =========================================================
+ANIME IMAGE
+========================================================= */
+
+.library-anime-card img {
+
+    display:block;
+
+    width:100%;
+
+    aspect-ratio:2 / 3;
+
+    object-fit:cover;
+
+    border-radius:
+        15px 15px 0 0;
+}
+
+
+/* =========================================================
+ANIME CONTENT
+========================================================= */
+
+.library-anime-content {
+
+    padding:.8rem;
+}
+
+
+/* =========================================================
+TITLE ROW
+========================================================= */
+
+.library-anime-title-row {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:.5rem;
+}
+
+
+.library-anime-title-row h3 {
+
+    flex:1;
+
+    min-width:0;
+
+    margin:0;
+
+    color:var(--text);
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+    line-height:1.3;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+
+/* =========================================================
+ANIME MENU
+========================================================= */
+
+.library-anime-menu {
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-shrink:0;
+
+    width:30px;
+
+    height:30px;
+
+    padding:0;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:transparent;
+
+    color:var(--text);
+
+    font-size:1.25rem;
+
+    line-height:1;
+
+    cursor:pointer;
+
+    transition:
+        background .2s ease,
+        color .2s ease;
+}
+
+
+.library-anime-menu:hover {
+
+    background:
+        rgba(255,255,255,.08);
+
+    color:#b892ff;
+}
+
+
+/* =========================================================
+ANIME DROPDOWN
+========================================================= */
+
+.library-anime-dropdown {
+
+    position:absolute;
+
+    top:auto;
+
+    bottom:3.2rem;
+
+    right:.5rem;
+
+    width:160px;
+
+    padding:.4rem;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    box-shadow:
+        0 15px 35px
+        rgba(0,0,0,.35);
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transform:
+        translateY(6px);
+
+    transition:
+        opacity .2s ease,
+        transform .2s ease,
+        visibility .2s ease;
+
+    z-index:100;
+}
+
+
+.library-anime-dropdown.active {
+
+    opacity:1;
+
+    visibility:visible;
+
+    transform:
+        translateY(0);
+}
+
+
+.library-anime-dropdown button {
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:.5rem;
+
+    padding:.65rem .7rem;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:transparent;
+
+    color:var(--text);
+
+    text-align:left;
+
+    font-family:inherit;
+
+    font-size:.8rem;
+
+    cursor:pointer;
+
+    transition:
+        background .2s ease,
+        color .2s ease;
+}
+
+
+.library-anime-dropdown button:hover {
+
+    background:
+        rgba(239,68,68,.1);
+
+    color:#ff6b6b;
+}
+
+
+/* =========================================================
+EMPTY LIST
+========================================================= */
+
+.empty-list {
+
+    grid-column:1 / -1;
+
+    margin:0;
+
+    padding:3rem 1rem;
+
+    text-align:center;
+
+    color:
+        var(--text-muted, #999);
+}
+
+
+/* =========================================================
+SCROLLBAR
+========================================================= */
+
+.library-list-modal::-webkit-scrollbar {
+
+    width:6px;
+}
+
+
+.library-list-modal::-webkit-scrollbar-track {
+
+    background:transparent;
+}
+
+
+.library-list-modal::-webkit-scrollbar-thumb {
+
+    background:
+        rgba(139,92,246,.55);
+
+    border-radius:999px;
+}
+
+
+.library-list-modal::-webkit-scrollbar-thumb:hover {
+
+    background:
+        rgba(139,92,246,.8);
+}
+
+
+/* =========================================================
+MOBILE — LIST STYLE
 ========================================================= */
 
 @media (max-width:600px) {
 
-    .library-page {
+    .library-list-modal {
 
-        padding:
-            2rem 1rem;
+        display:flex;
 
+        flex-direction:column;
+
+        gap:.7rem;
+
+        max-height:65vh;
+
+        padding:.25rem;
+
+        overflow-y:auto;
+
+        overflow-x:hidden;
     }
 
 
-    .library-header {
+    .library-anime-card {
 
-        margin-bottom:1.5rem;
+        display:flex;
 
+        width:100%;
+
+        min-height:95px;
+
+        border-radius:14px;
+
+        overflow:visible;
+
+        flex-shrink:0;
     }
 
 
-    .library-header h1 {
+    .library-anime-card img {
 
-        font-size:1.5rem;
+        width:70px;
 
+        height:100px;
+
+        flex-shrink:0;
+
+        aspect-ratio:auto;
+
+        object-fit:cover;
+
+        border-radius:
+            13px 0 0 13px;
     }
 
 
-    #createListBtn {
+    .library-anime-content {
 
-        padding:.65rem .9rem;
+        flex:1;
 
-        font-size:.8rem;
+        min-width:0;
 
+        display:flex;
+
+        align-items:center;
+
+        padding:.75rem;
     }
 
 
-    .library-grid {
+    .library-anime-title-row {
 
-        grid-template-columns:1fr;
+        width:100%;
 
-        gap:.9rem;
-
+        align-items:center;
     }
 
 
-    .library-card {
+    .library-anime-title-row h3 {
 
-        padding:1.1rem;
-
-        border-radius:16px;
-
+        font-size:.85rem;
     }
 
 
-    .library-card:hover {
+    .library-anime-menu {
 
-        transform:none;
+        width:34px;
 
-        box-shadow:none;
+        height:34px;
 
+        flex-shrink:0;
     }
 
 
-    .library-card-menu {
+    .library-anime-dropdown {
 
-        width:40px;
+        top:50%;
 
-        height:40px;
+        bottom:auto;
 
+        right:.5rem;
+
+        transform:
+            translateY(-45%);
+
+        width:160px;
+
+        z-index:200;
     }
 
 
-    .library-card-dropdown {
+    .library-anime-dropdown.active {
 
-        right:.75rem;
-
-        width:180px;
-
+        transform:
+            translateY(-50%);
     }
 
 }
 
 
 /* =========================================================
-   VERY SMALL PHONES
+VERY SMALL PHONES
 ========================================================= */
 
 @media (max-width:400px) {
 
-    .library-page {
+    .library-anime-card img {
 
-        padding:
-            1.5rem .8rem;
+        width:62px;
 
+        height:90px;
     }
 
 
-    .library-header h1 {
+    .library-anime-content {
 
-        font-size:1.35rem;
-
+        padding:.6rem;
     }
 
 
-    #createListBtn {
+    .library-anime-title-row h3 {
 
-        padding:.6rem .75rem;
-
-    }
-
-
-    .library-card {
-
-        padding:1rem;
-
+        font-size:.8rem;
     }
 
 }

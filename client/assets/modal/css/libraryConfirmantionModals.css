@@ -1,0 +1,732 @@
+/* =========================================================
+   LIBRARY CONFIRMATION MODALS
+   Delete / Publish confirmation screens
+========================================================= */
+
+.library-confirm-modal {
+
+    width:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    text-align:center;
+
+    gap:.8rem;
+
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.library-confirm-icon {
+
+    width:64px;
+
+    height:64px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin-bottom:.25rem;
+
+    border-radius:18px;
+
+    font-size:1.7rem;
+
+    flex-shrink:0;
+
+}
+
+
+/* DELETE ICON */
+
+.library-confirm-icon.delete {
+
+    background:
+        rgba(239,68,68,.10);
+
+    border:
+        1px solid
+        rgba(239,68,68,.22);
+
+    color:#ff6b6b;
+
+}
+
+
+/* PUBLISH ICON */
+
+.library-confirm-icon.publish {
+
+    background:
+        rgba(34,197,94,.10);
+
+    border:
+        1px solid
+        rgba(34,197,94,.22);
+
+    color:#4ade80;
+
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.library-confirm-title {
+
+    margin:0;
+
+    color:var(--text);
+
+    font-size:1.2rem;
+
+    font-weight:700;
+
+    line-height:1.3;
+
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.library-confirm-message {
+
+    width:100%;
+
+    max-width:380px;
+
+    margin:0;
+
+    color:var(--muted);
+
+    font-size:.9rem;
+
+    line-height:1.6;
+
+}
+
+
+/* =========================================================
+   WARNING / INFO BOX
+========================================================= */
+
+.library-confirm-warning,
+.library-confirm-info {
+
+    width:100%;
+
+    box-sizing:border-box;
+
+    margin-top:.25rem;
+
+    padding:.8rem 1rem;
+
+    border-radius:12px;
+
+    font-size:.82rem;
+
+    line-height:1.5;
+
+}
+
+
+/* DELETE WARNING */
+
+.library-confirm-warning {
+
+    background:
+        rgba(239,68,68,.07);
+
+    border:
+        1px solid
+        rgba(239,68,68,.18);
+
+    color:#ff8585;
+
+}
+
+
+/* PUBLISH INFO */
+
+.library-confirm-info {
+
+    background:
+        rgba(34,197,94,.07);
+
+    border:
+        1px solid
+        rgba(34,197,94,.18);
+
+    color:#6ee7a0;
+
+}
+
+
+/* =========================================================
+   ACTION AREA
+========================================================= */
+
+.library-confirm-actions {
+
+    display:flex;
+
+    width:100%;
+
+    gap:.75rem;
+
+    margin-top:.5rem;
+
+}
+
+
+/* =========================================================
+   CONFIRM BUTTON
+========================================================= */
+
+.library-confirm-btn {
+
+    flex:1;
+
+    min-height:44px;
+
+    padding:.75rem 1rem;
+
+    border-radius:11px;
+
+    font-family:inherit;
+
+    font-size:.85rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
+
+}
+
+
+/* Hover */
+
+.library-confirm-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+/* Active */
+
+.library-confirm-btn:active {
+
+    transform:
+        translateY(0);
+
+}
+
+
+/* =========================================================
+   CANCEL BUTTON
+========================================================= */
+
+.library-confirm-btn.cancel {
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid
+        var(--border);
+
+    color:var(--text);
+
+}
+
+
+.library-confirm-btn.cancel:hover {
+
+    background:
+        rgba(255,255,255,.08);
+
+    border-color:
+        rgba(255,255,255,.15);
+
+}
+
+
+/* =========================================================
+   DELETE BUTTON
+========================================================= */
+
+.library-confirm-btn.delete {
+
+    background:
+        rgba(239,68,68,.13);
+
+    border:
+        1px solid
+        rgba(239,68,68,.28);
+
+    color:#ff6b6b;
+
+}
+
+
+.library-confirm-btn.delete:hover {
+
+    background:
+        rgba(239,68,68,.23);
+
+    border-color:
+        rgba(239,68,68,.4);
+
+    box-shadow:
+        0 8px 22px
+        rgba(239,68,68,.12);
+
+}
+
+
+/* =========================================================
+   PUBLISH BUTTON
+========================================================= */
+
+.library-confirm-btn.publish {
+
+    background:
+        rgba(34,197,94,.13);
+
+    border:
+        1px solid
+        rgba(34,197,94,.28);
+
+    color:#4ade80;
+
+}
+
+
+.library-confirm-btn.publish:hover {
+
+    background:
+        rgba(34,197,94,.23);
+
+    border-color:
+        rgba(34,197,94,.4);
+
+    box-shadow:
+        0 8px 22px
+        rgba(34,197,94,.12);
+
+}
+
+
+/* =========================================================
+   DISABLED
+========================================================= */
+
+.library-confirm-btn:disabled {
+
+    opacity:.55;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+    box-shadow:none;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width:600px){
+
+    .library-confirm-modal {
+
+        gap:.7rem;
+
+    }
+
+
+    .library-confirm-icon {
+
+        width:58px;
+
+        height:58px;
+
+        border-radius:16px;
+
+        font-size:1.5rem;
+
+    }
+
+
+    .library-confirm-title {
+
+        font-size:1.1rem;
+
+    }
+
+
+    .library-confirm-message {
+
+        font-size:.85rem;
+
+    }
+
+
+    .library-confirm-actions {
+
+        flex-direction:column;
+
+        gap:.6rem;
+
+        margin-top:.4rem;
+
+    }
+
+
+    .library-confirm-btn {
+
+        width:100%;
+
+        min-height:46px;
+
+    }
+
+}
+
+/* =========================================================
+   SHARE MODAL
+========================================================= */
+
+.library-share-modal {
+
+    width:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    text-align:center;
+
+    gap:.75rem;
+
+}
+
+
+/* =========================================================
+   SHARE ICON
+========================================================= */
+
+.library-share-icon {
+
+    width:64px;
+
+    height:64px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:18px;
+
+    background:
+        rgba(59,130,246,.10);
+
+    border:
+        1px solid
+        rgba(59,130,246,.22);
+
+    font-size:1.7rem;
+
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.library-share-title {
+
+    margin:0;
+
+    color:var(--text);
+
+    font-size:1.15rem;
+
+    font-weight:700;
+
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.library-share-message {
+
+    max-width:380px;
+
+    margin:0;
+
+    color:var(--muted);
+
+    font-size:.9rem;
+
+    line-height:1.5;
+
+}
+
+
+/* =========================================================
+   LINK CONTAINER
+========================================================= */
+
+.library-share-link {
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:.5rem;
+
+    margin-top:.4rem;
+
+}
+
+
+/* =========================================================
+   LINK INPUT
+========================================================= */
+
+.library-share-link input {
+
+    flex:1;
+
+    min-width:0;
+
+    height:42px;
+
+    box-sizing:border-box;
+
+    padding:.7rem .8rem;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:10px;
+
+    background:
+        rgba(255,255,255,.05);
+
+    color:var(--muted);
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size:.75rem;
+
+    outline:none;
+
+}
+
+
+/* =========================================================
+   COPY BUTTON
+========================================================= */
+
+.library-share-link button {
+
+    flex-shrink:0;
+
+    height:42px;
+
+    padding:0 .9rem;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:
+        rgba(59,130,246,.15);
+
+    border:
+        1px solid
+        rgba(59,130,246,.25);
+
+    color:#60a5fa;
+
+    font-family:inherit;
+
+    font-size:.8rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+
+}
+
+
+.library-share-link button:hover {
+
+    background:
+        rgba(59,130,246,.25);
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+/* =========================================================
+   SHARE ACTION
+========================================================= */
+
+.library-share-actions {
+
+    width:100%;
+    margin-top: 10px;
+
+}
+
+
+.library-share-btn {
+
+    width:100%;
+
+    min-height:44px;
+
+    padding:.75rem 1rem;
+
+    border:none;
+
+    border-radius:11px;
+
+    background:
+        rgba(59,130,246,.15);
+
+    border:
+        1px solid
+        rgba(59,130,246,.3);
+
+    color:#60a5fa;
+
+    font-family:inherit;
+
+    font-size:.85rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:
+        background .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+
+}
+
+
+.library-share-btn:hover {
+
+    background:
+        rgba(59,130,246,.25);
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(59,130,246,.12);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width:600px){
+
+    .library-share-icon {
+
+        width:58px;
+
+        height:58px;
+
+        border-radius:16px;
+
+        font-size:1.5rem;
+
+    }
+
+
+    .library-share-title {
+
+        font-size:1.05rem;
+
+    }
+
+
+    .library-share-message {
+
+        font-size:.85rem;
+
+    }
+
+
+    .library-share-link {
+
+        gap:.4rem;
+
+    }
+
+
+    .library-share-link input {
+
+        font-size:.68rem;
+
+    }
+
+
+    .library-share-link button {
+
+        padding:
+            0 .75rem;
+
+    }
+
+}

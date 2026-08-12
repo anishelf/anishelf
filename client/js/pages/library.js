@@ -8,10 +8,6 @@
 // Load My Lists
 // ============================
 
-// ============================
-// Load My Lists
-// ============================
-
 async function loadLists(){
 
     const container =
@@ -460,9 +456,6 @@ function escapeListText(text){
 
 
 // ============================
-// Toggle List Dropdown
-// ============================
-// ============================
 // Toggle list dropdown
 // ============================
 
@@ -556,7 +549,6 @@ document.addEventListener(
     }
 );
 
-
 // ============================
 // Share List
 // ============================
@@ -588,76 +580,231 @@ function shareLibraryList(
     );
 
 
+    // ============================
+    // Share URL
+    // ============================
+
     const shareUrl =
         `${window.location.origin}/library.html?list=${listId}`;
 
 
     // ============================
-    // Native Share
+    // Share Modal
     // ============================
 
-    if(
-        navigator.share
-    ){
+    Modal.open({
 
-        navigator.share({
+        title:
+            "Share List",
 
-            title:
-                listName,
+        content: `
 
-            text:
-                `Check out my AniShelf list: ${listName}`,
+            <div class="library-share-modal">
 
-            url:
-                shareUrl
+                <div class="library-share-icon">
+                    🔗
+                </div>
 
-        }).catch(
-            error => {
 
-                console.log(
-                    "Share cancelled:",
-                    error
-                );
+                <h3 class="library-share-title">
 
-            }
+                    Share "${escapeListText(listName)}"
+
+                </h3>
+
+
+                <p class="library-share-message">
+
+                    Share this list with other
+                    AniShelf users.
+
+                </p>
+
+
+                <div class="library-share-link">
+
+                    <input
+                        type="text"
+                        value="${shareUrl}"
+                        readonly
+                        id="libraryShareLink"
+                    >
+
+                    <button
+                        type="button"
+                        onclick="copyLibraryListLink()"
+                    >
+                        Copy
+                    </button>
+
+                </div>
+
+            </div>
+
+        `,
+
+        actions: `
+
+            <div class="library-share-actions">
+
+                <button
+                    class="library-share-btn"
+                    onclick="
+                        nativeShareLibraryList(
+                            ${listId},
+                            '${escapeListText(listName)}'
+                        )
+                    "
+                >
+                    📤 Share List
+                </button>
+
+            </div>
+
+        `
+
+    });
+
+}
+
+
+// ============================
+// Copy List Link
+// ============================
+
+async function copyLibraryListLink(){
+
+    const input =
+        document.getElementById(
+            "libraryShareLink"
         );
 
+
+    if(!input){
 
         return;
 
     }
 
 
-    // ============================
-    // Clipboard Share
-    // ============================
+    try{
 
-    if(
-        navigator.clipboard
-    ){
-
-        navigator.clipboard.writeText(
-            shareUrl
+        await navigator.clipboard.writeText(
+            input.value
         );
 
 
-        Modal.open({
+        const button =
+            input.parentElement.querySelector(
+                "button"
+            );
 
-            title:
-                "List Link Copied",
 
-            content: `
+        if(button){
 
-                <p>
-                    🔗 The list link has been
-                    copied to your clipboard.
-                </p>
+            button.textContent =
+                "Copied!";
 
-            `
 
-        });
+            setTimeout(
+                () => {
+
+                    button.textContent =
+                        "Copy";
+
+                },
+                1500
+            );
+
+        }
+
+
+    }catch(error){
+
+        console.error(
+            "COPY LINK ERROR:",
+            error
+        );
+
+
+        // Fallback
+
+        input.select();
+
+        document.execCommand(
+            "copy"
+        );
 
     }
+
+}
+
+
+// ============================
+// Native Share
+// ============================
+
+async function nativeShareLibraryList(
+    listId,
+    listName
+){
+
+    const shareUrl =
+        `${window.location.origin}/library.html?list=${listId}`;
+
+
+    // ============================
+    // Native Share Available
+    // ============================
+
+    if(navigator.share){
+
+        try{
+
+            await navigator.share({
+
+                title:
+                    listName,
+
+                text:
+                    `Check out my AniShelf list: ${listName}`,
+
+                url:
+                    shareUrl
+
+            });
+
+            return;
+
+        }catch(error){
+
+            // User closed share sheet
+
+            if(
+                error.name ===
+                "AbortError"
+            ){
+
+                return;
+
+            }
+
+
+            console.error(
+                "NATIVE SHARE ERROR:",
+                error
+            );
+
+        }
+
+    }
+
+
+    // ============================
+    // Fallback
+    // ============================
+
+    await copyLibraryListLink();
 
 }
 
@@ -691,6 +838,10 @@ function publishLibraryList(
     );
 
 
+    // ============================
+    // First Publish Popup
+    // ============================
+
     Modal.open({
 
         title:
@@ -698,38 +849,52 @@ function publishLibraryList(
 
         content: `
 
-            <p>
+            <div class="library-confirm-modal">
 
-                🌎 Publishing will make this
-                list visible to the AniShelf
-                community.
-
-            </p>
+                <div class="library-confirm-icon publish">
+                    🌎
+                </div>
 
 
-            <p>
+                <h3 class="library-confirm-title">
+                    Publish this list?
+                </h3>
 
-                You can change this later.
 
-            </p>
+                <p class="library-confirm-message">
+
+                    Publishing this list will make it
+                    visible to the AniShelf community.
+
+                </p>
+
+
+                <div class="library-confirm-info">
+
+                    🌎 You can change this later.
+
+                </div>
+
+            </div>
 
         `,
 
         actions: `
 
-            <button
-                class="modal-action-btn"
+            <div class="library-confirm-actions">
 
-                onclick="
-                    confirmPublishList(
-                        ${listId}
-                    )
-                "
-            >
+                <button
+                    class="library-confirm-btn publish"
+                    onclick="
+                        confirmPublishList(
+                            ${listId}
+                        )
+                    "
+                >
+                    Continue
+                </button>
 
-                Publish List
-
-            </button>
+            </div>
 
         `
 
@@ -755,17 +920,56 @@ function confirmPublishList(
     Modal.open({
 
         title:
-            "Coming Soon",
+            "Confirm Publication",
 
         content: `
 
-            <p>
+            <div class="library-confirm-modal">
 
-                🌎 List publishing is ready
-                to be connected to the
-                community system.
+                <div class="library-confirm-icon publish">
+                    🌎
+                </div>
 
-            </p>
+
+                <h3 class="library-confirm-title">
+                    Ready to publish?
+                </h3>
+
+
+                <p class="library-confirm-message">
+
+                    Your list will become visible
+                    to the AniShelf community.
+
+                </p>
+
+
+                <div class="library-confirm-info">
+
+                    🌎 You can unpublish the list later.
+
+                </div>
+
+            </div>
+
+        `,
+
+        actions: `
+
+            <div class="library-confirm-actions">
+
+                <button
+                    class="library-confirm-btn publish"
+                    onclick="
+                        executePublishList(
+                            ${listId}
+                        )
+                    "
+                >
+                    Publish List
+                </button>
+
+            </div>
 
         `
 
@@ -773,6 +977,73 @@ function confirmPublishList(
 
 }
 
+
+// ============================
+// Execute Publish
+// ============================
+
+async function executePublishList(
+    listId
+){
+
+    console.log(
+        "EXECUTE PUBLISH:",
+        listId
+    );
+
+
+    /*
+        API will eventually go here.
+
+        Example:
+
+        const result =
+            await publishList(listId);
+
+        if(!result.success){
+
+            throw new Error(
+                result.message
+            );
+
+        }
+    */
+
+
+    Modal.open({
+
+        title:
+            "Coming Soon",
+
+        content: `
+
+            <div class="library-confirm-modal">
+
+                <div class="library-confirm-icon publish">
+                    🌎
+                </div>
+
+
+                <h3 class="library-confirm-title">
+                    Publishing Coming Soon
+                </h3>
+
+
+                <p class="library-confirm-message">
+
+                    The publishing system is ready
+                    to be connected to the AniShelf
+                    community API.
+
+                </p>
+
+            </div>
+
+        `
+
+    });
+
+}
 
 // ============================
 // Delete List
@@ -797,6 +1068,16 @@ function deleteLibraryList(
         });
 
 
+    console.log(
+        "DELETE LIST:",
+        listId
+    );
+
+
+    // ============================
+    // Delete Confirmation
+    // ============================
+
     Modal.open({
 
         title:
@@ -804,37 +1085,52 @@ function deleteLibraryList(
 
         content: `
 
-            <p>
+            <div class="library-confirm-modal">
 
-                ⚠️ Are you sure you want
-                to delete this list?
+                <div class="library-confirm-icon delete">
+                    🗑️
+                </div>
 
-            </p>
+
+                <h3 class="library-confirm-title">
+                    Delete this list?
+                </h3>
 
 
-            <p>
+                <p class="library-confirm-message">
 
-                This cannot be undone.
+                    Are you sure you want to
+                    delete this list?
 
-            </p>
+                </p>
+
+
+                <div class="library-confirm-warning">
+
+                    ⚠️ This action cannot be undone.
+
+                </div>
+
+            </div>
 
         `,
 
         actions: `
 
-            <button
-                class="modal-action-btn danger"
+            <div class="library-confirm-actions">
 
-                onclick="
-                    confirmDeleteLibraryList(
-                        ${listId}
-                    )
-                "
-            >
+                <button
+                    class="library-confirm-btn delete"
+                    onclick="
+                        confirmDeleteLibraryList(
+                            ${listId}
+                        )
+                    "
+                >
+                    Delete List
+                </button>
 
-                Delete List
-
-            </button>
+            </div>
 
         `
 
@@ -852,9 +1148,109 @@ async function confirmDeleteLibraryList(
 ){
 
     console.log(
-        "DELETE LIST:",
+        "CONFIRM DELETE:",
         listId
     );
+
+
+    // ============================
+    // Final Confirmation
+    // ============================
+
+    Modal.open({
+
+        title:
+            "Confirm Deletion",
+
+        content: `
+
+            <div class="library-confirm-modal">
+
+                <div class="library-confirm-icon delete">
+                    ⚠️
+                </div>
+
+
+                <h3 class="library-confirm-title">
+                    Are you absolutely sure?
+                </h3>
+
+
+                <p class="library-confirm-message">
+
+                    This will permanently delete
+                    the list and all anime saved
+                    inside it.
+
+                </p>
+
+
+                <div class="library-confirm-warning">
+
+                    🗑️ This action cannot be undone.
+
+                </div>
+
+            </div>
+
+        `,
+
+        actions: `
+
+            <div class="library-confirm-actions">
+
+                <button
+                    class="library-confirm-btn delete"
+                    onclick="
+                        executeDeleteLibraryList(
+                            ${listId}
+                        )
+                    "
+                >
+                    Delete Permanently
+                </button>
+
+            </div>
+
+        `
+
+    });
+
+}
+
+
+// ============================
+// Execute Delete
+// ============================
+
+async function executeDeleteLibraryList(
+    listId
+){
+
+    console.log(
+        "EXECUTE DELETE:",
+        listId
+    );
+
+
+    /*
+        API will eventually go here.
+
+        Example:
+
+        const result =
+            await deleteList(listId);
+
+        if(!result.success){
+
+            throw new Error(
+                result.message
+            );
+
+        }
+
+        await loadLists();
+    */
 
 
     Modal.open({
@@ -864,21 +1260,32 @@ async function confirmDeleteLibraryList(
 
         content: `
 
-            <p>
+            <div class="library-confirm-modal">
 
-                🗑️ Delete functionality is
-                ready to be connected to
-                your API.
+                <div class="library-confirm-icon delete">
+                    🗑️
+                </div>
 
-            </p>
+
+                <h3 class="library-confirm-title">
+                    Delete Functionality Coming Soon
+                </h3>
+
+
+                <p class="library-confirm-message">
+
+                    The delete system is ready to be
+                    connected to your AniShelf API.
+
+                </p>
+
+            </div>
 
         `
 
     });
 
 }
-
-
 // ============================
 // Open List Modal
 // ============================
@@ -957,17 +1364,22 @@ async function openList(
         // ============================
         // Open Modal
         // ============================
-
         Modal.open({
 
             title:
                 name,
 
-            description:
-                description ||
-                "No description.",
-
             content: `
+
+                <div class="library-list-description">
+
+                    ${
+                        description ||
+                        "No description."
+                    }
+
+                </div>
+
 
                 <div
                     class="library-list-modal"
