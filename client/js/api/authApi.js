@@ -1,8 +1,11 @@
 const AUTH_URL =
-"https://anishelf-api.onrender.com/api/auth";
-// ============================
+    "https://anishelf-api.onrender.com/api/auth";
+
+
+// ========================================
 // Register user
-// ============================
+// ========================================
+
 async function registerUser(
     username,
     email,
@@ -10,130 +13,206 @@ async function registerUser(
 ){
 
     const response =
-    await fetch(
-        `${AUTH_URL}/register`,
-        {
+        await fetch(
+            `${AUTH_URL}/register`,
+            {
 
-            method:"POST",
-            credentials:"include",
+                method:"POST",
 
-            headers:{
-                "Content-Type":"application/json"
-            },
+                credentials:"include",
 
-            body:JSON.stringify({
+                headers:{
+                    "Content-Type":"application/json"
+                },
 
-                username,
+                body:JSON.stringify({
 
-                email,
+                    username,
 
-                password
+                    email,
 
-            })
+                    password
 
-        }
-    );
+                })
+
+            }
+        );
 
 
     return await response.json();
 
 }
 
-// ============================
+
+// ========================================
 // Login user
-// ============================
+// ========================================
+
 async function loginUser(
     email,
     password
 ){
 
     const response =
-    await fetch(
-        `${AUTH_URL}/login`,
-        {
+        await fetch(
+            `${AUTH_URL}/login`,
+            {
 
-            method:"POST",
-            
-            credentials:"include",
-            headers:{
-                "Content-Type":"application/json"
-            },
+                method:"POST",
 
-            body:JSON.stringify({
-                email,
-                password
-            })
-        }
-    );
+                credentials:"include",
+
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body:JSON.stringify({
+
+                    email,
+
+                    password
+
+                })
+
+            }
+        );
 
 
     return await response.json();
 
 }
-// ============================
+
+
+// ========================================
 // Get user profile
-// ============================
+// ========================================
+
 async function getProfile(){
 
     const response =
-    await fetch(
-        `${AUTH_URL}/profile`,
-        {
+        await fetch(
+            `${AUTH_URL}/profile`,
+            {
 
-            method:"GET",
+                method:"GET",
 
-            credentials:"include"
+                credentials:"include"
 
-        }
-    );
-
-
-    return await response.json();
-
-}
-// ============================
-// Logout user
-// ============================
-async function logoutUser(){
-
-    const response =
-    await fetch(
-        `${AUTH_URL}/logout`,
-        {
-
-            method:"POST",
-
-            credentials:"include"
-
-        }
-    );
-
-
-    return await response.json();
-
-}
-// ============================
-// Check authentication status
-// ============================
-async function checkAuth(){
-
-    const response =
-    await fetch(
-        `${AUTH_URL}/profile`,
-        {
-
-            method:"GET",
-
-            credentials:"include"
-
-        }
-    );
+            }
+        );
 
 
     const data =
-    await response.json();
+        await response.json();
 
 
     return data;
 
 }
+
+
+// ========================================
+// Logout user
+// ========================================
+
+async function logoutUser(){
+
+    const response =
+        await fetch(
+            `${AUTH_URL}/logout`,
+            {
+
+                method:"POST",
+
+                credentials:"include"
+
+            }
+        );
+
+
+    return await response.json();
+
+}
+
+
+// ========================================
+// Check authentication status
+// ========================================
+
+async function checkAuth(){
+
+    try{
+
+        const response =
+            await fetch(
+                `${AUTH_URL}/profile`,
+                {
+
+                    method:"GET",
+
+                    credentials:"include"
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "AUTH CHECK:",
+            data
+        );
+
+
+        // ================================
+        // User is authenticated
+        // ================================
+
+        if(
+            response.ok &&
+            data.success === true &&
+            data.user
+        ){
+
+            return {
+
+                success:true,
+
+                user:data.user
+
+            };
+
+        }
+
+
+        // ================================
+        // User is NOT authenticated
+        // ================================
+
+        return {
+
+            success:false
+
+        };
+
+
+    }catch(error){
+
+        console.error(
+            "AUTH CHECK ERROR:",
+            error
+        );
+
+
+        return {
+
+            success:false
+
+        };
+
+    }
+
+}
+
