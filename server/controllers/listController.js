@@ -366,12 +366,135 @@ const getListAnime = async(req,res)=>{
 
 };
 
+// ============================
+// Remove Anime From List
+// ============================
+
+const removeAnimeFromList = async(req,res)=>{
+
+    try{
+
+        const listId =
+            req.params.id;
+
+        const animeId =
+            req.params.animeId;
+
+
+        // Make sure the list belongs
+        // to the logged-in user
+
+        const listCheck =
+            await pool.query(
+
+                `
+                SELECT id
+                FROM lists
+                WHERE id = $1
+                AND user_id = $2
+                `,
+
+                [
+                    listId,
+                    req.user.id
+                ]
+
+            );
+
+
+        if(
+            listCheck.rows.length === 0
+        ){
+
+            return res.status(404).json({
+
+                success:false,
+
+                message:
+                    "List not found"
+
+            });
+
+        }
+
+
+        // Remove the anime
+
+        const result =
+            await pool.query(
+
+                `
+                DELETE FROM list_anime
+                WHERE list_id = $1
+                AND anime_id = $2
+                RETURNING *
+                `,
+
+                [
+                    listId,
+                    animeId
+                ]
+
+            );
+
+
+        if(
+            result.rows.length === 0
+        ){
+
+            return res.status(404).json({
+
+                success:false,
+
+                message:
+                    "Anime not found in this list"
+
+            });
+
+        }
+
+
+        res.json({
+
+            success:true,
+
+            message:
+                "Anime removed from list"
+
+        });
+
+
+    }catch(error){
+
+        console.error(
+            "REMOVE ANIME ERROR:",
+            error
+        );
+
+
+        res.status(500).json({
+
+            success:false,
+
+            message:
+                "Failed to remove anime"
+
+        });
+
+    }
+
+};
+
+
+
+
 module.exports = {
 
     getLists,
     createList,
     getList,
     addAnimeToList,
-    getListAnime
+    getListAnime,
+    removeAnimeFromList
 
 };

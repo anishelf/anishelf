@@ -1143,78 +1143,112 @@ function deleteLibraryList(
 // Confirm Delete
 // ============================
 
-async function confirmDeleteLibraryList(
+// ============================
+// Confirm Remove Anime
+// ============================
+async function confirmRemoveAnimeFromLibraryList(
+    animeId,
     listId
 ){
 
     console.log(
-        "CONFIRM DELETE:",
+        "CONFIRM REMOVE:",
+        animeId,
+        "FROM LIST:",
         listId
     );
 
 
-    // ============================
-    // Final Confirmation
-    // ============================
+    try{
 
-    Modal.open({
-
-        title:
-            "Confirm Deletion",
-
-        content: `
-
-            <div class="library-confirm-modal">
-
-                <div class="library-confirm-icon delete">
-                    ⚠️
-                </div>
+        const result =
+            await removeAnimeFromList(
+                listId,
+                animeId
+            );
 
 
-                <h3 class="library-confirm-title">
-                    Are you absolutely sure?
-                </h3>
+        console.log(
+            "REMOVE ANIME RESULT:",
+            result
+        );
 
 
-                <p class="library-confirm-message">
+        if(!result.success){
 
-                    This will permanently delete
-                    the list and all anime saved
-                    inside it.
+            throw new Error(
+                result.message ||
+                "Failed to remove anime"
+            );
 
-                </p>
+        }
 
 
-                <div class="library-confirm-warning">
+        // Close confirmation modal
 
-                    🗑️ This action cannot be undone.
+        Modal.close();
 
-                </div>
 
-            </div>
+        // Reload the list
 
-        `,
+        await openList(
+            listId,
+            window.currentLibraryListName,
+            window.currentLibraryListDescription
+        );
 
-        actions: `
 
-            <div class="library-confirm-actions">
+    }catch(error){
 
-                <button
-                    class="library-confirm-btn delete"
-                    onclick="
-                        executeDeleteLibraryList(
-                            ${listId}
-                        )
-                    "
+        console.error(
+            "REMOVE ANIME ERROR:",
+            error
+        );
+
+
+        Modal.open({
+
+            title:
+                "Error",
+
+            content: `
+
+                <div
+                    class="library-confirm-modal"
                 >
-                    Delete Permanently
-                </button>
 
-            </div>
+                    <div
+                        class="library-confirm-icon delete"
+                    >
+                        ❌
+                    </div>
 
-        `
 
-    });
+                    <h3
+                        class="library-confirm-title"
+                    >
+                        Removal Failed
+                    </h3>
+
+
+                    <p
+                        class="library-confirm-message"
+                    >
+
+                        ${
+                            error.message ||
+                            "Failed to remove anime from this list."
+                        }
+
+                    </p>
+
+                </div>
+
+            `
+
+        });
+
+    }
 
 }
 
@@ -1295,6 +1329,12 @@ async function openList(
     name,
     description
 ){
+
+
+
+    window.currentLibraryListId = id;
+    window.currentLibraryListName = name;
+    window.currentLibraryListDescription = description;
 
     console.log(
         "OPENING LIST:",

@@ -114,6 +114,46 @@ async function addAnimeToList(listId, anime){
 }
 
 
+// ============================
+// Remove anime from list
+// ============================
+async function removeAnimeFromList(
+    listId,
+    animeId
+){
+
+    const response =
+        await fetch(
+            `${LIST_URL}/${listId}/anime/${animeId}`,
+            {
+                method: "DELETE",
+
+                credentials: "include"
+            }
+        );
+
+
+    const data =
+        await response.json();
+
+
+    if(!response.ok){
+
+        throw new Error(
+            data.message ||
+            "Failed to remove anime from list"
+        );
+
+    }
+
+
+    return data;
+
+}
+
+
+
+
 
 // =====================
 // Open Add To List Modal

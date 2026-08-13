@@ -15,7 +15,8 @@ const {
     createList,
     getList,
     addAnimeToList,
-    getListAnime
+    getListAnime,
+    removeAnimeFromList
 } = require(
     "../controllers/listController"
 );
@@ -54,6 +55,14 @@ router.get(
     verifyToken,
     getListAnime
 );
+
+
+router.delete(
+    "/:id/anime/:animeId",
+    verifyToken,
+    removeAnimeFromList
+);
+
 
 module.exports =
 router;
