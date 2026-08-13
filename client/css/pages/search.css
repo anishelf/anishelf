@@ -408,24 +408,33 @@
         margin-bottom: 1rem;
     }
 
-
-
     /* ======================================
-       RESULTS GRID
+    RESULTS GRID
     ====================================== */
 
     .anime-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        overflow-y: auto;
-        overflow-x: visible;
-        padding: .25rem;
-        scrollbar-width: thin;
+
+        display:grid;
+
+        grid-template-columns:1fr;
+
+        gap:1rem;
+
+        height:calc(100vh - 330px);
+
+        overflow-y:auto;
+
+        overflow-x:hidden;
+
+        padding:.25rem;
+
+        scrollbar-width:thin;
+
         scrollbar-color:
             rgba(139,92,246,.55)
             transparent;
 
+        overscroll-behavior:contain;
 
     }
     .anime-grid::-webkit-scrollbar {
