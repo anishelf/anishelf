@@ -105,13 +105,13 @@ function displayAnimeDetails(anime){
 
             <div class="anime-actions">
 
-                <button class="anime-btn">
+                <button class="anime-btn" id="watchTrailerBtn">
 
                     ▶ Trailer
 
                 </button>
 
-                <button class="anime-btn">
+                <button class="anime-btn" id="addToListBtn" >
 
                     ➕ Add To List
 
