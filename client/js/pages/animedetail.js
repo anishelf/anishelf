@@ -381,6 +381,90 @@ function displayAnimeDetails(anime){
 
     </section>
     `;
+    // ========================================
+    // Anime Actions
+    // ========================================
+
+    const trailerButton =
+        document.getElementById("watchTrailerBtn");
+
+    const addToListButton =
+        document.getElementById("addToListBtn");
+
+
+    // ========================================
+    // Watch Trailer
+    // ========================================
+
+    if(trailerButton){
+
+        trailerButton.addEventListener(
+            "click",
+            () => {
+
+                if(
+                    anime.trailer?.site === "youtube" &&
+                    anime.trailer?.id
+                ){
+
+                    const trailerUrl =
+                        `https://www.youtube.com/watch?v=${anime.trailer.id}`;
+
+                    window.open(
+                        trailerUrl,
+                        "_blank"
+                    );
+
+                    return;
+
+                }
+
+
+                alert(
+                    "Trailer not available for this anime."
+                );
+
+            }
+        );
+
+    }
+
+
+    // ========================================
+    // Add To List
+    // ========================================
+
+    if(addToListButton){
+
+        addToListButton.addEventListener(
+            "click",
+            async () => {
+
+                try{
+
+                    await openAddListModal(
+
+                        anime.id,
+
+                        anime.title,
+
+                        anime.image
+
+                    );
+
+                }catch(error){
+
+                    console.error(
+                        "ADD TO LIST ERROR:",
+                        error
+                    );
+
+                }
+
+            }
+        );
+
+    }
 
 }
 
