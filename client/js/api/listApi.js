@@ -1,5 +1,5 @@
 const LIST_URL =
-"https://anishelf-api.onrender.com/api/lists";
+    "https://api.ani-shelf.com/api/lists";
 
 // ============================
 // Get all lists

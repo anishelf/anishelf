@@ -1,5 +1,5 @@
 const AUTH_URL =
-    "https://anishelf-api.onrender.com/api/auth";
+    "https://ani-shelf.com/api/auth";
 
 
 // ========================================

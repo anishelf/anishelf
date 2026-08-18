@@ -4,7 +4,7 @@
 // ============================
 
 
-const API_BASE_URL = "https://anishelf-api.onrender.com/api/anime";
+const API_BASE_URL = "https://api.ani-shelf.com/api/anime";
 
 
 // Search anime from backend
