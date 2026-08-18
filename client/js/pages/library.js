@@ -1154,24 +1154,17 @@ async function confirmRemoveAnimeFromLibraryList(
     console.log(
         "CONFIRM REMOVE:",
         animeId,
-        "FROM LIST:",
         listId
     );
 
 
-    try{
+    try {
 
         const result =
             await removeAnimeFromList(
                 listId,
                 animeId
             );
-
-
-        console.log(
-            "REMOVE ANIME RESULT:",
-            result
-        );
 
 
         if(!result.success){
@@ -1184,21 +1177,59 @@ async function confirmRemoveAnimeFromLibraryList(
         }
 
 
-        // Close confirmation modal
+        Modal.open({
 
-        Modal.close();
+            title:
+                "Anime Removed",
+
+            content: `
+
+                <div
+                    class="library-confirm-modal"
+                >
+
+                    <div
+                        class="library-confirm-icon delete"
+                    >
+                        🗑️
+                    </div>
 
 
-        // Reload the list
-
-        await openList(
-            listId,
-            window.currentLibraryListName,
-            window.currentLibraryListDescription
-        );
+                    <h3
+                        class="library-confirm-title"
+                    >
+                        Anime removed
+                    </h3>
 
 
-    }catch(error){
+                    <p
+                        class="library-confirm-message"
+                    >
+                        The anime has been removed
+                        from this list.
+                    </p>
+
+                </div>
+
+            `
+
+        });
+
+
+        setTimeout(() => {
+
+            Modal.close();
+
+        }, 1000);
+
+
+        // Refresh the currently opened list
+
+        // We will need the list's name and
+        // description here if we want to
+        // reopen it automatically.
+
+    } catch(error){
 
         console.error(
             "REMOVE ANIME ERROR:",
@@ -1220,26 +1251,21 @@ async function confirmRemoveAnimeFromLibraryList(
                     <div
                         class="library-confirm-icon delete"
                     >
-                        ❌
+                        ⚠️
                     </div>
 
 
                     <h3
                         class="library-confirm-title"
                     >
-                        Removal Failed
+                        Removal failed
                     </h3>
 
 
                     <p
                         class="library-confirm-message"
                     >
-
-                        ${
-                            error.message ||
-                            "Failed to remove anime from this list."
-                        }
-
+                        ${error.message}
                     </p>
 
                 </div>
@@ -1332,10 +1358,6 @@ async function openList(
 
 
 
-    window.currentLibraryListId = id;
-    window.currentLibraryListName = name;
-    window.currentLibraryListDescription = description;
-
     console.log(
         "OPENING LIST:",
         id,
@@ -1383,8 +1405,8 @@ async function openList(
         animeList.forEach(
             anime => {
 
-                cards +=
-                    createLibraryAnimeCard({
+                cards +=createLibraryAnimeCard(
+                    {
 
                         id:
                             anime.anime_id,
@@ -1395,7 +1417,10 @@ async function openList(
                         image:
                             anime.anime_cover
 
-                    });
+                    },
+
+                    id
+                );
 
             }
         );
@@ -1774,9 +1799,6 @@ window.confirmPublishList =
 
 window.deleteLibraryList =
     deleteLibraryList;
-
-window.confirmDeleteLibraryList =
-    confirmDeleteLibraryList;
 
 window.openList =
     openList;
