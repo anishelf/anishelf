@@ -169,7 +169,7 @@ const login = async(req,res)=>{
                 secure:true,
                 domain: ".ani-shelf.com",
                 path: "/",
-                sameSite:"lax",
+                sameSite:"none",
 
                 maxAge:
                 7 * 24 * 60 * 60 * 1000
@@ -214,7 +214,7 @@ const logout = (req,res)=>{
         {
             httpOnly:true,
             secure:true,
-            sameSite:"lax",
+            sameSite:"none",
             domain: ".ani-shelf.com",
             path: "/"
         }
