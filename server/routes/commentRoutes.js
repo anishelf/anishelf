@@ -11,8 +11,7 @@ const {
     createAnimeComment,
     removeComment
 
-} =
-require("../controllers/commentController");
+} = require("../controllers/commentController");
 
 
 

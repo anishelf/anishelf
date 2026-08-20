@@ -1,5 +1,4 @@
-const COMMENT_URL =
-    "https://ani-shelf.com/api/comments";
+const COMMENT_URL ="https://api.ani-shelf.com/api/comments";
 
 
 // ========================================
