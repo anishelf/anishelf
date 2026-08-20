@@ -351,6 +351,15 @@ function displayAnimeDetails(anime){
 
     </section>
     `;
+
+    // ========================================
+    // Load Comments
+    // ========================================
+
+    loadAnimeComments(
+        anime.id
+    );
+    
     // ========================================
     // Anime Actions
     // ========================================
@@ -497,7 +506,7 @@ function showTab(tab, button){
 }
 
 loadAnimeDetails();
-loadAnimeComments(anime.id);
+
 
 async function loadAnimeComments(animeId){
 
