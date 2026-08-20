@@ -15,7 +15,8 @@ const cookieParser = require("cookie-parser");
 const pool = require("./db/db");
 const animeRoutes = require("./routes/animeRoutes");
 const authRoutes = require("./routes/authRoutes");
-const listRoutes =require("./routes/listRoutes");
+const listRoutes = require("./routes/listRoutes");
+const commentRoutes = require("./routes/commentRoutes");
 const verifyToken = require("./middleware/authMiddleware");
 
 
@@ -170,6 +171,11 @@ app.get(
 
     }
 );
+app.use(
+    "/api/comments",
+    commentRoutes
+);
+
 // ===============================
 // Database test
 // Temporary check that Neon/PostgreSQL works

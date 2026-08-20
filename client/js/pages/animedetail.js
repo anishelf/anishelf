@@ -318,49 +318,19 @@ function displayAnimeDetails(anime){
 
                 <!-- Existing comments -->
 
-                <div class="comment-list">
-
-
-                    <div class="comment-card">
-
-
-                        <div class="comment-header">
-
-                            <strong>
-                                Guest
-                            </strong>
-
-
-                            <span>
-                                Just now
-                            </span>
-
-                        </div>
-
-
-                        <p>
-                            No comments yet. Be the first to share your thoughts!
-                        </p>
-
-
-                    </div>
-
-
+                <div class="comment-list" id="commentList">
+                    <p class="comments-loading">
+                        Loading comments...
+                    </p>
                 </div>
-
-
 
                 <!-- Comment input -->
 
                 <div class="comment-composer">
-
-
                     <textarea
                         id="commentInput"
                         placeholder="Share your thoughts about this anime...">
                     </textarea>
-
-
 
                     <button
                         class="anime-btn"
@@ -465,39 +435,337 @@ function displayAnimeDetails(anime){
         );
 
     }
+    // ========================================
+    // cpmment submite button
+    // ========================================
+
+    const commentButton =
+        document.getElementById(
+            "commentBtn"
+        );
+
+
+    if(commentButton){
+
+        commentButton.addEventListener(
+            "click",
+            () => {
+
+                submitAnimeComment(
+                    anime.id
+                );
+
+            }
+        );
+
+    }
+
 
 }
 
-function showTab(tab, button){
 
+function showTab(tab, button){
+    
 
     document
     .querySelectorAll(".tab-content")
     .forEach(content=>{
-
+        
         content.classList.add("hidden");
-
+        
     });
-
-
-
+    
+    
+    
     document
     .querySelectorAll(".tab-btn")
     .forEach(btn=>{
-
+        
         btn.classList.remove("active");
-
+        
     });
-
-
-
+    
+    
+    
     document
     .getElementById(tab + "Tab")
     .classList.remove("hidden");
-
-
+    
+    
     button.classList.add("active");
 
 }
 
 loadAnimeDetails();
+loadAnimeComments(anime.id);
+
+async function loadAnimeComments(animeId){
+
+    const commentList =
+        document.getElementById(
+            "commentList"
+        );
+
+
+    if(!commentList){
+        return;
+    }
+
+
+    try{
+
+        const result =
+            await getAnimeComments(
+                animeId
+            );
+
+
+        if(
+            !result.success ||
+            !result.comments
+        ){
+
+            commentList.innerHTML = `
+                <p>
+                    Failed to load comments.
+                </p>
+            `;
+
+            return;
+
+        }
+
+
+        renderComments(
+            result.comments
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "LOAD COMMENTS ERROR:",
+            error
+        );
+
+
+        commentList.innerHTML = `
+            <p>
+                Failed to load comments.
+            </p>
+        `;
+
+    }
+
+}
+
+function renderComments(comments){
+
+    const commentList =
+        document.getElementById(
+            "commentList"
+        );
+
+
+    if(!comments.length){
+
+        commentList.innerHTML = `
+
+            <div class="comment-card">
+
+                <p>
+                    No comments yet.
+                    Be the first to share your thoughts!
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    commentList.innerHTML =
+        comments.map(comment => `
+
+            <div
+                class="comment-card"
+                data-comment-id="${comment.id}"
+            >
+
+                <div class="comment-header">
+
+                    <strong>
+                        ${comment.username}
+                    </strong>
+
+                    <span>
+                        ${formatCommentDate(
+                            comment.created_at
+                        )}
+                    </span>
+
+                </div>
+
+
+                <p>
+                    ${escapeCommentHtml(
+                        comment.content
+                    )}
+                </p>
+
+            </div>
+
+        `).join("");
+
+}
+function formatCommentDate(date){
+
+    return new Date(date)
+        .toLocaleDateString(
+            undefined,
+            {
+                year:"numeric",
+                month:"short",
+                day:"numeric"
+            }
+        );
+
+}
+
+
+function escapeCommentHtml(text){
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+
+}
+// ========================================
+// Post Anime Comment
+// ========================================
+
+async function submitAnimeComment(animeId){
+
+    const input =
+        document.getElementById(
+            "commentInput"
+        );
+
+    const button =
+        document.getElementById(
+            "commentBtn"
+        );
+
+
+    if(!input || !button){
+
+        return;
+
+    }
+
+
+    const content =
+        input.value.trim();
+
+
+    // ========================================
+    // Validate
+    // ========================================
+
+    if(!content){
+
+        alert(
+            "Please write a comment first."
+        );
+
+        return;
+
+    }
+
+
+    // ========================================
+    // Disable button
+    // ========================================
+
+    button.disabled =
+        true;
+
+    button.textContent =
+        "Posting...";
+
+
+    try{
+
+        const result =
+            await createAnimeComment(
+
+                animeId,
+
+                content
+
+            );
+
+
+        if(
+            !result.success ||
+            !result.comment
+        ){
+
+            throw new Error(
+
+                result.message ||
+                "Failed to create comment"
+
+            );
+
+        }
+
+
+        // ========================================
+        // Clear input
+        // ========================================
+
+        input.value = "";
+
+
+        // ========================================
+        // Reload comments
+        // ========================================
+
+        await loadAnimeComments(
+            animeId
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "POST COMMENT ERROR:",
+            error
+        );
+
+
+        alert(
+            error.message ||
+            "Failed to post comment."
+        );
+
+
+    }finally{
+
+        button.disabled =
+            false;
+
+        button.textContent =
+            "Post Comment";
+
+    }
+
+}
